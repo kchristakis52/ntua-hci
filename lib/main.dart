@@ -81,31 +81,54 @@ class events extends StatefulWidget {
 class _eventsState extends State<events> {
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          const ListTile(
-            leading: Icon(Icons.album),
-            title: Text('Aggelos Dimitriou'),
-            subtitle: Text('Music by Julie Gable. Lyrics by Sidney Stein.'),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              TextButton(
-                child: const Text('BUY TICKETS'),
-                onPressed: () {/* ... */},
+    return Container(
+      margin: EdgeInsets.only(left: 12, right: 12),
+      //width: 335,
+      //height: 462,
+      child: Card(
+        clipBehavior: Clip.antiAlias,
+        child: Column(
+          children: [
+            ListTile(
+              leading: CircleAvatar(backgroundColor: Colors.black),
+              title: const Text('Aggelos Dimitriou'),
+              subtitle: Text(
+                'Gazi Music Hall',
               ),
-              const SizedBox(width: 8),
-              TextButton(
-                child: const Text('LISTEN'),
-                onPressed: () {/* ... */},
+            ),
+
+            Image.asset('images/Media.png', height: 110),
+
+            Text('t'),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                'Greyhound divisively hello coldly wonderfully marginally far upon excluding.',
               ),
-              const SizedBox(width: 8),
-            ],
-          ),
-        ],
+            ),
+            ButtonBar(
+              alignment: MainAxisAlignment.end,
+              children: [
+                OutlinedButton(
+                  //textColor: const Color(0xFF6200EE),
+                  onPressed: () {
+                    // Perform some action
+                  },
+                  child: const Text('Not Interested'),
+                ),
+                TextButton(
+                  //style: const ButtonStyle(backgroundColor: Colors.blue),
+                  onPressed: () {
+                    // Perform some action
+                  },
+                  child: const Text('Attend'),
+                ),
+              ],
+            ),
+
+            //Image.asset('images/Media.png'),
+          ],
+        ),
       ),
     );
   }
