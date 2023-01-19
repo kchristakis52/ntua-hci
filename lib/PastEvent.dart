@@ -3,7 +3,13 @@ import 'MySettings.dart';
 import 'MyProfile.dart';
 
 class PastEvent extends StatefulWidget {
-  const PastEvent({super.key});
+  final String OnomaEvent;
+  final String meros;
+  const PastEvent({
+    Key? key,
+    required this.OnomaEvent,
+    required this.meros,
+  }) : super(key: key);
 
   @override
   State<PastEvent> createState() => _PastEventState();
@@ -21,8 +27,9 @@ class _PastEventState extends State<PastEvent> {
             },
           ),
           title: Text(
-            "FirstName LastName",
+            widget.OnomaEvent,
           ),
+          //actions: [Image.asset(name)],
           bottom: PreferredSize(
               preferredSize: Size.fromHeight(0.25),
               child: Container(
@@ -30,6 +37,15 @@ class _PastEventState extends State<PastEvent> {
                 height: 0.25,
               )),
         ),
-        body: Column());
+        body: Column(
+          children: [
+            ListView(
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                children: [
+                  Text('Location'),
+                ])
+          ],
+        ));
   }
 }

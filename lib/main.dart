@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'MySettings.dart';
 import 'MyProfile.dart';
+import 'PastEvent.dart';
 
 void main() {
   runApp(const wheren());
@@ -145,50 +146,57 @@ class _eventsState extends State<events> {
       margin: const EdgeInsets.only(left: 12, right: 12, bottom: 20, top: 15),
       //width: 335,
       //height: 462,
-      child: Card(
-        clipBehavior: Clip.hardEdge,
-        child: Column(
-          children: [
-            ListTile(
-              leading: const CircleAvatar(backgroundColor: Colors.black),
-              title: Text(widget.OnomaDiorganwti),
-              subtitle: Text(
-                widget.meros,
-              ),
-            ),
-            Image.asset('images/tropical.png'),
-            ListTile(
-              title: Text(
-                widget.OnomaEvent,
-              ),
-              subtitle: Text(widget.hmeromhnia),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                widget.perigrafh,
-              ),
-            ),
-            ButtonBar(
-              alignment: MainAxisAlignment.end,
-              children: [
-                OutlinedButton(
-                  //textColor: const Color(0xFF6200EE),
-                  onPressed: () {
-                    // Perform some action
-                  },
-                  child: const Text('Not Interested'),
+      child: InkWell(
+        onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => PastEvent(
+                    OnomaEvent: widget.OnomaEvent, meros: widget.meros))),
+        child: Card(
+          clipBehavior: Clip.hardEdge,
+          child: Column(
+            children: [
+              ListTile(
+                leading: const CircleAvatar(backgroundColor: Colors.black),
+                title: Text(widget.OnomaDiorganwti),
+                subtitle: Text(
+                  widget.meros,
                 ),
-                TextButton(
-                  //style: TextButton.styleFrom(backgroundColor: appcolor),
-                  onPressed: () {
-                    // Perform some action
-                  },
-                  child: const Text('Attend'),
+              ),
+              Image.asset('images/tropical.png'),
+              ListTile(
+                title: Text(
+                  widget.OnomaEvent,
                 ),
-              ],
-            ),
-          ],
+                subtitle: Text(widget.hmeromhnia),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  widget.perigrafh,
+                ),
+              ),
+              ButtonBar(
+                alignment: MainAxisAlignment.end,
+                children: [
+                  OutlinedButton(
+                    //textColor: const Color(0xFF6200EE),
+                    onPressed: () {
+                      // Perform some action
+                    },
+                    child: const Text('Not Interested'),
+                  ),
+                  TextButton(
+                    //style: TextButton.styleFrom(backgroundColor: appcolor),
+                    onPressed: () {
+                      // Perform some action
+                    },
+                    child: const Text('Attend'),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
