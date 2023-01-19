@@ -38,13 +38,28 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Center(child: const Text('College Nights')),
         leading: IconButton(
           icon: Icon(Icons.radio_button_unchecked),
           onPressed: () async {},
         ),
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.person_outline))
+        ],
+        bottom: PreferredSize(
+            child: Container(
+              color: Colors.black,
+              height: 0.25,
+            ),
+            preferredSize: Size.fromHeight(0.25)),
       ),
-      body: events(),
+      body: events(
+        OnomaEvent: 'Tropical The Party',
+        OnomaDiorganwti: 'Aggelos Dimitriou',
+        meros: 'Gazi Music Hall, Athens',
+        hmeromhnia: 'Saturday, 13 Feb 2023 23:00',
+      ),
       floatingActionButton:
           FloatingActionButton(onPressed: () {}, child: Icon(Icons.add)),
       bottomNavigationBar: BottomNavigationBar(
@@ -72,7 +87,18 @@ class _MainScreenState extends State<MainScreen> {
 }
 
 class events extends StatefulWidget {
-  const events({super.key});
+  final String OnomaEvent;
+  final String OnomaDiorganwti;
+  final String meros;
+  final String hmeromhnia;
+
+  const events(
+      {Key? key,
+      required this.OnomaEvent,
+      required this.OnomaDiorganwti,
+      required this.meros,
+      required this.hmeromhnia})
+      : super(key: key);
 
   @override
   State<events> createState() => _eventsState();
@@ -82,28 +108,27 @@ class _eventsState extends State<events> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 12, right: 12),
+      margin: EdgeInsets.only(left: 12, right: 12, bottom: 20, top: 15),
       //width: 335,
       //height: 462,
       child: Card(
-        clipBehavior: Clip.antiAlias,
+        clipBehavior: Clip.hardEdge,
         child: Column(
           children: [
             ListTile(
               leading: CircleAvatar(backgroundColor: Colors.black),
-              title: const Text('Aggelos Dimitriou'),
+              title: Text(widget.OnomaDiorganwti),
               subtitle: Text(
-                'Gazi Music Hall',
+                widget.meros,
               ),
             ),
-
-            Image.asset('images/Media.png', height: 110),
-
-            Text('t'),
+            Image.asset('images/tropical.png'),
+            Text(widget.OnomaEvent),
+            Text(widget.hmeromhnia),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                'Greyhound divisively hello coldly wonderfully marginally far upon excluding.',
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
               ),
             ),
             ButtonBar(
@@ -125,8 +150,6 @@ class _eventsState extends State<events> {
                 ),
               ],
             ),
-
-            //Image.asset('images/Media.png'),
           ],
         ),
       ),
