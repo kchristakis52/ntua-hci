@@ -1,6 +1,6 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'MySettings.dart';
 
 void main() {
   runApp(wheren());
@@ -45,7 +45,15 @@ class _MainScreenState extends State<MainScreen> {
           onPressed: () async {},
         ),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.person_outline))
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            MySettings(title: 'College Nights')));
+              },
+              icon: const Icon(Icons.person_outline))
         ],
         bottom: PreferredSize(
             child: Container(
