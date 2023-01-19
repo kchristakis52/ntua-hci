@@ -2,8 +2,17 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'MySettings.dart';
 
-class MyProfile extends StatelessWidget {
+class MyProfile extends StatefulWidget {
   const MyProfile({super.key});
+
+  @override
+  State<MyProfile> createState() => _MyProfileState();
+}
+
+class _MyProfileState extends State<MyProfile> {
+  final FirstName = "FirstName";
+
+  final LastName = "LastName";
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +31,7 @@ class MyProfile extends StatelessWidget {
           elevation: 0,
           // ignore: prefer_const_constructors
           title: Center(
-            child: const Text(
-              "FirstName LastName",
-              style: TextStyle(fontSize: 28, color: Colors.black),
-            ),
+            child: profileName(),
           ),
           actions: [
             IconButton(
@@ -39,7 +45,6 @@ class MyProfile extends StatelessWidget {
         body: Stack(children: [
           //Αν δεν είναι όλα positioned σκοτωνονται
           Positioned(top: 30, left: 100, right: 100, child: profilePicture()),
-
           Positioned(
               top: 180,
               left: 30,
@@ -135,36 +140,120 @@ class MyProfile extends StatelessWidget {
     );
   }
 
+  Widget profileName() => RichText(
+        text: TextSpan(
+            text: FirstName,
+            style: TextStyle(fontSize: 28, color: Colors.black),
+            children: [
+              TextSpan(
+                text: " ",
+              ),
+              TextSpan(
+                  text: LastName,
+                  style: TextStyle(fontSize: 28, color: Colors.black))
+            ]),
+      );
+
   Widget profilePicture() => CircleAvatar(
         backgroundColor: Colors.purple.shade800,
         radius: 60,
-        child: Text(
-          'FL',
-          style: TextStyle(color: Colors.white, fontSize: 40),
-        ),
+        child: RichText(
+            text: TextSpan(
+                text: FirstName[0],
+                style: TextStyle(color: Colors.white, fontSize: 40),
+                children: [
+              TextSpan(
+                  text: LastName[0],
+                  style: TextStyle(color: Colors.white, fontSize: 40))
+            ])),
+      );
+
+  Widget profilePictureSolid() => Stack(
+        children: [
+          Container(
+              width: 120,
+              height: 120,
+              color: Colors.purple.shade800,
+              decoration: BoxDecoration(shape: BoxShape.circle),
+              child: RichText(
+                  text: TextSpan(
+                      text: FirstName[0],
+                      style: TextStyle(color: Colors.white, fontSize: 40),
+                      children: [
+                    TextSpan(
+                        text: LastName[0],
+                        style: TextStyle(color: Colors.white, fontSize: 40))
+                  ]))),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: Container(
+              height: 30,
+              width: 30,
+            ),
+          )
+        ],
       );
 
   Widget profileDetails() => Column(
         children: [
           ListTile(
-              title: Text(
-            'Events Attended          5',
-            style: TextStyle(color: Colors.purple.shade900, fontSize: 28),
-          )),
+              title: RichText(
+                  text: TextSpan(
+                      text: 'Events Attended',
+                      style: TextStyle(
+                          color: Colors.purple.shade900, fontSize: 28),
+                      children: [
+                TextSpan(text: "      "),
+                TextSpan(
+                    text: '5',
+                    style:
+                        TextStyle(color: Colors.purple.shade900, fontSize: 28))
+              ]))),
           ListTile(
-              title: Text(
-            'Stories Uploaded        14',
-            style: TextStyle(color: Colors.purple.shade900, fontSize: 28),
-          )),
+              title: RichText(
+                  text: TextSpan(
+                      text: 'Stories Uploaded',
+                      style: TextStyle(
+                          color: Colors.purple.shade900, fontSize: 28),
+                      children: [
+                TextSpan(text: "     "),
+                TextSpan(
+                    text: '14',
+                    style:
+                        TextStyle(color: Colors.purple.shade900, fontSize: 28))
+              ]))),
           ListTile(
-              title: Text(
-            'Reviews                        3',
-            style: TextStyle(color: Colors.purple.shade900, fontSize: 28),
-          )),
+              title: RichText(
+                  text: TextSpan(
+                      text: 'Reviews Posted',
+                      style: TextStyle(
+                          color: Colors.purple.shade900, fontSize: 28),
+                      children: [
+                TextSpan(text: "       "),
+                TextSpan(
+                    text: '3',
+                    style:
+                        TextStyle(color: Colors.purple.shade900, fontSize: 28))
+              ]))),
           ListTile(
-            title: Text(
-              'QR Codes Found         8',
-              style: TextStyle(color: Colors.purple.shade900, fontSize: 28),
+            title: RichText(
+                text: TextSpan(
+                    text: 'QR Codes Found',
+                    style:
+                        TextStyle(color: Colors.purple.shade900, fontSize: 28),
+                    children: [
+                  TextSpan(text: "     "),
+                  TextSpan(
+                      text: '9',
+                      style: TextStyle(
+                          color: Colors.purple.shade900, fontSize: 28))
+                ])),
+          ),
+          TextField(
+            decoration: InputDecoration(
+              hintText: 'Placeholder',
+              border: OutlineInputBorder(),
             ),
           )
         ],
