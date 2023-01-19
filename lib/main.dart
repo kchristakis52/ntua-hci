@@ -69,6 +69,18 @@ class _MainScreenState extends State<MainScreen> {
       floatingActionButton:
           FloatingActionButton(onPressed: () {}, child: Icon(Icons.add)),
       bottomNavigationBar: BottomNavigationBar(
+          onTap: (value) {
+            if (value == 0)
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MainScreen()));
+            if (value == 4)
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MySettings(
+                            title: 'College Nights',
+                          )));
+          },
           unselectedFontSize: 0,
           type: BottomNavigationBarType.fixed,
           items: <BottomNavigationBarItem>[

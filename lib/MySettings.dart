@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'main.dart';
 import 'package:flutter/material.dart';
 
 class MySettings extends StatefulWidget {
@@ -141,6 +141,18 @@ class _MySettingsState extends State<MySettings> {
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
+            currentIndex: 4,
+            onTap: (value) {
+              if (value == 0)
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MainScreen()));
+              if (value == 4)
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            MySettings(title: 'College Nights')));
+            },
             unselectedFontSize: 0,
             type: BottomNavigationBarType.fixed,
             items: const <BottomNavigationBarItem>[
