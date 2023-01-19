@@ -15,7 +15,7 @@ class MyProfile extends StatelessWidget {
           leading: IconButton(
             icon: Icon(Icons.arrow_back, color: Colors.black),
             onPressed: () {
-              //back
+              Navigator.pop(context);
             },
           ),
           backgroundColor: Colors.white,

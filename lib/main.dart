@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'MySettings.dart';
+import 'MyProfile.dart';
 
 void main() {
   runApp(wheren());
@@ -47,11 +48,8 @@ class _MainScreenState extends State<MainScreen> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            MySettings(title: 'College Nights')));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyProfile()));
               },
               icon: const Icon(Icons.account_circle_rounded))
         ],
