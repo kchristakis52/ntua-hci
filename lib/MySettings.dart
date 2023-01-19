@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'main.dart';
 import 'package:flutter/material.dart';
+import 'MyProfile.dart';
 
 class MySettings extends StatefulWidget {
   const MySettings({super.key, required this.title});
@@ -17,31 +18,26 @@ class _MySettingsState extends State<MySettings> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          shadowColor: Colors.black,
+          centerTitle: true,
+          title: Center(child: const Text('College Nights')),
           leading: IconButton(
-            onPressed: () {
-              null;
-            },
-            icon: Icon(
-              Icons.abc,
-              color: Colors.white,
-            ), //Κεντραρει το College Nights
+            icon: Icon(Icons.abc),
+            onPressed: () async {},
           ),
-          backgroundColor: Colors.white,
-          elevation: 1,
-          title: Center(
-              child: Text(
-            widget.title,
-            style: TextStyle(color: Colors.black, fontSize: 28),
-          )),
           actions: [
             IconButton(
                 onPressed: () {
-                  //Go to profile
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MyProfile()));
                 },
-                icon: Icon(Icons.account_circle_rounded,
-                    color: Colors.black, size: 30))
+                icon: const Icon(Icons.account_circle_rounded))
           ],
+          bottom: PreferredSize(
+              child: Container(
+                color: Colors.black,
+                height: 0.25,
+              ),
+              preferredSize: Size.fromHeight(0.25)),
         ),
         body: ListView(
           physics: NeverScrollableScrollPhysics(),
