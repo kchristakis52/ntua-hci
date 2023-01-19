@@ -53,7 +53,7 @@ class _MainScreenState extends State<MainScreen> {
                         builder: (context) =>
                             MySettings(title: 'College Nights')));
               },
-              icon: const Icon(Icons.person_outline))
+              icon: const Icon(Icons.account_circle_rounded))
         ],
         bottom: PreferredSize(
             child: Container(
