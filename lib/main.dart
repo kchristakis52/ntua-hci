@@ -2,9 +2,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'MySettings.dart';
 import 'MyProfile.dart';
+import 'PastEvent.dart';
 
 void main() {
-  runApp(wheren());
+  runApp(const wheren());
 }
 
 class wheren extends StatelessWidget {
@@ -40,64 +41,76 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Center(child: const Text('College Nights')),
+        title: const Center(child: Text('College Nights')),
         leading: IconButton(
-          icon: Icon(Icons.radio_button_unchecked),
+          icon: const Icon(Icons.radio_button_unchecked),
           onPressed: () async {},
         ),
         actions: [
           IconButton(
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MyProfile()));
+                    MaterialPageRoute(builder: (context) => const MyProfile()));
               },
               icon: const Icon(Icons.account_circle_rounded))
         ],
         bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(0.25),
             child: Container(
               color: Colors.black,
               height: 0.25,
-            ),
-            preferredSize: Size.fromHeight(0.25)),
+            )),
       ),
-      body: events(
-        OnomaEvent: 'Tropical The Party',
-        OnomaDiorganwti: 'Aggelos Dimitriou',
-        meros: 'Gazi Music Hall, Athens',
-        hmeromhnia: 'Saturday, 13 Feb 2023 23:00',
-      ),
+      body: ListView(children: <events>[
+        const events(
+          OnomaEvent: 'Tropical The Party',
+          OnomaDiorganwti: 'Aggelos Dimitriou',
+          meros: 'Gazi Music Hall, Athens',
+          hmeromhnia: 'Saturday, 13 Feb 2023 23:00',
+          perigrafh:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+        ),
+        const events(
+          OnomaEvent: 'House Festival',
+          OnomaDiorganwti: 'Reece Johnson',
+          meros: 'Technopolis Gazi, Athens',
+          hmeromhnia: 'Saturday, 20 Feb 2023 17:00',
+          perigrafh:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+        )
+      ]),
       floatingActionButton:
-          FloatingActionButton(onPressed: () {}, child: Icon(Icons.add)),
+          FloatingActionButton(onPressed: () {}, child: const Icon(Icons.add)),
       bottomNavigationBar: BottomNavigationBar(
           onTap: (value) {
             if (value == 0)
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => MainScreen()));
+                  MaterialPageRoute(builder: (context) => const MainScreen()));
             if (value == 4)
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => MySettings(
+                      builder: (context) => const MySettings(
                             title: 'College Nights',
                           )));
           },
           unselectedFontSize: 0,
           type: BottomNavigationBarType.fixed,
           items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               icon: Icon(Icons.home_outlined),
               label: 'Home',
             ),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               icon: Icon(Icons.search),
               label: 'Search',
             ),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
                 icon: Icon(Icons.star_outline), label: 'My Events'),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
                 icon: Icon(Icons.notifications_outlined),
                 label: 'Notifications'),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
                 icon: Icon(Icons.settings_outlined), label: 'Settings')
           ]),
     );
@@ -109,13 +122,17 @@ class events extends StatefulWidget {
   final String OnomaDiorganwti;
   final String meros;
   final String hmeromhnia;
+  final String perigrafh;
+  final bool attending = false;
+  final bool live = false;
 
   const events(
       {Key? key,
       required this.OnomaEvent,
       required this.OnomaDiorganwti,
       required this.meros,
-      required this.hmeromhnia})
+      required this.hmeromhnia,
+      required this.perigrafh})
       : super(key: key);
 
   @override
@@ -126,49 +143,60 @@ class _eventsState extends State<events> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 12, right: 12, bottom: 20, top: 15),
+      margin: const EdgeInsets.only(left: 12, right: 12, bottom: 20, top: 15),
       //width: 335,
       //height: 462,
-      child: Card(
-        clipBehavior: Clip.hardEdge,
-        child: Column(
-          children: [
-            ListTile(
-              leading: CircleAvatar(backgroundColor: Colors.black),
-              title: Text(widget.OnomaDiorganwti),
-              subtitle: Text(
-                widget.meros,
-              ),
-            ),
-            Image.asset('images/tropical.png'),
-            Text(widget.OnomaEvent),
-            Text(widget.hmeromhnia),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-              ),
-            ),
-            ButtonBar(
-              alignment: MainAxisAlignment.end,
-              children: [
-                OutlinedButton(
-                  //textColor: const Color(0xFF6200EE),
-                  onPressed: () {
-                    // Perform some action
-                  },
-                  child: const Text('Not Interested'),
+      child: InkWell(
+        onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => PastEvent(
+                    OnomaEvent: widget.OnomaEvent, meros: widget.meros))),
+        child: Card(
+          clipBehavior: Clip.hardEdge,
+          child: Column(
+            children: [
+              ListTile(
+                leading: const CircleAvatar(backgroundColor: Colors.black),
+                title: Text(widget.OnomaDiorganwti),
+                subtitle: Text(
+                  widget.meros,
                 ),
-                TextButton(
-                  //style: const ButtonStyle(backgroundColor: Colors.blue),
-                  onPressed: () {
-                    // Perform some action
-                  },
-                  child: const Text('Attend'),
+              ),
+              Image.asset('images/tropical.png'),
+              ListTile(
+                title: Text(
+                  widget.OnomaEvent,
                 ),
-              ],
-            ),
-          ],
+                subtitle: Text(widget.hmeromhnia),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  widget.perigrafh,
+                ),
+              ),
+              ButtonBar(
+                alignment: MainAxisAlignment.end,
+                children: [
+                  OutlinedButton(
+                    //textColor: const Color(0xFF6200EE),
+                    onPressed: () {
+                      // Perform some action
+                    },
+                    child: const Text('Not Interested'),
+                  ),
+                  TextButton(
+                    //style: TextButton.styleFrom(backgroundColor: appcolor),
+                    onPressed: () {
+                      // Perform some action
+                    },
+                    child: const Text('Attend'),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
