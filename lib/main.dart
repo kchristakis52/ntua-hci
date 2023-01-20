@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'MySettings.dart';
 import 'MyProfile.dart';
 import 'PastEvent.dart';
+import 'MyUpdates.dart';
 
 void main() {
   runApp(const wheren());
@@ -91,6 +92,10 @@ class _MainScreenState extends State<MainScreen> {
             if (value == 4) {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const MySettings()));
+            }
+            if (value == 3) {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const MyUpdates()));
             }
           },
           unselectedFontSize: 0,
