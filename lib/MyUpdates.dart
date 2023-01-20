@@ -75,3 +75,31 @@ class MyUpdates extends StatelessWidget {
             ]));
   }
 }
+
+class Notification extends StatefulWidget {
+  final String periexomeno;
+
+  const Notification({Key? key, required this.periexomeno});
+
+  @override
+  State<Notification> createState() => _NotificationState();
+}
+
+class _NotificationState extends State<Notification> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        child: Card(
+            child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        const ListTile(
+            leading: Text('Time has changed! Take a look!'),
+            trailing: CircleAvatar(
+              radius: 15,
+              backgroundImage: AssetImage('images/tropical.png'),
+            ))
+      ],
+    )));
+  }
+}
