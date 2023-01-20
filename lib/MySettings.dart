@@ -14,7 +14,7 @@ class MySettings extends StatefulWidget {
 }
 
 class _MySettingsState extends State<MySettings> {
-  bool button = true;
+  bool light = true;
 
   @override
   Widget build(BuildContext context) {
@@ -32,17 +32,17 @@ class _MySettingsState extends State<MySettings> {
                 icon: const Icon(Icons.account_circle_rounded))
           ],
           bottom: PreferredSize(
+              preferredSize: Size.fromHeight(0.25),
               child: Container(
                 color: Colors.black,
                 height: 0.25,
-              ),
-              preferredSize: Size.fromHeight(0.25)),
+              )),
         ),
         body: ListView(
           physics: NeverScrollableScrollPhysics(),
           children: [
             ListTile(
-                title: Text(
+                title: const Text(
                   'Notifications',
                   style: TextStyle(fontSize: 22),
                 ),
@@ -52,50 +52,17 @@ class _MySettingsState extends State<MySettings> {
                   color: Colors.grey.shade700,
                   size: 30,
                 ),
-                trailing: AnimatedContainer(
-                  //Εδώ ξεκινάει το switch
-                  duration: Duration(milliseconds: 600),
-                  height: 40,
-                  width: 80,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.0),
-                      color: button
-                          ? Colors.purple.shade900
-                          : Color.fromARGB(255, 241, 224, 243),
-                      border: button
-                          ? Border.all(color: Colors.purple.shade900, width: 2)
-                          : Border.all(color: Colors.grey.shade600, width: 2)),
-                  child: Stack(
-                    children: <Widget>[
-                      AnimatedPositioned(
-                        duration: Duration(milliseconds: 500),
-                        curve: Curves.easeIn,
-                        top: 1,
-                        left: button ? 40 : 0,
-                        right: button ? 0 : 40,
-                        child: InkWell(
-                          onTap: toggleButton,
-                          child: AnimatedSwitcher(
-                              duration: Duration(milliseconds: 500),
-                              transitionBuilder:
-                                  (Widget child, Animation<double> animation) {
-                                return RotationTransition(
-                                    child: child, turns: animation);
-                              },
-                              child: button
-                                  ? Icon(Icons.circle,
-                                      color: Colors.white,
-                                      size: 35,
-                                      key: UniqueKey())
-                                  : Icon(Icons.circle,
-                                      color: Colors.grey.shade600,
-                                      size: 35,
-                                      key: UniqueKey())),
-                        ),
-                      )
-                    ],
-                  ),
-                ) //Εδώ τελειώνει
+                trailing: Switch(
+                  // This bool value toggles the switch.
+                  value: light,
+
+                  onChanged: (bool value) {
+                    // This is called when the user toggles the switch.
+                    setState(() {
+                      light = value;
+                    });
+                  },
+                ) 
                 ),
             Divider(),
             ListTile(
@@ -170,11 +137,6 @@ class _MySettingsState extends State<MySettings> {
             ]));
   }
 
-  toggleButton() {
-    setState(() {
-      button = !button;
-    });
-  }
   /*
   ListView _buildListView() {
     return ListView.builder(
