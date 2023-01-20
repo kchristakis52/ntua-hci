@@ -10,16 +10,16 @@ class MyProfile extends StatefulWidget {
 }
 
 class _MyProfileState extends State<MyProfile> {
-  final FirstName = "FirstName";
+  String FirstName = "FirstName";
+  String LastName = "LastName";
 
-  final LastName = "LastName";
+  final _textController = TextEditingController();
+  String newName = "Mpampis Sougias";
+  List<String> FullName = ['No', 'Name'];
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-          colorSchemeSeed: const Color(0xff6750a4), useMaterial3: true),
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           leading: IconButton(
             icon: Icon(Icons.arrow_back, color: Colors.black),
@@ -44,7 +44,8 @@ class _MyProfileState extends State<MyProfile> {
         ),
         body: Stack(children: [
           //Αν δεν είναι όλα positioned σκοτωνονται
-          Positioned(top: 30, left: 100, right: 100, child: profilePicture()),
+          Positioned(
+              top: 30, left: 100, right: 100, child: profilePictureSolid()),
           Positioned(
               top: 180,
               left: 30,
@@ -55,6 +56,8 @@ class _MyProfileState extends State<MyProfile> {
                     fontWeight: FontWeight.bold,
                     color: Colors.purple.shade900),
               )),
+
+          /*
           Positioned(
             child: Container(
               margin: const EdgeInsets.only(
@@ -62,82 +65,10 @@ class _MyProfileState extends State<MyProfile> {
               color: Colors.purple.shade700,
             ),
           ),
+          */
+
           Positioned(top: 230, left: 0, right: 150, child: profileDetails()),
-          Positioned(
-              top: 110,
-              right: 150,
-              child: Container(
-                width: 45,
-                height: 45,
-                decoration: BoxDecoration(
-                  color: Colors.purple.shade100,
-                  shape: BoxShape.circle,
-                ),
-                child: IconButton(
-                    iconSize: 30.0,
-                    onPressed: () {
-                      //edit profile pic
-                    },
-                    icon: Icon(Icons.mode_edit_outline_outlined,
-                        color: Colors.black)),
-              ))
-        ]
-            /* 
-              Center(
-                child: Container(
-                child: const Text('ftasame'),
-                margin: const EdgeInsets.all(50),
-                padding: const EdgeInsets.all(10),
-                color: Colors.blue,
-                height: 100,
-                width: 80,
-            ),
-              ),
-           */
-
-            ),
-        /*
-        floatingActionButton: Padding(                   //outside ->in
-          padding: const EdgeInsets.only(bottom: 60.0),  //padding -> FAB
-          child: FloatingActionButton(
-            elevation: 10,
-            child: Icon(Icons.verified),
-            onPressed: () { 
-              print('Kanto Pali');
-            },
-          ),
-        ),
-*/
-
-/*
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,      //3< items
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: 'Search',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.star_border),
-              label: 'Favorites',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.notifications_none),
-              label: 'Notifications',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings_outlined),
-              label: 'Settings',
-            ),
-          ],
-        ),
-  */
-      ),
-    );
+        ]));
   }
 
   Widget profileName() => RichText(
@@ -173,25 +104,40 @@ class _MyProfileState extends State<MyProfile> {
           Container(
               width: 120,
               height: 120,
-              color: Colors.purple.shade800,
-              decoration: BoxDecoration(shape: BoxShape.circle),
-              child: RichText(
-                  text: TextSpan(
-                      text: FirstName[0],
-                      style: TextStyle(color: Colors.white, fontSize: 40),
-                      children: [
-                    TextSpan(
-                        text: LastName[0],
-                        style: TextStyle(color: Colors.white, fontSize: 40))
-                  ]))),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            child: Container(
-              height: 30,
-              width: 30,
-            ),
-          )
+              decoration: BoxDecoration(
+                  color: Colors.purple.shade800, shape: BoxShape.circle),
+              child: Stack(children: [
+                Center(
+                  child: RichText(
+                      text: TextSpan(
+                          text: FirstName[0],
+                          style: TextStyle(color: Colors.white, fontSize: 40),
+                          children: [
+                        TextSpan(
+                            text: LastName[0],
+                            style: TextStyle(color: Colors.white, fontSize: 40))
+                      ])),
+                ),
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: Container(
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(width: 2, color: Colors.white),
+                        color: Colors.purple.shade100),
+                    child: IconButton(
+                        iconSize: 27.0,
+                        onPressed: () {
+                          //edit profile pic
+                        },
+                        icon: Icon(Icons.mode_edit_outline_outlined,
+                            color: Colors.black)),
+                  ),
+                )
+              ])),
         ],
       );
 
@@ -204,7 +150,7 @@ class _MyProfileState extends State<MyProfile> {
                       style: TextStyle(
                           color: Colors.purple.shade900, fontSize: 28),
                       children: [
-                TextSpan(text: "      "),
+                TextSpan(text: "   "),
                 TextSpan(
                     text: '5',
                     style:
@@ -217,7 +163,7 @@ class _MyProfileState extends State<MyProfile> {
                       style: TextStyle(
                           color: Colors.purple.shade900, fontSize: 28),
                       children: [
-                TextSpan(text: "     "),
+                TextSpan(text: "  "),
                 TextSpan(
                     text: '14',
                     style:
@@ -230,7 +176,7 @@ class _MyProfileState extends State<MyProfile> {
                       style: TextStyle(
                           color: Colors.purple.shade900, fontSize: 28),
                       children: [
-                TextSpan(text: "       "),
+                TextSpan(text: "    "),
                 TextSpan(
                     text: '3',
                     style:
@@ -243,7 +189,7 @@ class _MyProfileState extends State<MyProfile> {
                     style:
                         TextStyle(color: Colors.purple.shade900, fontSize: 28),
                     children: [
-                  TextSpan(text: "     "),
+                  TextSpan(text: "  "),
                   TextSpan(
                       text: '9',
                       style: TextStyle(
@@ -251,9 +197,32 @@ class _MyProfileState extends State<MyProfile> {
                 ])),
           ),
           TextField(
+            controller: _textController,
             decoration: InputDecoration(
-              hintText: 'Placeholder',
-              border: OutlineInputBorder(),
+                hintText: 'Ονοματεπώνυμο',
+                border: OutlineInputBorder(),
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    _textController.clear();
+                  },
+                  icon: const Icon(Icons.clear),
+                )),
+          ),
+          MaterialButton(
+            onPressed: () {
+              setState(() {
+                newName = _textController.text;
+                final savedName = newName.split(' ');
+                FullName[0] = savedName[0];
+                FullName[1] = savedName[1];
+                FirstName = FullName[0];
+                LastName = FullName[1];
+              });
+            },
+            color: Colors.blue,
+            child: const Text(
+              'Save',
+              style: TextStyle(color: Colors.white),
             ),
           )
         ],
