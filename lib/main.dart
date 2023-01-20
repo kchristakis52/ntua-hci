@@ -42,7 +42,7 @@ class _MainScreenState extends State<MainScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       appBar: AppBar(
         centerTitle: true,
-        title: const Center(child: Text('College Nights')),
+        title: const Text('College Nights'),
         leading: IconButton(
           icon: const Icon(Icons.radio_button_unchecked),
           onPressed: () async {},

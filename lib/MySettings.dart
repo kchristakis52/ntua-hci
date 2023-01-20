@@ -17,10 +17,9 @@ class _MySettingsState extends State<MySettings> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          //centerTitle: true,
+          centerTitle: true,
           automaticallyImplyLeading: false,
-          title: Center(child: const Text('College Nights')),
-
+          title: const Text('College Nights'),
           actions: [
             IconButton(
                 onPressed: () {

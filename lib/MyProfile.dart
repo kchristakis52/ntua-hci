@@ -22,6 +22,7 @@ class _MyProfileState extends State<MyProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          // ignore: prefer_const_constructors
           title: Center(
             child: profileName(),
           ),
