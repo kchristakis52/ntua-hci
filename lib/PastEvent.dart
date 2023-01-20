@@ -6,11 +6,13 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 class PastEvent extends StatefulWidget {
   final String OnomaEvent;
   final String meros;
+  final String eikona;
   double rating = 4;
   PastEvent({
     Key? key,
     required this.OnomaEvent,
     required this.meros,
+    required this.eikona,
   }) : super(key: key);
 
   @override
@@ -113,11 +115,14 @@ class Review extends StatelessWidget {
       //contentPadding: EdgeInsets.only(left: 8),
       isThreeLine: true,
       leading: CircleAvatar(
-        child: Text('${Fname[0]}${Lname[0]}'),
-        radius: 40,
-        backgroundColor: Colors.amber,
+        child: Text('${Fname[0]}${Lname[0]}',
+            style: TextStyle(color: Color.fromARGB(255, 33, 0, 93))),
+        radius: 20,
+        backgroundColor: Color.fromARGB(255, 234, 221, 255),
       ),
-      title: Text("$Fname $Lname"),
+      title: Text(
+        "$Fname $Lname",
+      ),
       // trailing: Text('dd/mm/yy'),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

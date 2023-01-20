@@ -68,8 +68,7 @@ class MyUpdates extends StatelessWidget {
               BottomNavigationBarItem(
                   icon: Icon(Icons.star_outline), label: 'My Events'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.notifications_outlined),
-                  label: 'Notifications'),
+                  icon: Icon(Icons.notifications_outlined), label: 'Updates'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.settings_outlined), label: 'Settings')
             ]));

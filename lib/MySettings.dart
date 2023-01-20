@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:testwheren/MyUpdates.dart';
+
 import 'main.dart';
 import 'package:flutter/material.dart';
 import 'MyProfile.dart';
@@ -138,7 +140,10 @@ class _MySettingsState extends State<MySettings> {
               if (value == 0)
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => MainScreen()));
-              if (value == 4)
+              else if (value == 3)
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyUpdates()));
+              else if (value == 4)
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => MySettings()));
             },
@@ -156,8 +161,7 @@ class _MySettingsState extends State<MySettings> {
               BottomNavigationBarItem(
                   icon: Icon(Icons.star_outline), label: 'My Events'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.notifications_outlined),
-                  label: 'Notifications'),
+                  icon: Icon(Icons.notifications_outlined), label: 'Updates'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.settings_outlined), label: 'Settings')
             ]));

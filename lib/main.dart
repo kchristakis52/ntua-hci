@@ -21,7 +21,9 @@ class wheren extends StatelessWidget {
 
       /// Το θέμα της εφαμρογής μας
       theme: ThemeData(
-          colorSchemeSeed: const Color(0xff6750a4), useMaterial3: true),
+          applyElevationOverlayColor: true,
+          colorSchemeSeed: Color.fromRGBO(103, 80, 164, 1),
+          useMaterial3: true),
 
       /// Αρχικοποίηση της κεντρικής οθόνης της εφαρμογής μας (TaskListScreen)
       home: const MainScreen(),
@@ -66,7 +68,8 @@ class _MainScreenState extends State<MainScreen> {
       body: ListView(children: const <events>[
         events(
           OnomaEvent: 'Tropical The Party',
-          OnomaDiorganwti: 'Aggelos Dimitriou',
+          OnomaDiorganwti: 'Aggelos',
+          EpithetoDiorganwti: 'Dimitriou',
           meros: 'Gazi Music Hall, Athens',
           hmeromhnia: 'Saturday, 13 Feb 2023 23:00',
           perigrafh:
@@ -74,7 +77,8 @@ class _MainScreenState extends State<MainScreen> {
         ),
         events(
           OnomaEvent: 'House Festival',
-          OnomaDiorganwti: 'Reece Johnson',
+          OnomaDiorganwti: 'Reece',
+          EpithetoDiorganwti: 'Johnson',
           meros: 'Technopolis Gazi, Athens',
           hmeromhnia: 'Saturday, 20 Feb 2023 17:00',
           perigrafh:
@@ -112,8 +116,7 @@ class _MainScreenState extends State<MainScreen> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.star_outline), label: 'My Events'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.notifications_outlined),
-                label: 'Notifications'),
+                icon: Icon(Icons.notifications_outlined), label: 'Updates'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.settings_outlined), label: 'Settings')
           ]),
@@ -124,9 +127,11 @@ class _MainScreenState extends State<MainScreen> {
 class events extends StatefulWidget {
   final String OnomaEvent;
   final String OnomaDiorganwti;
+  final String EpithetoDiorganwti;
   final String meros;
   final String hmeromhnia;
   final String perigrafh;
+  final String eikona;
   final bool attending = false;
   final bool live = false;
 
@@ -134,9 +139,11 @@ class events extends StatefulWidget {
       {Key? key,
       required this.OnomaEvent,
       required this.OnomaDiorganwti,
+      required this.EpithetoDiorganwti,
       required this.meros,
       required this.hmeromhnia,
-      required this.perigrafh})
+      required this.perigrafh,
+      this.eikona = 'images/tropical.png'})
       : super(key: key);
 
   @override
@@ -153,19 +160,29 @@ class _eventsState extends State<events> {
             context,
             MaterialPageRoute(
                 builder: (context) => PastEvent(
-                    OnomaEvent: widget.OnomaEvent, meros: widget.meros))),
+                      OnomaEvent: widget.OnomaEvent,
+                      meros: widget.meros,
+                      eikona: widget.eikona,
+                    ))),
         child: Card(
           clipBehavior: Clip.hardEdge,
           child: Column(
             children: [
               ListTile(
-                leading: const CircleAvatar(backgroundColor: Colors.black),
-                title: Text(widget.OnomaDiorganwti),
+                leading: CircleAvatar(
+                  child: Text(
+                      '${widget.OnomaDiorganwti[0]}${widget.EpithetoDiorganwti[0]}',
+                      style: TextStyle(color: Color.fromARGB(255, 33, 0, 93))),
+                  radius: 20,
+                  backgroundColor: Color.fromARGB(255, 234, 221, 255),
+                ),
+                title: Text(
+                    widget.OnomaDiorganwti + ' ' + widget.EpithetoDiorganwti),
                 subtitle: Text(
                   widget.meros,
                 ),
               ),
-              Image.asset('images/tropical.png'),
+              Image.asset(widget.eikona),
               ListTile(
                 title: Text(
                   widget.OnomaEvent,
@@ -182,18 +199,20 @@ class _eventsState extends State<events> {
                 alignment: MainAxisAlignment.end,
                 children: [
                   OutlinedButton(
-                    //textColor: const Color(0xFF6200EE),
                     onPressed: () {
                       // Perform some action
                     },
                     child: const Text('Not Interested'),
                   ),
                   TextButton(
-                    //style: TextButton.styleFrom(backgroundColor: appcolor),
+                    style: TextButton.styleFrom(
+                        backgroundColor: Color.fromARGB(255, 103, 80, 164)),
                     onPressed: () {
                       // Perform some action
                     },
-                    child: const Text('Attend'),
+                    child: const Text('Attend',
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 255, 255, 255))),
                   ),
                 ],
               ),
