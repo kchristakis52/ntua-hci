@@ -4,6 +4,7 @@ import 'package:testwheren/MyUpdates.dart';
 import 'main.dart';
 import 'package:flutter/material.dart';
 import 'MyProfile.dart';
+import 'Levels.dart';
 
 class MySettings extends StatefulWidget {
   const MySettings({super.key});
@@ -102,6 +103,8 @@ class _MySettingsState extends State<MySettings> {
                 'Levels',
                 style: TextStyle(fontSize: 22),
               ),
+              onTap: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Levels())),
               leading: Icon(
                 Icons.person_outlined,
                 color: Colors.grey.shade700,
