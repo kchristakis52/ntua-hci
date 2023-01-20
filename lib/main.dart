@@ -84,7 +84,34 @@ class _MainScreenState extends State<MainScreen> {
           perigrafh:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
           eikona: '/images/festival.jpg',
-        )
+        ),
+        events(
+          OnomaEvent: 'The Party',
+          OnomaDiorganwti: 'Lorem',
+          EpithetoDiorganwti: 'Ipsum',
+          meros: 'Beach, Athens',
+          hmeromhnia: 'Saturday, 13 Feb 2023 23:00',
+          perigrafh:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+        ),
+        events(
+          OnomaEvent: 'The Party',
+          OnomaDiorganwti: 'Lorem',
+          EpithetoDiorganwti: 'Ipsum',
+          meros: 'Beach, Athens',
+          hmeromhnia: 'Saturday, 13 Feb 2023 23:00',
+          perigrafh:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+        ),
+        events(
+          OnomaEvent: 'The Party',
+          OnomaDiorganwti: 'Lorem',
+          EpithetoDiorganwti: 'Ipsum',
+          meros: 'Beach, Athens',
+          hmeromhnia: 'Saturday, 13 Feb 2023 23:00',
+          perigrafh:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+        ),
       ]),
       floatingActionButton:
           FloatingActionButton(onPressed: () {}, child: const Icon(Icons.add)),
