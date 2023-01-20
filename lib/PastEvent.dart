@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'MySettings.dart';
-import 'MyProfile.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class PastEvent extends StatefulWidget {
   final String OnomaEvent;
   final String meros;
-  const PastEvent({
+  double rating = 4;
+  PastEvent({
     Key? key,
     required this.OnomaEvent,
     required this.meros,
@@ -21,12 +21,7 @@ class _PastEventState extends State<PastEvent> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          //leading: IconButton(
-          //  icon: const Icon(Icons.arrow_back),
-          //  onPressed: () {
-          //    Navigator.pop(context);
-//},
-          //  ),
+
           title: Text(
             widget.OnomaEvent,
           ),
@@ -42,12 +37,12 @@ class _PastEventState extends State<PastEvent> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: const [
+              children: [
                 Flexible(
                   child: Card(
                     child: ListTile(
                       leading: Icon(Icons.location_on_outlined),
-                      title: Text('Technopolis Gazi, Athens'),
+                      title: Text(widget.meros),
                     ),
                   ),
                 ),
@@ -63,15 +58,44 @@ class _PastEventState extends State<PastEvent> {
             ),
             Row(
               children: [
-                Expanded(
-                  child: ListTile(
-                    title: Text('Stars:'),
-                    trailing: Text('5/5'),
+                Flexible(
+                  child: RatingBarIndicator(
+                    itemBuilder: (context, _) => const Icon(
+                      Icons.star,
+                      color: Colors.amber,
+                    ),
+                    rating: widget.rating,
+                    itemSize: 30,
                   ),
-                )
+                ),
+                Expanded(child: Text("${widget.rating}/5")),
               ],
+            ),
+            Expanded(
+              child: ListView(
+                children: [Review()],
+              ),
             )
           ],
         ));
+  }
+}
+
+class Review extends StatelessWidget {
+  //double score;
+
+  const Review({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: CircleAvatar(
+        radius: 40,
+        backgroundColor: Colors.amber,
+      ),
+      title: Text('sa'),
+      subtitle:
+          Text('Supporting line text lorem ipsum dolor sit amet, consectetur'),
+    );
   }
 }

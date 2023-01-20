@@ -22,32 +22,97 @@ class _MyProfileState extends State<MyProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Center(
-            child: profileName(),
-          ),
+          // leading: IconButton(
+//icon: Icon(Icons.arrow_back),
+          //  onPressed: () {
+//Navigator.pop(context);
+          //  },
+          // ),
+
+          // ignore: prefer_const_constructors
+          title: NameChange
+              ? nameChanger()
+              : Center(
+                  child: profileName(),
+                ),
           actions: [
             IconButton(
                 onPressed: () {
-                  //edit username
+                  setState(() {
+                    NameChange = true;
+                  });
                 },
                 icon: Icon(Icons.mode_edit_outline_outlined))
           ],
         ),
-        body: Stack(children: [
-          //Αν δεν είναι όλα positioned σκοτωνονται
-          Positioned(
-              top: 30, left: 100, right: 100, child: profilePictureSolid()),
-          Positioned(
-              top: 180,
-              left: 30,
-              child: Text(
-                "Lvl.1",
-                style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.purple.shade900),
-              )),
-
+        body: ListView(children: [
+          ListTile(title: Center(child: profilePictureSolid())),
+          ListTile(
+              title: Text(
+            "Lvl.1",
+            style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Colors.purple.shade900),
+          )),
+          ListTile(
+            contentPadding: EdgeInsets.only(left: 18.0),
+            title: Row(
+              children: [
+                RichText(
+                    text: TextSpan(
+                  text: 'Events Attended',
+                  style: TextStyle(color: Colors.purple.shade900, fontSize: 28),
+                )),
+                SizedBox(
+                  width: 20,
+                ),
+                Text('5',
+                    style:
+                        TextStyle(color: Colors.purple.shade900, fontSize: 28))
+              ],
+            ),
+          ),
+          ListTile(
+              title: RichText(
+                  text: TextSpan(
+                      text: 'Stories Uploaded',
+                      style: TextStyle(
+                          color: Colors.purple.shade900, fontSize: 28),
+                      children: [
+                TextSpan(text: "  "),
+                TextSpan(
+                    text: '14',
+                    style:
+                        TextStyle(color: Colors.purple.shade900, fontSize: 28))
+              ]))),
+          ListTile(
+              title: RichText(
+                  text: TextSpan(
+                      text: 'Reviews Posted',
+                      style: TextStyle(
+                          color: Colors.purple.shade900, fontSize: 28),
+                      children: [
+                TextSpan(text: "    "),
+                TextSpan(
+                    text: '3',
+                    style:
+                        TextStyle(color: Colors.purple.shade900, fontSize: 28))
+              ]))),
+          ListTile(
+            title: RichText(
+                text: TextSpan(
+                    text: 'QR Codes Found',
+                    style:
+                        TextStyle(color: Colors.purple.shade900, fontSize: 28),
+                    children: [
+                  TextSpan(text: "   "),
+                  TextSpan(
+                      text: '9',
+                      style: TextStyle(
+                          color: Colors.purple.shade900, fontSize: 28))
+                ])),
+          )
           /*
           Positioned(
             child: Container(
@@ -57,37 +122,22 @@ class _MyProfileState extends State<MyProfile> {
             ),
           ),
           */
-
-          Positioned(top: 230, left: 0, right: 150, child: profileDetails()),
+          ,
         ]));
   }
 
   Widget profileName() => RichText(
         text: TextSpan(
             text: FirstName,
-            style: TextStyle(fontSize: 28, color: Colors.black),
+            style: TextStyle(fontSize: 24, color: Colors.black),
             children: [
               TextSpan(
                 text: " ",
               ),
               TextSpan(
                   text: LastName,
-                  style: TextStyle(fontSize: 28, color: Colors.black))
+                  style: TextStyle(fontSize: 24, color: Colors.black))
             ]),
-      );
-
-  Widget profilePicture() => CircleAvatar(
-        backgroundColor: Colors.purple.shade800,
-        radius: 60,
-        child: RichText(
-            text: TextSpan(
-                text: FirstName[0],
-                style: TextStyle(color: Colors.white, fontSize: 40),
-                children: [
-              TextSpan(
-                  text: LastName[0],
-                  style: TextStyle(color: Colors.white, fontSize: 40))
-            ])),
       );
 
   Widget profilePictureSolid() => Stack(
@@ -122,7 +172,9 @@ class _MyProfileState extends State<MyProfile> {
                     child: IconButton(
                         iconSize: 27.0,
                         onPressed: () {
-                          //edit profile pic
+                          setState(() {
+                            //edit picture
+                          });
                         },
                         icon: Icon(Icons.mode_edit_outline_outlined,
                             color: Colors.black)),
@@ -137,8 +189,8 @@ class _MyProfileState extends State<MyProfile> {
           TextField(
             controller: _textController,
             decoration: InputDecoration(
-                hintText: 'Ονοματεπώνυμο',
-                border: OutlineInputBorder(),
+                hintText: 'Example: Dimitrios *space* Dimitriou',
+                border: null,
                 suffixIcon: IconButton(
                   onPressed: () {
                     _textController.clear();
@@ -153,11 +205,13 @@ class _MyProfileState extends State<MyProfile> {
                 final savedName = newName.split(' ');
                 FullName[0] = savedName[0];
                 FullName[1] = savedName[1];
-                FirstName = FullName[0];
-                LastName = FullName[1];
+
+                FullName[0].isEmpty ? FirstName = '_' : FirstName = FullName[0];
+                FullName[1].isEmpty ? LastName = '_' : LastName = FullName[1];
+                NameChange = false;
               });
             },
-            color: Colors.blue,
+            color: Colors.purple,
             child: const Text(
               'Save',
               style: TextStyle(color: Colors.white),
@@ -166,90 +220,58 @@ class _MyProfileState extends State<MyProfile> {
         ],
       );
 
-  Widget profileDetails() => Column(
-        children: [
-          ListTile(
-              title: RichText(
-                  text: TextSpan(
-                      text: 'Events Attended',
-                      style: TextStyle(
-                          color: Colors.purple.shade900, fontSize: 28),
-                      children: [
-                TextSpan(text: "   "),
-                TextSpan(
-                    text: '5',
-                    style:
-                        TextStyle(color: Colors.purple.shade900, fontSize: 28))
-              ]))),
-          ListTile(
-              title: RichText(
-                  text: TextSpan(
-                      text: 'Stories Uploaded',
-                      style: TextStyle(
-                          color: Colors.purple.shade900, fontSize: 28),
-                      children: [
-                TextSpan(text: "  "),
-                TextSpan(
-                    text: '14',
-                    style:
-                        TextStyle(color: Colors.purple.shade900, fontSize: 28))
-              ]))),
-          ListTile(
-              title: RichText(
-                  text: TextSpan(
-                      text: 'Reviews Posted',
-                      style: TextStyle(
-                          color: Colors.purple.shade900, fontSize: 28),
-                      children: [
-                TextSpan(text: "    "),
-                TextSpan(
-                    text: '3',
-                    style:
-                        TextStyle(color: Colors.purple.shade900, fontSize: 28))
-              ]))),
-          ListTile(
+/*
+  Widget profileDetails() => ListView(children: [
+        ListTile(
             title: RichText(
                 text: TextSpan(
-                    text: 'QR Codes Found',
+                    text: 'Events Attended',
                     style:
                         TextStyle(color: Colors.purple.shade900, fontSize: 28),
                     children: [
-                  TextSpan(text: "  "),
-                  TextSpan(
-                      text: '9',
-                      style: TextStyle(
-                          color: Colors.purple.shade900, fontSize: 28))
-                ])),
-          ),
-          TextField(
-            controller: _textController,
-            decoration: InputDecoration(
-                hintText: 'Ονοματεπώνυμο',
-                border: OutlineInputBorder(),
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    _textController.clear();
-                  },
-                  icon: const Icon(Icons.clear),
-                )),
-          ),
-          MaterialButton(
-            onPressed: () {
-              setState(() {
-                newName = _textController.text;
-                final savedName = newName.split(' ');
-                FullName[0] = savedName[0];
-                FullName[1] = savedName[1];
-                FirstName = FullName[0];
-                LastName = FullName[1];
-              });
-            },
-            color: Colors.blue,
-            child: const Text(
-              'Save',
-              style: TextStyle(color: Colors.white),
-            ),
-          )
-        ],
-      );
+              TextSpan(text: "   "),
+              TextSpan(
+                  text: '5',
+                  style: TextStyle(color: Colors.purple.shade900, fontSize: 28))
+            ]))),
+        ListTile(
+            title: RichText(
+                text: TextSpan(
+                    text: 'Stories Uploaded',
+                    style:
+                        TextStyle(color: Colors.purple.shade900, fontSize: 28),
+                    children: [
+              TextSpan(text: "  "),
+              TextSpan(
+                  text: '14',
+                  style: TextStyle(color: Colors.purple.shade900, fontSize: 28))
+            ]))),
+        ListTile(
+            title: RichText(
+                text: TextSpan(
+                    text: 'Reviews Posted',
+                    style:
+                        TextStyle(color: Colors.purple.shade900, fontSize: 28),
+                    children: [
+              TextSpan(text: "    "),
+              TextSpan(
+                  text: '3',
+                  style: TextStyle(color: Colors.purple.shade900, fontSize: 28))
+            ]))),
+        ListTile(
+          title: RichText(
+              text: TextSpan(
+                  text: 'QR Codes Found',
+                  style: TextStyle(color: Colors.purple.shade900, fontSize: 28),
+                  children: [
+                TextSpan(text: "  "),
+                TextSpan(
+                    text: '9',
+                    style:
+                        TextStyle(color: Colors.purple.shade900, fontSize: 28))
+              ])),
+        )
+      ]);
+
+      */
 }
