@@ -16,6 +16,7 @@ class _MyProfileState extends State<MyProfile> {
   final _textController = TextEditingController();
   String newName = "Mpampis Sougias";
   List<String> FullName = ['No', 'Name'];
+  bool NameChange = false;
 
   @override
   Widget build(BuildContext context) {
@@ -138,6 +139,40 @@ class _MyProfileState extends State<MyProfile> {
                   ),
                 )
               ])),
+        ],
+      );
+
+  Widget nameChanger() => Column(
+        children: [
+          TextField(
+            controller: _textController,
+            decoration: InputDecoration(
+                hintText: 'Ονοματεπώνυμο',
+                border: OutlineInputBorder(),
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    _textController.clear();
+                  },
+                  icon: const Icon(Icons.clear),
+                )),
+          ),
+          MaterialButton(
+            onPressed: () {
+              setState(() {
+                newName = _textController.text;
+                final savedName = newName.split(' ');
+                FullName[0] = savedName[0];
+                FullName[1] = savedName[1];
+                FirstName = FullName[0];
+                LastName = FullName[1];
+              });
+            },
+            color: Colors.blue,
+            child: const Text(
+              'Save',
+              style: TextStyle(color: Colors.white),
+            ),
+          )
         ],
       );
 
