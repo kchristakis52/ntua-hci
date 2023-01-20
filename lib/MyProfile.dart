@@ -22,19 +22,8 @@ class _MyProfileState extends State<MyProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          // leading: IconButton(
-//icon: Icon(Icons.arrow_back),
-          //  onPressed: () {
-//Navigator.pop(context);
-          //  },
-          // ),
-
-          // ignore: prefer_const_constructors
-          title: NameChange
-              ? nameChanger()
-              : Center(
-                  child: profileName(),
-                ),
+          centerTitle: true,
+          title: NameChange ? nameChanger() : profileName(),
           actions: [
             IconButton(
                 onPressed: () {

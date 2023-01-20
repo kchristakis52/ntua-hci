@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -37,6 +39,7 @@ class _PastEventState extends State<PastEvent> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
+              //crossAxisAlignment: CrossAxisAlignment.baseline,
               children: [
                 Flexible(
                   child: Card(
@@ -58,14 +61,17 @@ class _PastEventState extends State<PastEvent> {
             ),
             Row(
               children: [
-                Flexible(
-                  child: RatingBarIndicator(
-                    itemBuilder: (context, _) => const Icon(
-                      Icons.star,
-                      color: Colors.amber,
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Expanded(
+                    child: RatingBarIndicator(
+                      itemBuilder: (context, _) => const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      rating: widget.rating,
+                      itemSize: 30,
                     ),
-                    rating: widget.rating,
-                    itemSize: 30,
                   ),
                 ),
                 Expanded(child: Text("${widget.rating}/5")),
@@ -73,7 +79,12 @@ class _PastEventState extends State<PastEvent> {
             ),
             Expanded(
               child: ListView(
-                children: [Review()],
+                children: [
+                  Review(
+                    Fname: 'Konstantinos',
+                    Lname: 'Christakis',
+                  )
+                ],
               ),
             )
           ],
@@ -82,20 +93,54 @@ class _PastEventState extends State<PastEvent> {
 }
 
 class Review extends StatelessWidget {
-  //double score;
+  int score = Random().nextInt(4) + 1;
+  String Fname;
+  String Lname;
+  String revText;
+  DateTime now = DateTime.now();
 
-  const Review({super.key});
+  Review({
+    Key? key,
+    required this.Fname,
+    required this.Lname,
+    this.revText =
+        'Supporting line text lorem ipsum dolor sit amet, consectetur',
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      //contentPadding: EdgeInsets.only(left: 8),
+      isThreeLine: true,
       leading: CircleAvatar(
+        child: Text('${Fname[0]}${Lname[0]}'),
         radius: 40,
         backgroundColor: Colors.amber,
       ),
-      title: Text('Konstantinos Christakis'),
-      subtitle:
-          Text('Supporting line text lorem ipsum dolor sit amet, consectetur'),
+      title: Text("$Fname $Lname"),
+      // trailing: Text('dd/mm/yy'),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              RatingBarIndicator(
+                itemBuilder: (context, _) => const Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                ),
+                rating: score.toDouble(),
+                itemSize: 14,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: Text('${now.day}/${now.month}/${now.year}'),
+              ),
+            ],
+          ),
+          Text(revText),
+        ],
+      ),
     );
   }
 }
