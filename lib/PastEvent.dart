@@ -25,11 +25,24 @@ class _PastEventState extends State<PastEvent> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-
           title: Text(
             widget.OnomaEvent,
           ),
-          //actions: [Image.asset(name)],
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: CircleAvatar(
+                radius: 20,
+                child: Container(
+                    decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                  image: DecorationImage(
+                      fit: BoxFit.fitHeight, image: AssetImage(widget.eikona)),
+                )),
+              ),
+            )
+          ],
           bottom: PreferredSize(
               preferredSize: const Size.fromHeight(0.25),
               child: Container(

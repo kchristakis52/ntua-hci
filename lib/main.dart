@@ -83,6 +83,7 @@ class _MainScreenState extends State<MainScreen> {
           hmeromhnia: 'Saturday, 20 Feb 2023 17:00',
           perigrafh:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+          eikona: '/images/festival.jpg',
         )
       ]),
       floatingActionButton:
@@ -143,7 +144,7 @@ class events extends StatefulWidget {
       required this.meros,
       required this.hmeromhnia,
       required this.perigrafh,
-      this.eikona = 'images/tropical.png'})
+      this.eikona = 'images/Media.png'})
       : super(key: key);
 
   @override
@@ -182,7 +183,12 @@ class _eventsState extends State<events> {
                   widget.meros,
                 ),
               ),
-              Image.asset(widget.eikona),
+              AspectRatio(
+                  aspectRatio: 335 / 170,
+                  child: Image.asset(
+                    widget.eikona,
+                    fit: BoxFit.fitWidth,
+                  )),
               ListTile(
                 title: Text(
                   widget.OnomaEvent,
