@@ -20,18 +20,19 @@ class _PastEventState extends State<PastEvent> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
+          centerTitle: true,
+          //leading: IconButton(
+          //  icon: const Icon(Icons.arrow_back),
+          //  onPressed: () {
+          //    Navigator.pop(context);
+//},
+          //  ),
           title: Text(
             widget.OnomaEvent,
           ),
           //actions: [Image.asset(name)],
           bottom: PreferredSize(
-              preferredSize: Size.fromHeight(0.25),
+              preferredSize: const Size.fromHeight(0.25),
               child: Container(
                 color: Colors.black,
                 height: 0.25,
@@ -39,12 +40,37 @@ class _PastEventState extends State<PastEvent> {
         ),
         body: Column(
           children: [
-            ListView(
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                children: [
-                  Text('Location'),
-                ])
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: const [
+                Flexible(
+                  child: Card(
+                    child: ListTile(
+                      leading: Icon(Icons.location_on_outlined),
+                      title: Text('Technopolis Gazi, Athens'),
+                    ),
+                  ),
+                ),
+                Flexible(
+                  child: Card(
+                    child: ListTile(
+                      leading: Icon(Icons.person),
+                      title: Text('180'),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: ListTile(
+                    title: Text('Stars:'),
+                    trailing: Text('5/5'),
+                  ),
+                )
+              ],
+            )
           ],
         ));
   }

@@ -39,6 +39,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       appBar: AppBar(
         centerTitle: true,
         title: const Center(child: Text('College Nights')),
@@ -61,8 +62,8 @@ class _MainScreenState extends State<MainScreen> {
               height: 0.25,
             )),
       ),
-      body: ListView(children: <events>[
-        const events(
+      body: ListView(children: const <events>[
+        events(
           OnomaEvent: 'Tropical The Party',
           OnomaDiorganwti: 'Aggelos Dimitriou',
           meros: 'Gazi Music Hall, Athens',
@@ -70,7 +71,7 @@ class _MainScreenState extends State<MainScreen> {
           perigrafh:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
         ),
-        const events(
+        events(
           OnomaEvent: 'House Festival',
           OnomaDiorganwti: 'Reece Johnson',
           meros: 'Technopolis Gazi, Athens',
@@ -83,34 +84,32 @@ class _MainScreenState extends State<MainScreen> {
           FloatingActionButton(onPressed: () {}, child: const Icon(Icons.add)),
       bottomNavigationBar: BottomNavigationBar(
           onTap: (value) {
-            if (value == 0)
+            if (value == 0) {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const MainScreen()));
-            if (value == 4)
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const MySettings(
-                            title: 'College Nights',
-                          )));
+            }
+            if (value == 4) {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const MySettings()));
+            }
           },
           unselectedFontSize: 0,
           type: BottomNavigationBarType.fixed,
-          items: <BottomNavigationBarItem>[
-            const BottomNavigationBarItem(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
               icon: Icon(Icons.home_outlined),
               label: 'Home',
             ),
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
               icon: Icon(Icons.search),
               label: 'Search',
             ),
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
                 icon: Icon(Icons.star_outline), label: 'My Events'),
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
                 icon: Icon(Icons.notifications_outlined),
                 label: 'Notifications'),
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
                 icon: Icon(Icons.settings_outlined), label: 'Settings')
           ]),
     );
@@ -144,8 +143,6 @@ class _eventsState extends State<events> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(left: 12, right: 12, bottom: 20, top: 15),
-      //width: 335,
-      //height: 462,
       child: InkWell(
         onTap: () => Navigator.push(
             context,

@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'MyProfile.dart';
 
 class MySettings extends StatefulWidget {
-  const MySettings({super.key, required this.title});
-  final String title;
+  const MySettings({super.key});
 
   @override
   State<MySettings> createState() => _MySettingsState();
@@ -18,12 +17,9 @@ class _MySettingsState extends State<MySettings> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          centerTitle: true,
+          //centerTitle: true,
           title: Center(child: const Text('College Nights')),
-          leading: IconButton(
-            icon: Icon(Icons.abc),
-            onPressed: () async {},
-          ),
+
           actions: [
             IconButton(
                 onPressed: () {
@@ -143,11 +139,8 @@ class _MySettingsState extends State<MySettings> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => MainScreen()));
               if (value == 4)
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            MySettings(title: 'College Nights')));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MySettings()));
             },
             unselectedFontSize: 0,
             type: BottomNavigationBarType.fixed,
