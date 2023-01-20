@@ -93,7 +93,7 @@ class Review extends StatelessWidget {
         radius: 40,
         backgroundColor: Colors.amber,
       ),
-      title: Text('sa'),
+      title: Text('Konstantinos Christakis'),
       subtitle:
           Text('Supporting line text lorem ipsum dolor sit amet, consectetur'),
     );
