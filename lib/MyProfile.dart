@@ -22,14 +22,6 @@ class _MyProfileState extends State<MyProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          // leading: IconButton(
-//icon: Icon(Icons.arrow_back),
-          //  onPressed: () {
-//Navigator.pop(context);
-          //  },
-          // ),
-
-          // ignore: prefer_const_constructors
           title: Center(
             child: profileName(),
           ),

@@ -18,6 +18,7 @@ class _MySettingsState extends State<MySettings> {
     return Scaffold(
         appBar: AppBar(
           //centerTitle: true,
+          automaticallyImplyLeading: false,
           title: Center(child: const Text('College Nights')),
 
           actions: [
