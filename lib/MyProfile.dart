@@ -21,14 +21,13 @@ class _MyProfileState extends State<MyProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.black),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          backgroundColor: Colors.white,
-          elevation: 0,
+          // leading: IconButton(
+//icon: Icon(Icons.arrow_back),
+          //  onPressed: () {
+//Navigator.pop(context);
+          //  },
+          // ),
+
           // ignore: prefer_const_constructors
           title: Center(
             child: profileName(),
@@ -38,8 +37,7 @@ class _MyProfileState extends State<MyProfile> {
                 onPressed: () {
                   //edit username
                 },
-                icon:
-                    Icon(Icons.mode_edit_outline_outlined, color: Colors.black))
+                icon: Icon(Icons.mode_edit_outline_outlined))
           ],
         ),
         body: Stack(children: [
