@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'MyProfile.dart';
 import 'main.dart';
 import 'MySettings.dart';
+import 'PastEvent.dart';
 
 class MyUpdates extends StatelessWidget {
   const MyUpdates({super.key});
@@ -29,19 +30,14 @@ class MyUpdates extends StatelessWidget {
               ),
               preferredSize: Size.fromHeight(0.25)),
         ),
-        body: ListView(children: [
-          Card(
-              child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              const ListTile(
-                  leading: Text('Time has changed! Take a look!'),
-                  trailing: CircleAvatar(
-                    radius: 15,
-                    backgroundImage: AssetImage('images/tropical.png'),
-                  ))
-            ],
-          )),
+        body: ListView(children: const <Notification>[
+          Notification(
+            periexomeno: ('Time has changed. Take a look!'),
+            NotPic: ('images/Media.png'),
+          ),
+          Notification(periexomeno: 'Cool', NotPic: ('images/festival.jpg')),
+          Notification(
+              periexomeno: ('periexomeno'), NotPic: ('images/Media.png'))
         ]),
         bottomNavigationBar: BottomNavigationBar(
             currentIndex: 3,
@@ -76,8 +72,11 @@ class MyUpdates extends StatelessWidget {
 
 class Notification extends StatefulWidget {
   final String periexomeno;
+  final String NotPic;
 
-  const Notification({Key? key, required this.periexomeno});
+  const Notification(
+      {Key? key, required this.periexomeno, required this.NotPic})
+      : super(key: key);
 
   @override
   State<Notification> createState() => _NotificationState();
@@ -88,16 +87,26 @@ class _NotificationState extends State<Notification> {
   Widget build(BuildContext context) {
     return Container(
         child: Card(
-            child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        const ListTile(
-            leading: Text('Time has changed! Take a look!'),
-            trailing: CircleAvatar(
-              radius: 15,
-              backgroundImage: AssetImage('images/tropical.png'),
-            ))
-      ],
-    )));
+            child: InkWell(
+                splashColor: Color.fromARGB(255, 166, 33, 243).withAlpha(30),
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PastEvent(
+                              OnomaEvent: 'Tropical',
+                              meros: 'Gazi Music Hall',
+                              eikona: ('images/Media.png'),
+                            ))),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    ListTile(
+                        leading: Text(widget.periexomeno),
+                        trailing: CircleAvatar(
+                          radius: 20,
+                          backgroundImage: AssetImage(widget.NotPic),
+                        ))
+                  ],
+                ))));
   }
 }
