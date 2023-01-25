@@ -4,6 +4,7 @@ import 'MySettings.dart';
 import 'MyProfile.dart';
 import 'PastEvent.dart';
 import 'MyUpdates.dart';
+import 'MyEvents.dart';
 
 void main() {
   runApp(const wheren());
@@ -120,6 +121,10 @@ class _MainScreenState extends State<MainScreen> {
             if (value == 0) {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const MainScreen()));
+            }
+            if (value == 2) {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const MyEvents()));
             }
             if (value == 4) {
               Navigator.push(context,

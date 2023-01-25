@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:testwheren/MyEvents.dart';
 import 'MyProfile.dart';
 import 'main.dart';
 import 'MySettings.dart';
@@ -45,6 +46,9 @@ class MyUpdates extends StatelessWidget {
               if (value == 0)
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => MainScreen()));
+              if (value == 2)
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyEvents()));
               if (value == 4)
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => MySettings()));
