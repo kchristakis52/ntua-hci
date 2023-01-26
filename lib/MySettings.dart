@@ -5,6 +5,7 @@ import 'main.dart';
 import 'package:flutter/material.dart';
 import 'MyProfile.dart';
 import 'Levels.dart';
+import 'MyEvents.dart';
 
 class MySettings extends StatefulWidget {
   const MySettings({super.key});
@@ -62,8 +63,7 @@ class _MySettingsState extends State<MySettings> {
                       light = value;
                     });
                   },
-                ) 
-                ),
+                )),
             Divider(),
             ListTile(
               title: Text(
@@ -110,10 +110,13 @@ class _MySettingsState extends State<MySettings> {
               if (value == 0)
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => MainScreen()));
-              else if (value == 3)
+              if (value == 2)
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyEvents()));
+              if (value == 3)
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => MyUpdates()));
-              else if (value == 4)
+              if (value == 4)
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => MySettings()));
             },
