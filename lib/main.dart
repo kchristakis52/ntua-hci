@@ -6,6 +6,7 @@ import 'MyProfile.dart';
 import 'PastEvent.dart';
 import 'MyUpdates.dart';
 import 'MyEvents.dart';
+import 'CreateEvent.dart';
 
 void main() {
   runApp(const wheren());
@@ -115,8 +116,12 @@ class _MainScreenState extends State<MainScreen> {
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
         ),
       ]),
-      floatingActionButton:
-          FloatingActionButton(onPressed: () {}, child: const Icon(Icons.add)),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const CreateEvent()));
+          },
+          child: const Icon(Icons.add)),
       bottomNavigationBar: BottomNavigationBar(
           onTap: (value) {
             if (value == 0) {

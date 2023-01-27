@@ -6,41 +6,20 @@ import 'MyProfile.dart';
 import 'PastEvent.dart';
 import 'MyUpdates.dart';
 
-void main() {
-  runApp(const MyNewEvent());
-}
-
-class MyNewEvent extends StatelessWidget {
-  const MyNewEvent({super.key});
+class CreateEvent extends StatefulWidget {
+  const CreateEvent({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'MyNewEvent',
-      theme: ThemeData(
-          colorSchemeSeed: const Color(0xff6750a4), useMaterial3: true),
-      home: const MyHomePage(title: 'College Nights'),
-    );
-  }
+  State<CreateEvent> createState() => _CreateEventState();
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class _CreateEventState extends State<CreateEvent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        shadowColor: Colors.black,
-        title: Center(child: Text(widget.title)),
-        elevation: 6,
+        centerTitle: true,
+        title: const Text('College Nights'),
       ),
       body: ListView(
         children: [
