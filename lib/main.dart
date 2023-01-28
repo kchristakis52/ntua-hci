@@ -25,7 +25,7 @@ class wheren extends StatelessWidget {
       /// Το θέμα της εφαμρογής μας
       theme: ThemeData(
           applyElevationOverlayColor: true,
-          colorSchemeSeed: Color.fromRGBO(103, 80, 164, 1),
+          colorSchemeSeed: const Color.fromRGBO(103, 80, 164, 1),
           useMaterial3: true),
 
       /// Αρχικοποίηση της κεντρικής οθόνης της εφαρμογής μας (TaskListScreen)
@@ -209,14 +209,14 @@ class _eventsState extends State<events> {
             children: [
               ListTile(
                 leading: CircleAvatar(
+                  radius: 20,
+                  backgroundColor: Color.fromARGB(255, 234, 221, 255),
                   child: Text(
                       '${widget.OnomaDiorganwti[0]}${widget.EpithetoDiorganwti[0]}',
                       style: TextStyle(color: Color.fromARGB(255, 33, 0, 93))),
-                  radius: 20,
-                  backgroundColor: Color.fromARGB(255, 234, 221, 255),
                 ),
                 title: Text(
-                    widget.OnomaDiorganwti + ' ' + widget.EpithetoDiorganwti),
+                    '${widget.OnomaDiorganwti} ${widget.EpithetoDiorganwti}'),
                 subtitle: Text(
                   widget.meros,
                 ),
