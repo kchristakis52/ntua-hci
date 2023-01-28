@@ -213,14 +213,14 @@ class _eventsState extends State<events> {
             children: [
               ListTile(
                 leading: CircleAvatar(
+                  radius: 20,
+                  backgroundColor: Color.fromARGB(255, 234, 221, 255),
                   child: Text(
                       '${widget.OnomaDiorganwti[0]}${widget.EpithetoDiorganwti[0]}',
                       style: TextStyle(color: Color.fromARGB(255, 33, 0, 93))),
-                  radius: 20,
-                  backgroundColor: Color.fromARGB(255, 234, 221, 255),
                 ),
                 title: Text(
-                    widget.OnomaDiorganwti + ' ' + widget.EpithetoDiorganwti),
+                    '${widget.OnomaDiorganwti} ${widget.EpithetoDiorganwti}'),
                 subtitle: Text(
                   widget.meros,
                 ),

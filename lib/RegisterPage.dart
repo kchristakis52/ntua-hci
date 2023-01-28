@@ -7,35 +7,16 @@ import 'PastEvent.dart';
 import 'MyUpdates.dart';
 import 'MyEvents.dart';
 
-void main() {
-  runApp(const MyRegisterPage());
-}
-
-class MyRegisterPage extends StatelessWidget {
-  const MyRegisterPage({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'RegisterPage',
-      theme: ThemeData(
-          colorSchemeSeed: const Color(0xff6750a4), useMaterial3: true),
-      home: const MyHomePage(title: 'Register'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class MyRegisterPage extends StatefulWidget {
+  const MyRegisterPage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyRegisterPage> createState() => _MyRegisterPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyRegisterPageState extends State<MyRegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
