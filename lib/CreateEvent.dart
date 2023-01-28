@@ -13,28 +13,13 @@ class _CreateEventState extends State<CreateEvent> {
   final _nameController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _locationController = TextEditingController();
-  final _dateController = TextEditingController();
-  final _hourController = TextEditingController();
-  final _minuteController = TextEditingController();
+
   String name = '';
   String description = '';
   String location = '';
-  String date = '';
-  String hour = '';
-  String minute = '';
 
-  TimeOfDay _eventTime = TimeOfDay(hour: 00, minute: 00);
-
-  void _showeventTime() {
-    showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.now(),
-    ).then((value) {
-      setState(() {
-        _eventTime = value!;
-      });
-    });
-  }
+  TimeOfDay _eventTime = TimeOfDay.now();
+  DateTime _eventDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -167,91 +152,11 @@ class _CreateEventState extends State<CreateEvent> {
             height: 6,
           ),
           ListTile(
-            title: Container(
-                height: 170,
-                decoration: BoxDecoration(
-                  color: Colors.purple.shade50,
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                ),
-                child: Stack(children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10.0, top: 10),
-                    child: Text(
-                      'Event Date',
-                      style: TextStyle(color: Colors.black, fontSize: 22),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 60.0, bottom: 20),
-                    child: TextField(
-                      controller: _dateController,
-                      decoration: InputDecoration(
-                          prefixIcon: Icon(
-                            Icons.today,
-                            color: Colors.purple.shade700,
-                          ),
-                          label: Text(
-                            'Enter Date',
-                            style: TextStyle(color: Colors.purple.shade800),
-                          ),
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                            color: Colors.purple.shade700,
-                            width: 4,
-                          )),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.purple.shade700,
-                              width: 2,
-                            ),
-                          ),
-                          hintStyle: TextStyle(
-                            color: Colors.black,
-                          ),
-                          hintText: 'mm/dd/yyyy',
-                          contentPadding:
-                              EdgeInsets.only(left: 10, right: 10, top: 40),
-                          isCollapsed: false),
-                      style: TextStyle(
-                        fontSize: 22,
-                        shadows: null,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                      //Αν έχει μόνο padding τοτε δεν
-                      //προσαρμόζεται σε άλλες οθόνες
-                      right: 20,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 130.0),
-                        child: Row(
-                          children: [
-                            TextButton(
-                                onPressed: (() {
-                                  setState(() {
-                                    date = _dateController.text;
-                                  });
-                                }),
-                                child: Text(
-                                  'Ok',
-                                  style: TextStyle(fontSize: 20),
-                                )),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            TextButton(
-                                onPressed: (() {
-                                  setState(() {
-                                    _dateController.clear();
-                                  });
-                                }),
-                                child: Text('Cancel',
-                                    style: TextStyle(fontSize: 20)))
-                          ],
-                        ),
-                      )),
-                ])),
-          ),
+              title: DatePickerDialog(
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2023),
+            lastDate: DateTime(2030),
+          )),
           SizedBox(
             height: 6,
           ),
@@ -284,7 +189,7 @@ class _CreateEventState extends State<CreateEvent> {
                 ),
                 TextButton(
                     onPressed: (() {
-                      setState(() {
+                      setState(() async {
                         name = _nameController.text;
                         description = _descriptionController.text;
                         location = _locationController.text;
@@ -300,6 +205,7 @@ class _CreateEventState extends State<CreateEvent> {
           SizedBox(
             height: 6,
           ),
+          Text(_eventTime.toString())
         ],
       ),
     );
@@ -308,7 +214,6 @@ class _CreateEventState extends State<CreateEvent> {
   Widget eventHours() => SizedBox(
         width: 100,
         child: TextField(
-          controller: _hourController,
           keyboardType: TextInputType.number,
           maxLengthEnforcement: MaxLengthEnforcement.enforced,
           maxLength: 2,
@@ -332,7 +237,6 @@ class _CreateEventState extends State<CreateEvent> {
   Widget eventMinutes() => SizedBox(
         width: 100,
         child: TextField(
-          controller: _minuteController,
           keyboardType: TextInputType.number,
           maxLengthEnforcement: MaxLengthEnforcement.enforced,
           maxLength: 2,

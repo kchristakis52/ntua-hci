@@ -24,13 +24,14 @@ class wheren extends StatelessWidget {
 
       /// Το θέμα της εφαμρογής μας
       theme: ThemeData(
-          applyElevationOverlayColor: true,
-          colorSchemeSeed: Color.fromRGBO(103, 80, 164, 1),
-          useMaterial3: true,
-          timePickerTheme: TimePickerThemeData(
-            backgroundColor: Colors.purple.shade50,
-            helpTextStyle: TextStyle(fontSize: 14),
-          )),
+        applyElevationOverlayColor: true,
+        colorSchemeSeed: Color.fromRGBO(103, 80, 164, 1),
+        useMaterial3: true,
+        timePickerTheme: TimePickerThemeData(
+          backgroundColor: Colors.purple.shade50,
+          helpTextStyle: TextStyle(fontSize: 14),
+        ),
+      ),
 
       /// Αρχικοποίηση της κεντρικής οθόνης της εφαρμογής μας (TaskListScreen)
       home: MainScreen(),
