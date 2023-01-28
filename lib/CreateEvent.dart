@@ -10,6 +10,19 @@ class CreateEvent extends StatefulWidget {
 }
 
 class _CreateEventState extends State<CreateEvent> {
+  final _nameController = TextEditingController();
+  final _descriptionController = TextEditingController();
+  final _locationController = TextEditingController();
+  final _dateController = TextEditingController();
+  final _hourController = TextEditingController();
+  final _minuteController = TextEditingController();
+  String name = '';
+  String description = '';
+  String location = '';
+  String date = '';
+  String hour = '';
+  String minute = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +68,7 @@ class _CreateEventState extends State<CreateEvent> {
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                 ),
                 child: TextField(
+                  controller: _nameController,
                   decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -84,6 +98,7 @@ class _CreateEventState extends State<CreateEvent> {
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
                   child: TextField(
+                    controller: _descriptionController,
                     maxLines: 5,
                     decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
@@ -115,6 +130,7 @@ class _CreateEventState extends State<CreateEvent> {
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                 ),
                 child: TextField(
+                  controller: _locationController,
                   decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -155,6 +171,7 @@ class _CreateEventState extends State<CreateEvent> {
                   Padding(
                     padding: const EdgeInsets.only(top: 60.0, bottom: 20),
                     child: TextField(
+                      controller: _dateController,
                       decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.today,
@@ -198,7 +215,9 @@ class _CreateEventState extends State<CreateEvent> {
                           children: [
                             TextButton(
                                 onPressed: (() {
-                                  //
+                                  setState(() {
+                                    date = _dateController.text;
+                                  });
                                 }),
                                 child: Text(
                                   'Ok',
@@ -209,7 +228,9 @@ class _CreateEventState extends State<CreateEvent> {
                             ),
                             TextButton(
                                 onPressed: (() {
-                                  //
+                                  setState(() {
+                                    _dateController.clear();
+                                  });
                                 }),
                                 child: Text('Cancel',
                                     style: TextStyle(fontSize: 20)))
@@ -267,7 +288,10 @@ class _CreateEventState extends State<CreateEvent> {
                       children: [
                         TextButton(
                             onPressed: (() {
-                              //
+                              setState(() {
+                                hour = _hourController.text;
+                                minute = _minuteController.text;
+                              });
                             }),
                             child: Text(
                               'Ok',
@@ -278,7 +302,8 @@ class _CreateEventState extends State<CreateEvent> {
                         ),
                         TextButton(
                             onPressed: (() {
-                              //
+                              _hourController.clear();
+                              _minuteController.clear();
                             }),
                             child:
                                 Text('Cancel', style: TextStyle(fontSize: 20)))
@@ -298,7 +323,7 @@ class _CreateEventState extends State<CreateEvent> {
               children: [
                 OutlinedButton(
                     onPressed: (() {
-                      //
+                      //πίσω στο home page
                     }),
                     child: Text(
                       'Cancel',
@@ -310,7 +335,11 @@ class _CreateEventState extends State<CreateEvent> {
                 ),
                 TextButton(
                     onPressed: (() {
-                      //
+                      setState(() {
+                        name = _nameController.text;
+                        description = _descriptionController.text;
+                        location = _locationController.text;
+                      });
                     }),
                     style: TextButton.styleFrom(
                         backgroundColor: Colors.purple.shade900),
@@ -330,6 +359,7 @@ class _CreateEventState extends State<CreateEvent> {
   Widget eventHours() => SizedBox(
         width: 100,
         child: TextField(
+          controller: _hourController,
           keyboardType: TextInputType.number,
           maxLengthEnforcement: MaxLengthEnforcement.enforced,
           maxLength: 2,
@@ -353,6 +383,7 @@ class _CreateEventState extends State<CreateEvent> {
   Widget eventMinutes() => SizedBox(
         width: 100,
         child: TextField(
+          controller: _minuteController,
           keyboardType: TextInputType.number,
           maxLengthEnforcement: MaxLengthEnforcement.enforced,
           maxLength: 2,
