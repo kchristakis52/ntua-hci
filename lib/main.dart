@@ -26,7 +26,11 @@ class wheren extends StatelessWidget {
       theme: ThemeData(
           applyElevationOverlayColor: true,
           colorSchemeSeed: Color.fromRGBO(103, 80, 164, 1),
-          useMaterial3: true),
+          useMaterial3: true,
+          timePickerTheme: TimePickerThemeData(
+            backgroundColor: Colors.purple.shade50,
+            helpTextStyle: TextStyle(fontSize: 14),
+          )),
 
       /// Αρχικοποίηση της κεντρικής οθόνης της εφαρμογής μας (TaskListScreen)
       home: const MainScreen(),

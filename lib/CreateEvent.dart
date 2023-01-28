@@ -23,6 +23,19 @@ class _CreateEventState extends State<CreateEvent> {
   String hour = '';
   String minute = '';
 
+  TimeOfDay _eventTime = TimeOfDay(hour: 00, minute: 00);
+
+  void _showeventTime() {
+    showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    ).then((value) {
+      setState(() {
+        _eventTime = value!;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -243,74 +256,10 @@ class _CreateEventState extends State<CreateEvent> {
             height: 6,
           ),
           ListTile(
-            title: Container(
-              height: 250,
-              decoration: BoxDecoration(
-                color: Colors.purple.shade50,
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-              ),
-              child:
-                  //Text(
-                  //'Event Time',
-                  //style: TextStyle(color: Colors.black, fontSize: 22),
-                  //),
-
-                  Stack(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10.0, left: 10),
-                    child: Text(
-                      'Event Time',
-                      style: TextStyle(color: Colors.black, fontSize: 22),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 80.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        eventHours(),
-                        SizedBox(
-                          width: 6,
-                        ),
-                        eventTimeDot(),
-                        SizedBox(
-                          width: 6,
-                        ),
-                        eventMinutes()
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 180.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        TextButton(
-                            onPressed: (() {
-                              setState(() {
-                                hour = _hourController.text;
-                                minute = _minuteController.text;
-                              });
-                            }),
-                            child: Text(
-                              'Ok',
-                              style: TextStyle(fontSize: 20),
-                            )),
-                        SizedBox(
-                          width: 8,
-                        ),
-                        TextButton(
-                            onPressed: (() {
-                              _hourController.clear();
-                              _minuteController.clear();
-                            }),
-                            child:
-                                Text('Cancel', style: TextStyle(fontSize: 20)))
-                      ],
-                    ),
-                  )
-                ],
+            title: Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: TimePickerDialog(
+                initialTime: _eventTime,
               ),
             ),
           ),
