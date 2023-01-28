@@ -33,13 +33,62 @@ class wheren extends StatelessWidget {
           )),
 
       /// Αρχικοποίηση της κεντρικής οθόνης της εφαρμογής μας (TaskListScreen)
-      home: const MainScreen(),
+      home: MainScreen(),
     );
   }
 }
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+  final List<events> availableevents = [
+    events(
+      OnomaEvent: 'Tropical The Party',
+      OnomaDiorganwti: 'Aggelos',
+      EpithetoDiorganwti: 'Dimitriou',
+      meros: 'Gazi Music Hall, Athens',
+      hmeromhnia: 'Saturday, 13 Feb 2023 23:00',
+      perigrafh:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+      live: true,
+    ),
+    events(
+      OnomaEvent: 'House Festival',
+      OnomaDiorganwti: 'Reece',
+      EpithetoDiorganwti: 'Johnson',
+      meros: 'Technopolis Gazi, Athens',
+      hmeromhnia: 'Saturday, 20 Feb 2023 17:00',
+      perigrafh:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+      eikona: '/images/festival.jpg',
+    ),
+    events(
+      OnomaEvent: 'The Party',
+      OnomaDiorganwti: 'Lorem',
+      EpithetoDiorganwti: 'Ipsum',
+      meros: 'Beach, Athens',
+      hmeromhnia: 'Saturday, 13 Feb 2023 23:00',
+      perigrafh:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+    ),
+    events(
+      OnomaEvent: 'The Party',
+      OnomaDiorganwti: 'Lorem',
+      EpithetoDiorganwti: 'Ipsum',
+      meros: 'Beach, Athens',
+      hmeromhnia: 'Saturday, 13 Feb 2023 23:00',
+      perigrafh:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+    ),
+    events(
+      OnomaEvent: 'The Party',
+      OnomaDiorganwti: 'Lorem',
+      EpithetoDiorganwti: 'Ipsum',
+      meros: 'Beach, Athens',
+      hmeromhnia: 'Saturday, 13 Feb 2023 23:00',
+      perigrafh:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+    ),
+  ];
+  MainScreen({super.key});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -72,54 +121,9 @@ class _MainScreenState extends State<MainScreen> {
               height: 0.25,
             )),
       ),
-      body: ListView(children: const <events>[
-        events(
-          OnomaEvent: 'Tropical The Party',
-          OnomaDiorganwti: 'Aggelos',
-          EpithetoDiorganwti: 'Dimitriou',
-          meros: 'Gazi Music Hall, Athens',
-          hmeromhnia: 'Saturday, 13 Feb 2023 23:00',
-          perigrafh:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-        ),
-        events(
-          OnomaEvent: 'House Festival',
-          OnomaDiorganwti: 'Reece',
-          EpithetoDiorganwti: 'Johnson',
-          meros: 'Technopolis Gazi, Athens',
-          hmeromhnia: 'Saturday, 20 Feb 2023 17:00',
-          perigrafh:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-          eikona: '/images/festival.jpg',
-        ),
-        events(
-          OnomaEvent: 'The Party',
-          OnomaDiorganwti: 'Lorem',
-          EpithetoDiorganwti: 'Ipsum',
-          meros: 'Beach, Athens',
-          hmeromhnia: 'Saturday, 13 Feb 2023 23:00',
-          perigrafh:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-        ),
-        events(
-          OnomaEvent: 'The Party',
-          OnomaDiorganwti: 'Lorem',
-          EpithetoDiorganwti: 'Ipsum',
-          meros: 'Beach, Athens',
-          hmeromhnia: 'Saturday, 13 Feb 2023 23:00',
-          perigrafh:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-        ),
-        events(
-          OnomaEvent: 'The Party',
-          OnomaDiorganwti: 'Lorem',
-          EpithetoDiorganwti: 'Ipsum',
-          meros: 'Beach, Athens',
-          hmeromhnia: 'Saturday, 13 Feb 2023 23:00',
-          perigrafh:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-        ),
-      ]),
+      body: ListView.builder(
+          itemCount: widget.availableevents.length,
+          itemBuilder: (context, index) => widget.availableevents[index]),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.push(context,
@@ -130,7 +134,7 @@ class _MainScreenState extends State<MainScreen> {
           onTap: (value) {
             if (value == 0) {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const MainScreen()));
+                  MaterialPageRoute(builder: (context) => MainScreen()));
             }
             if (value == 2) {
               Navigator.push(context,
@@ -175,10 +179,10 @@ class events extends StatefulWidget {
   final String hmeromhnia;
   final String perigrafh;
   final String eikona;
-  final bool attending = false;
-  final bool live = false;
+  final bool attending;
+  final bool live;
 
-  const events(
+  events(
       {Key? key,
       required this.OnomaEvent,
       required this.OnomaDiorganwti,
@@ -186,7 +190,9 @@ class events extends StatefulWidget {
       required this.meros,
       required this.hmeromhnia,
       required this.perigrafh,
-      this.eikona = 'images/Media.png'})
+      this.eikona = 'images/Media.png',
+      this.attending = false,
+      this.live = false})
       : super(key: key);
 
   @override
@@ -214,11 +220,18 @@ class _eventsState extends State<events> {
               ListTile(
                 leading: CircleAvatar(
                   radius: 20,
-                  backgroundColor: Color.fromARGB(255, 234, 221, 255),
+                  backgroundColor: const Color.fromARGB(255, 234, 221, 255),
                   child: Text(
                       '${widget.OnomaDiorganwti[0]}${widget.EpithetoDiorganwti[0]}',
-                      style: TextStyle(color: Color.fromARGB(255, 33, 0, 93))),
+                      style: const TextStyle(
+                          color: Color.fromARGB(255, 33, 0, 93))),
                 ),
+                trailing: (widget.live)
+                    ? const Icon(
+                        Icons.radio_button_checked,
+                        color: Color.fromARGB(255, 179, 38, 30),
+                      )
+                    : null,
                 title: Text(
                     '${widget.OnomaDiorganwti} ${widget.EpithetoDiorganwti}'),
                 subtitle: Text(
@@ -254,7 +267,8 @@ class _eventsState extends State<events> {
                   ),
                   TextButton(
                     style: TextButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 103, 80, 164)),
+                        backgroundColor:
+                            const Color.fromARGB(255, 103, 80, 164)),
                     onPressed: () {
                       // Perform some action
                     },
