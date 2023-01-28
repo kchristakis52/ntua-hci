@@ -1,10 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; //Χρειαζεται για MAXlengthEnforcement
-import 'MySettings.dart';
-import 'MyProfile.dart';
-import 'PastEvent.dart';
-import 'MyUpdates.dart';
 
 class CreateEvent extends StatefulWidget {
   const CreateEvent({super.key});
