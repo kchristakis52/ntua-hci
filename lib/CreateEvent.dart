@@ -205,7 +205,7 @@ class _CreateEventState extends State<CreateEvent> {
           SizedBox(
             height: 6,
           ),
-          Text(_eventTime.toString())
+          Text(_eventTime.toString()),
         ],
       ),
     );
