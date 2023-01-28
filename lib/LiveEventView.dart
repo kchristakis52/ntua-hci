@@ -3,40 +3,16 @@ import 'dart:js_util';
 
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyLiveEvent());
-}
-
 class MyLiveEvent extends StatefulWidget {
-  const MyLiveEvent({super.key});
+  const MyLiveEvent({super.key, required this.title});
+
+  final String title;
 
   @override
   State<MyLiveEvent> createState() => _MyLiveEventState();
 }
 
 class _MyLiveEventState extends State<MyLiveEvent> {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'MyLiveEvent',
-      theme: ThemeData(
-          colorSchemeSeed: const Color(0xff6750a4), useMaterial3: true),
-      home: const MyHomePage(title: 'Event Name'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

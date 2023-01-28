@@ -37,81 +37,57 @@ class _MyProfileState extends State<MyProfile> {
         body: ListView(children: [
           ListTile(title: Center(child: profilePictureSolid())),
           ListTile(
-              title: Text(
-            "Lvl.1",
-            style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-                color: Colors.purple.shade900),
-          )),
+              contentPadding: EdgeInsets.only(left: 18.0, right: 18),
+              title: Text("Lvl.1",
+                  style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 33, 0, 93))),
+              trailing: CircularProgressIndicator(value: 0.71)),
           ListTile(
-            contentPadding: EdgeInsets.only(left: 18.0),
-            title: Row(
-              children: [
-                RichText(
-                    text: TextSpan(
-                  text: 'Events Attended',
-                  style: TextStyle(color: Colors.purple.shade900, fontSize: 28),
-                )),
-                SizedBox(
-                  width: 20,
-                ),
-                Text('5',
-                    style:
-                        TextStyle(color: Colors.purple.shade900, fontSize: 28))
-              ],
+            contentPadding: EdgeInsets.only(left: 18.0, right: 18),
+            title: Text(
+              'Events Attended',
+              style: TextStyle(fontSize: 22),
+            ),
+            trailing: Text(
+              '14',
+              style: TextStyle(fontSize: 22),
             ),
           ),
           ListTile(
-              title: RichText(
-                  text: TextSpan(
-                      text: 'Stories Uploaded',
-                      style: TextStyle(
-                          color: Colors.purple.shade900, fontSize: 28),
-                      children: [
-                TextSpan(text: "  "),
-                TextSpan(
-                    text: '14',
-                    style:
-                        TextStyle(color: Colors.purple.shade900, fontSize: 28))
-              ]))),
+            contentPadding: EdgeInsets.only(left: 18.0, right: 18),
+            title: Text(
+              'Stories Uploaded',
+              style: TextStyle(fontSize: 22),
+            ),
+            trailing: Text(
+              '14',
+              style: TextStyle(fontSize: 22),
+            ),
+          ),
           ListTile(
-              title: RichText(
-                  text: TextSpan(
-                      text: 'Reviews Posted',
-                      style: TextStyle(
-                          color: Colors.purple.shade900, fontSize: 28),
-                      children: [
-                TextSpan(text: "    "),
-                TextSpan(
-                    text: '3',
-                    style:
-                        TextStyle(color: Colors.purple.shade900, fontSize: 28))
-              ]))),
+            contentPadding: EdgeInsets.only(left: 18.0, right: 18),
+            title: Text(
+              'Reviews Posted',
+              style: TextStyle(fontSize: 22),
+            ),
+            trailing: Text(
+              '3',
+              style: TextStyle(fontSize: 22),
+            ),
+          ),
           ListTile(
-            title: RichText(
-                text: TextSpan(
-                    text: 'QR Codes Found',
-                    style:
-                        TextStyle(color: Colors.purple.shade900, fontSize: 28),
-                    children: [
-                  TextSpan(text: "   "),
-                  TextSpan(
-                      text: '9',
-                      style: TextStyle(
-                          color: Colors.purple.shade900, fontSize: 28))
-                ])),
+            contentPadding: EdgeInsets.only(left: 18.0, right: 18),
+            title: Text(
+              'QR Codes Found',
+              style: TextStyle(fontSize: 22),
+            ),
+            trailing: Text(
+              '6',
+              style: TextStyle(fontSize: 22),
+            ),
           )
-          /*
-          Positioned(
-            child: Container(
-              margin: const EdgeInsets.only(
-                  bottom: 420, top: 200, left: 130, right: 30),
-              color: Colors.purple.shade700,
-            ),
-          ),
-          */
-          ,
         ]));
   }
 
