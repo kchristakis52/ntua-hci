@@ -8,6 +8,7 @@ import 'MyUpdates.dart';
 import 'MyEvents.dart';
 import 'CreateEvent.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(const wheren());
@@ -104,7 +105,7 @@ class _MainScreenState extends State<MainScreen> {
       OnomaDiorganwti: 'Aggelos',
       EpithetoDiorganwti: 'Dimitriou',
       meros: 'Gazi Music Hall, Athens',
-      hmeromhnia: 'Saturday, 13 Feb 2023 23:00',
+      hmeromhnia: DateTime(2023, 02, 13, 23, 00, 00),
       perigrafh:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
       live: true,
@@ -114,7 +115,7 @@ class _MainScreenState extends State<MainScreen> {
       OnomaDiorganwti: 'Reece',
       EpithetoDiorganwti: 'Johnson',
       meros: 'Technopolis Gazi, Athens',
-      hmeromhnia: 'Saturday, 20 Feb 2023 17:00',
+      hmeromhnia: DateTime(2023, 02, 20, 17, 0, 0),
       perigrafh:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
       eikona: '/images/festival.jpg',
@@ -124,7 +125,7 @@ class _MainScreenState extends State<MainScreen> {
       OnomaDiorganwti: 'Lorem',
       EpithetoDiorganwti: 'Ipsum',
       meros: 'Beach, Athens',
-      hmeromhnia: 'Saturday, 13 Feb 2023 23:00',
+      hmeromhnia: DateTime(2023, 02, 13, 23, 00, 00),
       perigrafh:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
     ),
@@ -133,7 +134,7 @@ class _MainScreenState extends State<MainScreen> {
       OnomaDiorganwti: 'Lorem',
       EpithetoDiorganwti: 'Ipsum',
       meros: 'Beach, Athens',
-      hmeromhnia: 'Saturday, 13 Feb 2023 23:00',
+      hmeromhnia: DateTime(2023, 02, 13, 23, 00, 00),
       perigrafh:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
     ),
@@ -142,7 +143,7 @@ class _MainScreenState extends State<MainScreen> {
       OnomaDiorganwti: 'Lorem',
       EpithetoDiorganwti: 'Ipsum',
       meros: 'Beach, Athens',
-      hmeromhnia: 'Saturday, 13 Feb 2023 23:00',
+      hmeromhnia: DateTime(2023, 02, 13, 23, 00, 00),
       perigrafh:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
     ),
@@ -234,7 +235,7 @@ class events extends StatefulWidget {
   final String OnomaDiorganwti;
   final String EpithetoDiorganwti;
   final String meros;
-  final String hmeromhnia;
+  final DateTime hmeromhnia;
   final String perigrafh;
   final String eikona;
   final bool attending;
@@ -306,7 +307,8 @@ class _eventsState extends State<events> {
                 title: Text(
                   widget.OnomaEvent,
                 ),
-                subtitle: Text(widget.hmeromhnia),
+                subtitle: Text(DateFormat('EEEE, d MMM yyyy HH:mm')
+                    .format(widget.hmeromhnia)),
               ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
