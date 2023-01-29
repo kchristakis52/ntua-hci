@@ -7,6 +7,7 @@ import 'PastEvent.dart';
 import 'MyUpdates.dart';
 import 'MyEvents.dart';
 import 'CreateEvent.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const wheren());
@@ -40,7 +41,64 @@ class wheren extends StatelessWidget {
 }
 
 class MainScreen extends StatefulWidget {
-  final List<events> availableevents = [
+  /*final List<events> availableevents = [
+    events(
+      OnomaEvent: 'Tropical The Party',
+      OnomaDiorganwti: 'Aggelos',
+      EpithetoDiorganwti: 'Dimitriou',
+      meros: 'Gazi Music Hall, Athens',
+      hmeromhnia: 'Saturday, 13 Feb 2023 23:00',
+      perigrafh:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+      live: true,
+    ),
+    events(
+      OnomaEvent: 'House Festival',
+      OnomaDiorganwti: 'Reece',
+      EpithetoDiorganwti: 'Johnson',
+      meros: 'Technopolis Gazi, Athens',
+      hmeromhnia: 'Saturday, 20 Feb 2023 17:00',
+      perigrafh:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+      eikona: '/images/festival.jpg',
+    ),
+    events(
+      OnomaEvent: 'The Party',
+      OnomaDiorganwti: 'Lorem',
+      EpithetoDiorganwti: 'Ipsum',
+      meros: 'Beach, Athens',
+      hmeromhnia: 'Saturday, 13 Feb 2023 23:00',
+      perigrafh:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+    ),
+    events(
+      OnomaEvent: 'The Party',
+      OnomaDiorganwti: 'Lorem',
+      EpithetoDiorganwti: 'Ipsum',
+      meros: 'Beach, Athens',
+      hmeromhnia: 'Saturday, 13 Feb 2023 23:00',
+      perigrafh:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+    ),
+    events(
+      OnomaEvent: 'The Party',
+      OnomaDiorganwti: 'Lorem',
+      EpithetoDiorganwti: 'Ipsum',
+      meros: 'Beach, Athens',
+      hmeromhnia: 'Saturday, 13 Feb 2023 23:00',
+      perigrafh:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+    ),
+  ];*/
+  MainScreen({super.key});
+
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  bool showLive = false;
+  final currevents = <events>[
     events(
       OnomaEvent: 'Tropical The Party',
       OnomaDiorganwti: 'Aggelos',
@@ -89,13 +147,6 @@ class MainScreen extends StatefulWidget {
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
     ),
   ];
-  MainScreen({super.key});
-
-  @override
-  State<MainScreen> createState() => _MainScreenState();
-}
-
-class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,9 +155,15 @@ class _MainScreenState extends State<MainScreen> {
         centerTitle: true,
         title: const Text('College Nights'),
         leading: IconButton(
-          icon: const Icon(Icons.radio_button_unchecked),
-          onPressed: () async {},
-        ),
+            icon: (!showLive)
+                ? const Icon(Icons.radio_button_unchecked)
+                : const Icon(
+                    Icons.radio_button_checked_outlined,
+                    color: Color.fromARGB(255, 179, 38, 30),
+                  ),
+            onPressed: () => setState(() {
+                  showLive = !showLive;
+                })),
         actions: [
           IconButton(
               onPressed: () {
@@ -123,8 +180,8 @@ class _MainScreenState extends State<MainScreen> {
             )),
       ),
       body: ListView.builder(
-          itemCount: widget.availableevents.length,
-          itemBuilder: (context, index) => widget.availableevents[index]),
+          itemCount: currevents.length,
+          itemBuilder: ((context, index) => currevents[index])),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.push(context,
