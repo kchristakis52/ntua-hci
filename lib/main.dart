@@ -43,55 +43,6 @@ class wheren extends StatelessWidget {
 }
 
 class MainScreen extends StatefulWidget {
-  /*final List<events> availableevents = [
-    events(
-      OnomaEvent: 'Tropical The Party',
-      OnomaDiorganwti: 'Aggelos',
-      EpithetoDiorganwti: 'Dimitriou',
-      meros: 'Gazi Music Hall, Athens',
-      hmeromhnia: 'Saturday, 13 Feb 2023 23:00',
-      perigrafh:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-      live: true,
-    ),
-    events(
-      OnomaEvent: 'House Festival',
-      OnomaDiorganwti: 'Reece',
-      EpithetoDiorganwti: 'Johnson',
-      meros: 'Technopolis Gazi, Athens',
-      hmeromhnia: 'Saturday, 20 Feb 2023 17:00',
-      perigrafh:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-      eikona: '/images/festival.jpg',
-    ),
-    events(
-      OnomaEvent: 'The Party',
-      OnomaDiorganwti: 'Lorem',
-      EpithetoDiorganwti: 'Ipsum',
-      meros: 'Beach, Athens',
-      hmeromhnia: 'Saturday, 13 Feb 2023 23:00',
-      perigrafh:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-    ),
-    events(
-      OnomaEvent: 'The Party',
-      OnomaDiorganwti: 'Lorem',
-      EpithetoDiorganwti: 'Ipsum',
-      meros: 'Beach, Athens',
-      hmeromhnia: 'Saturday, 13 Feb 2023 23:00',
-      perigrafh:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-    ),
-    events(
-      OnomaEvent: 'The Party',
-      OnomaDiorganwti: 'Lorem',
-      EpithetoDiorganwti: 'Ipsum',
-      meros: 'Beach, Athens',
-      hmeromhnia: 'Saturday, 13 Feb 2023 23:00',
-      perigrafh:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-    ),
-  ];*/
   MainScreen({super.key});
 
   @override
@@ -100,8 +51,8 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   bool showLive = false;
-  final currevents = <events>[
-    events(
+  final currevents = <Event>[
+    Event(
       OnomaEvent: 'Tropical The Party',
       OnomaDiorganwti: 'Aggelos',
       EpithetoDiorganwti: 'Dimitriou',
@@ -111,7 +62,7 @@ class _MainScreenState extends State<MainScreen> {
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
       live: true,
     ),
-    events(
+    Event(
       OnomaEvent: 'House Festival',
       OnomaDiorganwti: 'Reece',
       EpithetoDiorganwti: 'Johnson',
@@ -121,7 +72,7 @@ class _MainScreenState extends State<MainScreen> {
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
       eikona: '/images/festival.jpg',
     ),
-    events(
+    Event(
       OnomaEvent: 'The Party',
       OnomaDiorganwti: 'Lorem',
       EpithetoDiorganwti: 'Ipsum',
@@ -130,7 +81,7 @@ class _MainScreenState extends State<MainScreen> {
       perigrafh:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
     ),
-    events(
+    Event(
       OnomaEvent: 'The Party',
       OnomaDiorganwti: 'Lorem',
       EpithetoDiorganwti: 'Ipsum',
@@ -139,7 +90,7 @@ class _MainScreenState extends State<MainScreen> {
       perigrafh:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
     ),
-    events(
+    Event(
       OnomaEvent: 'The Party',
       OnomaDiorganwti: 'Lorem',
       EpithetoDiorganwti: 'Ipsum',
@@ -183,7 +134,9 @@ class _MainScreenState extends State<MainScreen> {
       ),
       body: ListView.builder(
           itemCount: currevents.length,
-          itemBuilder: ((context, index) => currevents[index])),
+          itemBuilder: ((context, index) {
+            return EventItem(event: currevents[index]);
+          })),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.push(context,
@@ -231,37 +184,19 @@ class _MainScreenState extends State<MainScreen> {
   }
 }
 
-class events extends StatefulWidget {
-  final String OnomaEvent;
-  final String OnomaDiorganwti;
-  final String EpithetoDiorganwti;
-  final String meros;
-  final DateTime hmeromhnia;
-  final Duration diarkeia;
-  final String perigrafh;
-  final String eikona;
-  final bool attending;
-  final bool live;
+class EventItem extends StatefulWidget {
+  final Event event;
 
-  events(
-      {Key? key,
-      required this.OnomaEvent,
-      required this.OnomaDiorganwti,
-      required this.EpithetoDiorganwti,
-      required this.meros,
-      required this.hmeromhnia,
-      this.diarkeia = const Duration(hours: 4),
-      required this.perigrafh,
-      this.eikona = 'images/Media.png',
-      this.attending = false,
-      this.live = false})
-      : super(key: key);
+  EventItem({
+    Key? key,
+    required this.event,
+  }) : super(key: key);
 
   @override
-  State<events> createState() => _eventsState();
+  State<EventItem> createState() => _EventItemState();
 }
 
-class _eventsState extends State<events> {
+class _EventItemState extends State<EventItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -271,9 +206,9 @@ class _eventsState extends State<events> {
             context,
             MaterialPageRoute(
                 builder: (context) => PastEvent(
-                      OnomaEvent: widget.OnomaEvent,
-                      meros: widget.meros,
-                      eikona: widget.eikona,
+                      OnomaEvent: widget.event.OnomaEvent,
+                      meros: widget.event.meros,
+                      eikona: widget.event.eikona,
                     ))),
         child: Card(
           clipBehavior: Clip.hardEdge,
@@ -284,39 +219,39 @@ class _eventsState extends State<events> {
                   radius: 20,
                   backgroundColor: const Color.fromARGB(255, 234, 221, 255),
                   child: Text(
-                      '${widget.OnomaDiorganwti[0]}${widget.EpithetoDiorganwti[0]}',
+                      '${widget.event.OnomaDiorganwti[0]}${widget.event.EpithetoDiorganwti[0]}',
                       style: const TextStyle(
                           color: Color.fromARGB(255, 33, 0, 93))),
                 ),
-                trailing: (widget.live)
+                trailing: (widget.event.live)
                     ? const Icon(
                         Icons.radio_button_checked,
                         color: Color.fromARGB(255, 179, 38, 30),
                       )
                     : null,
                 title: Text(
-                    '${widget.OnomaDiorganwti} ${widget.EpithetoDiorganwti}'),
+                    '${widget.event.OnomaDiorganwti} ${widget.event.EpithetoDiorganwti}'),
                 subtitle: Text(
-                  widget.meros,
+                  widget.event.meros,
                 ),
               ),
               AspectRatio(
                   aspectRatio: 335 / 170,
                   child: Image.asset(
-                    widget.eikona,
+                    widget.event.eikona,
                     fit: BoxFit.fitWidth,
                   )),
               ListTile(
                 title: Text(
-                  widget.OnomaEvent,
+                  widget.event.OnomaEvent,
                 ),
                 subtitle: Text(DateFormat('EEEE, d MMM yyyy HH:mm')
-                    .format(widget.hmeromhnia)),
+                    .format(widget.event.hmeromhnia)),
               ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
-                  widget.perigrafh,
+                  widget.event.perigrafh,
                 ),
               ),
               ButtonBar(
@@ -347,4 +282,28 @@ class _eventsState extends State<events> {
       ),
     );
   }
+}
+
+class Event {
+  final String OnomaEvent;
+  final String OnomaDiorganwti;
+  final String EpithetoDiorganwti;
+  final String meros;
+  final DateTime hmeromhnia;
+  final Duration diarkeia;
+  final String perigrafh;
+  final String eikona;
+  final bool attending;
+  final bool live;
+  Event(
+      {required this.OnomaEvent,
+      required this.OnomaDiorganwti,
+      required this.EpithetoDiorganwti,
+      required this.meros,
+      required this.hmeromhnia,
+      this.diarkeia = const Duration(hours: 4),
+      required this.perigrafh,
+      this.eikona = 'images/Media.png',
+      this.attending = false,
+      this.live = false});
 }
