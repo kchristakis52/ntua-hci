@@ -20,9 +20,48 @@ class _CreateEventState extends State<CreateEvent> {
 
   TimeOfDay _eventTime = TimeOfDay.now();
   DateTime _eventDate = DateTime.now();
+  late var finalDate =
+      "${_eventDate.day}/${_eventDate.month}/${_eventDate.year}";
+
+  bool changeDate = false;
+  bool changeTime = false;
+
+  void _showDatePicker() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2023),
+      lastDate: DateTime(2030),
+    ).then((value) {
+      setState(() {
+        if (value != null) {
+          _eventDate = value;
+          changeDate = true;
+        } else {}
+      });
+    });
+  }
+
+  void _showTimePicker() {
+    showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    ).then((value) {
+      setState(() {
+        if (value != null) {
+          _eventTime = value;
+          changeTime = true;
+        }
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (_eventDate == null) {
+      _eventDate = DateTime.now();
+      changeDate = false;
+    }
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -77,7 +116,7 @@ class _CreateEventState extends State<CreateEvent> {
                       hintStyle: TextStyle(
                         color: Colors.black,
                       ),
-                      hintText: 'Event Name',
+                      hintText: 'Name',
                       contentPadding: EdgeInsets.symmetric(horizontal: 10),
                       isCollapsed: false),
                   style: TextStyle(
@@ -152,22 +191,54 @@ class _CreateEventState extends State<CreateEvent> {
             height: 6,
           ),
           ListTile(
-              title: DatePickerDialog(
-            initialDate: DateTime.now(),
-            firstDate: DateTime(2023),
-            lastDate: DateTime(2030),
-          )),
+              title: Container(
+                  height: 50,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    color: Colors.purple.shade50,
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                  child: TextButton(
+                      style: ButtonStyle(),
+                      onPressed: _showDatePicker,
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                            padding: EdgeInsets.only(left: 0),
+                            child: changeDate
+                                ? Text(finalDate,
+                                    style: TextStyle(
+                                        fontSize: 22, color: Colors.black))
+                                : Text('Date',
+                                    style: TextStyle(
+                                        fontSize: 22, color: Colors.black))),
+                      )))),
           SizedBox(
             height: 6,
           ),
           ListTile(
-            title: Padding(
-              padding: const EdgeInsets.only(top: 10.0),
-              child: TimePickerDialog(
-                initialTime: _eventTime,
-              ),
-            ),
-          ),
+              title: Container(
+                  height: 50,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    color: Colors.purple.shade50,
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                  child: TextButton(
+                      style: ButtonStyle(),
+                      onPressed: _showTimePicker,
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                            padding: EdgeInsets.only(left: 0),
+                            child: changeTime
+                                ? Text(_eventTime.format(context).toString(),
+                                    style: TextStyle(
+                                        fontSize: 22, color: Colors.black))
+                                : Text('Time',
+                                    style: TextStyle(
+                                        fontSize: 22, color: Colors.black))),
+                      )))),
           SizedBox(
             height: 6,
           ),
@@ -202,10 +273,6 @@ class _CreateEventState extends State<CreateEvent> {
               ],
             ),
           ),
-          SizedBox(
-            height: 6,
-          ),
-          Text(_eventTime.toString()),
         ],
       ),
     );
