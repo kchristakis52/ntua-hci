@@ -13,10 +13,12 @@ class _CreateEventState extends State<CreateEvent> {
   final _nameController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _locationController = TextEditingController();
+  final _durationController = TextEditingController();
 
   String name = '';
   String description = '';
   String location = '';
+  String duration = '';
 
   TimeOfDay _eventTime = TimeOfDay.now();
   DateTime _eventDate = DateTime.now();
@@ -191,6 +193,36 @@ class _CreateEventState extends State<CreateEvent> {
             height: 6,
           ),
           ListTile(
+            title: Container(
+                decoration: BoxDecoration(
+                  color: Colors.purple.shade50,
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                ),
+                child: TextField(
+                  controller: _durationController,
+                  decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          borderSide: BorderSide(color: Colors.purple.shade50)),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          borderSide: BorderSide(color: Colors.purple.shade50)),
+                      hintStyle: TextStyle(
+                        color: Colors.black,
+                      ),
+                      hintText: 'Duration',
+                      contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                      isCollapsed: false),
+                  style: TextStyle(
+                    fontSize: 22,
+                    shadows: null,
+                  ),
+                )),
+          ),
+          SizedBox(
+            height: 6,
+          ),
+          ListTile(
               title: Container(
                   height: 50,
                   decoration: BoxDecoration(
@@ -264,6 +296,7 @@ class _CreateEventState extends State<CreateEvent> {
                         name = _nameController.text;
                         description = _descriptionController.text;
                         location = _locationController.text;
+                        duration = _durationController.text;
                       });
                     }),
                     style: TextButton.styleFrom(
