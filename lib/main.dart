@@ -1,13 +1,14 @@
+import 'dart:html';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; //Χρειαζεται για CreateEvent
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'MySettings.dart';
 import 'MyProfile.dart';
 import 'PastEvent.dart';
 import 'MyUpdates.dart';
 import 'MyEvents.dart';
 import 'CreateEvent.dart';
-import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 void main() {
@@ -236,6 +237,7 @@ class events extends StatefulWidget {
   final String EpithetoDiorganwti;
   final String meros;
   final DateTime hmeromhnia;
+  final Duration diarkeia;
   final String perigrafh;
   final String eikona;
   final bool attending;
@@ -248,6 +250,7 @@ class events extends StatefulWidget {
       required this.EpithetoDiorganwti,
       required this.meros,
       required this.hmeromhnia,
+      this.diarkeia = const Duration(hours: 4),
       required this.perigrafh,
       this.eikona = 'images/Media.png',
       this.attending = false,
