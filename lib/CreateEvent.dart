@@ -248,7 +248,7 @@ class _CreateEventState extends State<CreateEvent> {
               children: [
                 OutlinedButton(
                     onPressed: (() {
-                      //πίσω στο home page
+                      Navigator.pop(context);
                     }),
                     child: Text(
                       'Cancel',
@@ -277,45 +277,4 @@ class _CreateEventState extends State<CreateEvent> {
       ),
     );
   }
-
-  Widget eventHours() => SizedBox(
-        width: 100,
-        child: TextField(
-          keyboardType: TextInputType.number,
-          maxLengthEnforcement: MaxLengthEnforcement.enforced,
-          maxLength: 2,
-          decoration: InputDecoration(
-              hintText: "HH",
-              hintStyle: TextStyle(color: Colors.black, fontSize: 40),
-              counterText: '',
-              contentPadding:
-                  EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
-              border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.purple))),
-          style: TextStyle(fontSize: 50),
-        ),
-      );
-
-  Widget eventTimeDot() => Text(
-        ':',
-        style: TextStyle(color: Colors.black, fontSize: 50),
-      );
-
-  Widget eventMinutes() => SizedBox(
-        width: 100,
-        child: TextField(
-          keyboardType: TextInputType.number,
-          maxLengthEnforcement: MaxLengthEnforcement.enforced,
-          maxLength: 2,
-          decoration: InputDecoration(
-              hintText: "MM",
-              hintStyle: TextStyle(color: Colors.black, fontSize: 34),
-              counterText: '',
-              contentPadding:
-                  EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
-              border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.purple))),
-          style: TextStyle(fontSize: 50),
-        ),
-      );
 }
