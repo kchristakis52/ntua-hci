@@ -23,6 +23,7 @@ class _CreateEventState extends State<CreateEvent> {
 
   TimeOfDay _eventTime = TimeOfDay.now();
   DateTime _eventDate = DateTime.now();
+
   late var finalDate =
       "${_eventDate.day}/${_eventDate.month}/${_eventDate.year}";
 
@@ -294,12 +295,14 @@ class _CreateEventState extends State<CreateEvent> {
                 TextButton(
                     onPressed: (() {
                       final event = Event(
-                          OnomaEvent: _nameController.text,
-                          OnomaDiorganwti: 'Giorgos',
-                          EpithetoDiorganwti: 'EpithetoDiorganwti',
-                          meros: _locationController.text,
-                          hmeromhnia: DateTime.now(),
-                          perigrafh: _descriptionController.text);
+                        OnomaEvent: _nameController.text,
+                        OnomaDiorganwti: 'Giorgos',
+                        EpithetoDiorganwti: 'EpithetoDiorganwti',
+                        meros: _locationController.text,
+                        hmeromhnia: DateTime(_eventDate.year, _eventDate.month,
+                            _eventDate.day, _eventTime.hour, _eventTime.minute),
+                        perigrafh: _descriptionController.text,
+                      );
                       Navigator.pop(context, event);
                     }),
                     style: TextButton.styleFrom(
