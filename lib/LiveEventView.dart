@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class MyLiveEvent extends StatefulWidget {
-  const MyLiveEvent({super.key, required this.title});
+class LiveEventView extends StatefulWidget {
+  const LiveEventView({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyLiveEvent> createState() => _MyLiveEventState();
+  State<LiveEventView> createState() => _LiveEventViewState();
 }
 
-class _MyLiveEventState extends State<MyLiveEvent> {
+class _LiveEventViewState extends State<LiveEventView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

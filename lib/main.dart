@@ -7,6 +7,7 @@ import 'MyProfile.dart';
 import 'PastEvent.dart';
 import 'MyUpdates.dart';
 import 'MyEvents.dart';
+import 'LiveEventView.dart';
 import 'CreateEvent.dart';
 import 'package:intl/intl.dart';
 
@@ -154,14 +155,25 @@ class _MainScreenState extends State<MainScreen>
               margin: const EdgeInsets.only(
                   left: 12, right: 12, bottom: 20, top: 15),
               child: InkWell(
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => PastEvent(
-                              OnomaEvent: viewnowlist[index].OnomaEvent,
-                              meros: viewnowlist[index].meros,
-                              eikona: viewnowlist[index].eikona,
-                            ))),
+                onTap: () {
+                  if (!viewnowlist[index].live) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PastEvent(
+                                  OnomaEvent: viewnowlist[index].OnomaEvent,
+                                  meros: viewnowlist[index].meros,
+                                  eikona: viewnowlist[index].eikona,
+                                )));
+                  } else {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => LiveEventView(
+                                  title: viewnowlist[index].OnomaEvent,
+                                )));
+                  }
+                },
                 child: Card(
                   clipBehavior: Clip.hardEdge,
                   child: Column(
