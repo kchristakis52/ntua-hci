@@ -52,6 +52,8 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen>
     with AutomaticKeepAliveClientMixin {
   bool showLive = false;
+  String firtname = 'George';
+  String lastname = 'Papadopoulos';
   late List<Event> viewnowlist;
   List<Event> myeventslist = <Event>[];
   List<Event> liveeventslist = <Event>[];
@@ -282,13 +284,8 @@ class _MainScreenState extends State<MainScreen>
           type: BottomNavigationBarType.fixed,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: 'Search',
-            ),
+                icon: Icon(Icons.home_outlined), label: 'Home'),
+            BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.star_outline), label: 'My Events'),
             BottomNavigationBarItem(
