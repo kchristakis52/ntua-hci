@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as p;
+import 'package:testwheren/UpcomingEvent.dart';
 import 'MySettings.dart';
 import 'MyProfile.dart';
 import 'PastEvent.dart';
@@ -162,11 +163,8 @@ class _MainScreenState extends State<MainScreen>
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => PastEvent(
-                                  OnomaEvent: viewnowlist[index].OnomaEvent,
-                                  meros: viewnowlist[index].meros,
-                                  eikona: viewnowlist[index].eikona,
-                                )));
+                            builder: (context) =>
+                                UpcomingEvent(event: viewnowlist[index])));
                   } else {
                     Navigator.push(
                         context,
