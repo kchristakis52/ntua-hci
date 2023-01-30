@@ -28,7 +28,7 @@ class _LiveEventViewState extends State<LiveEventView> {
   final _commentController = TextEditingController();
   String Comment = "";
   String time = "";
-  List<LiveComment> Feedback = [
+  List<LiveComment> Feedback = <LiveComment>[
     LiveComment(
         commentBody: "Εδώ περνάμε καλά :D",
         UploadTime: TimeOfDay(hour: 20, minute: 32),
@@ -130,6 +130,11 @@ class _LiveEventViewState extends State<LiveEventView> {
                           Comment = _commentController.text;
                           _commentController.clear();
                           time = TimeOfDay.now().format(context).toString();
+                          LiveComment(
+                              UploadTime: TimeOfDay.now(),
+                              commentBody: Comment,
+                              FirstName: "DefaultFirst",
+                              LastName: "DefaultLast");
                           setState(() {});
                         },
                       ),
