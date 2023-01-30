@@ -5,6 +5,7 @@ import 'MyProfile.dart';
 import 'main.dart';
 import 'MySettings.dart';
 import 'PastEvent.dart';
+import 'Search.dart';
 
 class MyUpdates extends StatelessWidget {
   const MyUpdates({super.key});
@@ -48,6 +49,10 @@ class MyUpdates extends StatelessWidget {
               if (value == 0)
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => MainScreen()));
+              if (value == 1) {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Search()));
+              }
               if (value == 2)
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => MyEvents()));
