@@ -24,11 +24,15 @@ class _SearchState extends State<Search> {
           title: const Text('College Nights'),
           actions: [
             IconButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyProfile()));
-                },
-                icon: const Icon(Icons.account_circle_rounded))
+              onPressed: () {
+                // method to show the search bar
+                showSearch(
+                    context: context,
+                    // delegate to customize the search bar
+                    delegate: CustomSearchDelegate());
+              },
+              icon: const Icon(Icons.search),
+            )
           ],
           bottom: PreferredSize(
               child: Container(
@@ -37,6 +41,7 @@ class _SearchState extends State<Search> {
               ),
               preferredSize: Size.fromHeight(0.25)),
         ),
+        //body: ,
         bottomNavigationBar: BottomNavigationBar(
             currentIndex: 1,
             onTap: (value) {
@@ -71,5 +76,76 @@ class _SearchState extends State<Search> {
               BottomNavigationBarItem(
                   icon: Icon(Icons.settings_outlined), label: 'Settings')
             ]));
+  }
+}
+
+class CustomSearchDelegate extends SearchDelegate {
+// Demo list to show querying
+  List<String> searchTerms = ["Tropical", "The Party", "House Festival"];
+
+// first overwrite to
+// clear the search text
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return [
+      IconButton(
+        onPressed: () {
+          query = '';
+        },
+        icon: Icon(Icons.clear),
+      ),
+    ];
+  }
+
+// second overwrite to pop out of search menu
+  @override
+  Widget? buildLeading(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        close(context, null);
+      },
+      icon: Icon(Icons.arrow_back),
+    );
+  }
+
+// third overwrite to show query result
+  @override
+  Widget buildResults(BuildContext context) {
+    List<String> matchQuery = [];
+    for (var events in searchTerms) {
+      if (events.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(events);
+      }
+    }
+    return ListView.builder(
+      itemCount: matchQuery.length,
+      itemBuilder: (context, index) {
+        var result = matchQuery[index];
+        return ListTile(
+          title: Text(result),
+        );
+      },
+    );
+  }
+
+// last overwrite to show the
+// querying process at the runtime
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    List<String> matchQuery = [];
+    for (var events in searchTerms) {
+      if (events.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(events);
+      }
+    }
+    return ListView.builder(
+      itemCount: matchQuery.length,
+      itemBuilder: (context, index) {
+        var result = matchQuery[index];
+        return ListTile(
+          title: Text(result),
+        );
+      },
+    );
   }
 }
