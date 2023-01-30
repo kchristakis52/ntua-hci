@@ -113,7 +113,27 @@ class _LiveEventViewState extends State<LiveEventView> {
               color: Colors.grey.shade400,
             ),
             Expanded(
-                child: _buildListView()), //Expanded για List μέσα σε Column
+                child: ListView.builder(
+              itemCount: Feedback.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                    title: Text(
+                        Feedback[index].FirstName + Feedback[index].LastName),
+                    subtitle: Text(Feedback[index].commentBody),
+                    leading: CircleAvatar(
+                        backgroundColor: Colors.purple.shade800,
+                        radius: 20,
+                        child: Text(
+                          Feedback[index].FirstName[0] +
+                              Feedback[index].LastName[0],
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        )),
+                    trailing: Text(
+                      Feedback[index].UploadTime.format(context).toString(),
+                      style: TextStyle(fontSize: 16),
+                    ));
+              },
+            )), //Expanded για List μέσα σε Column
             Container(
               decoration: BoxDecoration(
                 color: Colors.purple.shade50,
@@ -129,11 +149,11 @@ class _LiveEventViewState extends State<LiveEventView> {
                           Comment = _commentController.text;
                           _commentController.clear();
                           time = TimeOfDay.now().format(context).toString();
-                          LiveComment(
+                          Feedback.add(LiveComment(
                               UploadTime: TimeOfDay.now(),
                               commentBody: Comment,
                               FirstName: "DefaultFirst",
-                              LastName: "DefaultLast");
+                              LastName: "DefaultLast"));
                           setState(() {});
                         },
                       ),
