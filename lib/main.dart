@@ -51,7 +51,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen>
     with AutomaticKeepAliveClientMixin {
   bool showLive = false;
-  var viewnowlist;
+  late List<Event> viewnowlist;
   List<Event> myeventslist = <Event>[];
   List<Event> liveeventslist = <Event>[];
   List<Event> currevents = <Event>[
@@ -107,6 +107,7 @@ class _MainScreenState extends State<MainScreen>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    liveeventslist = [];
     for (int i = 0; i < currevents.length; i++) {
       if (DateTime.now().isAfter(currevents[i].hmeromhnia) &&
           DateTime.now()
