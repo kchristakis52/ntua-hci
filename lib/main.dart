@@ -27,11 +27,11 @@ class wheren extends StatelessWidget {
       /// Το θέμα της εφαμρογής μας
       theme: ThemeData(
         applyElevationOverlayColor: true,
-        colorSchemeSeed: Color.fromRGBO(103, 80, 164, 1),
+        colorSchemeSeed: const Color.fromRGBO(103, 80, 164, 1),
         useMaterial3: true,
         timePickerTheme: TimePickerThemeData(
           backgroundColor: Colors.purple.shade50,
-          helpTextStyle: TextStyle(fontSize: 14),
+          helpTextStyle: const TextStyle(fontSize: 14),
         ),
       ),
 
@@ -51,6 +51,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen>
     with AutomaticKeepAliveClientMixin {
   bool showLive = false;
+  List<Event> viewnowlist = <Event>[];
   List<Event> myeventslist = <Event>[];
   List<Event> currevents = <Event>[
     Event(
@@ -100,6 +101,7 @@ class _MainScreenState extends State<MainScreen>
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
     ),
   ];
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -134,12 +136,13 @@ class _MainScreenState extends State<MainScreen>
             )),
       ),
       body: ListView.builder(
-          itemCount: currevents.length,
+          itemCount: viewnowlist.length,
           itemBuilder: ((context, index) {
-            bool live = (DateTime.now().isAfter(currevents[index].hmeromhnia) &&
-                DateTime.now().isBefore(currevents[index]
-                    .hmeromhnia
-                    .add(currevents[index].diarkeia)));
+            currevents[index].live =
+                (DateTime.now().isAfter(currevents[index].hmeromhnia) &&
+                    DateTime.now().isBefore(currevents[index]
+                        .hmeromhnia
+                        .add(currevents[index].diarkeia)));
             return Container(
               margin: const EdgeInsets.only(
                   left: 12, right: 12, bottom: 20, top: 15),
@@ -166,7 +169,7 @@ class _MainScreenState extends State<MainScreen>
                               style: const TextStyle(
                                   color: Color.fromARGB(255, 33, 0, 93))),
                         ),
-                        trailing: (live)
+                        trailing: (currevents[index].live)
                             ? const Icon(
                                 Icons.radio_button_checked,
                                 color: Color.fromARGB(255, 179, 38, 30),
@@ -202,7 +205,8 @@ class _MainScreenState extends State<MainScreen>
                         children: [
                           OutlinedButton(
                             onPressed: () {
-                              // Perform some action
+                              currevents.removeAt(index);
+                              setState(() {});
                             },
                             child: const Text('Not Interested'),
                           ),
@@ -276,7 +280,6 @@ class _MainScreenState extends State<MainScreen>
   }
 
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }
 
@@ -289,17 +292,19 @@ class Event {
   final Duration diarkeia;
   final String perigrafh;
   final String eikona;
-  final bool attending;
-  final bool live;
-  Event(
-      {required this.OnomaEvent,
-      required this.OnomaDiorganwti,
-      required this.EpithetoDiorganwti,
-      required this.meros,
-      required this.hmeromhnia,
-      this.diarkeia = const Duration(hours: 4),
-      required this.perigrafh,
-      this.eikona = './assets/images/Media.png',
-      this.attending = false,
-      this.live = false});
+  late bool live;
+
+  Event({
+    required this.OnomaEvent,
+    required this.OnomaDiorganwti,
+    required this.EpithetoDiorganwti,
+    required this.meros,
+    required this.hmeromhnia,
+    this.diarkeia = const Duration(hours: 4),
+    required this.perigrafh,
+    this.eikona = './assets/images/Media.png',
+  }) {
+    live = (DateTime.now().isAfter(hmeromhnia) &&
+        DateTime.now().isBefore(hmeromhnia.add(diarkeia)));
+  }
 }
