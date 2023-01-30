@@ -201,6 +201,11 @@ class _CreateEventState extends State<CreateEvent> {
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                 ),
                 child: TextField(
+                  maxLength: 2,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
                   controller: _durationController,
                   decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
@@ -295,14 +300,18 @@ class _CreateEventState extends State<CreateEvent> {
                 TextButton(
                     onPressed: (() {
                       final event = Event(
-                        OnomaEvent: _nameController.text,
-                        OnomaDiorganwti: 'Giorgos',
-                        EpithetoDiorganwti: 'EpithetoDiorganwti',
-                        meros: _locationController.text,
-                        hmeromhnia: DateTime(_eventDate.year, _eventDate.month,
-                            _eventDate.day, _eventTime.hour, _eventTime.minute),
-                        perigrafh: _descriptionController.text,
-                      );
+                          OnomaEvent: _nameController.text,
+                          OnomaDiorganwti: 'Giorgos',
+                          EpithetoDiorganwti: 'EpithetoDiorganwti',
+                          meros: _locationController.text,
+                          hmeromhnia: DateTime(
+                              _eventDate.year,
+                              _eventDate.month,
+                              _eventDate.day,
+                              _eventTime.hour,
+                              _eventTime.minute),
+                          perigrafh: _descriptionController.text,
+                          diarkeia: Duration(hours: 4));
                       Navigator.pop(context, event);
                     }),
                     style: TextButton.styleFrom(

@@ -72,35 +72,36 @@ class _MainScreenState extends State<MainScreen>
       hmeromhnia: DateTime(2023, 02, 20, 17, 0, 0),
       perigrafh:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+      diarkeia: Duration(hours: 4),
       eikona: './assets/images/festival.jpg',
     ),
     Event(
-      OnomaEvent: 'The Party',
-      OnomaDiorganwti: 'Lorem',
-      EpithetoDiorganwti: 'Ipsum',
-      meros: 'Beach, Athens',
-      hmeromhnia: DateTime(2023, 02, 13, 23, 00, 00),
-      perigrafh:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-    ),
+        OnomaEvent: 'The Party',
+        OnomaDiorganwti: 'Lorem',
+        EpithetoDiorganwti: 'Ipsum',
+        meros: 'Beach, Athens',
+        hmeromhnia: DateTime(2023, 02, 13, 23, 00, 00),
+        perigrafh:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+        diarkeia: Duration(hours: 4)),
     Event(
-      OnomaEvent: 'The Party',
-      OnomaDiorganwti: 'Lorem',
-      EpithetoDiorganwti: 'Ipsum',
-      meros: 'Beach, Athens',
-      hmeromhnia: DateTime(2023, 02, 13, 23, 00, 00),
-      perigrafh:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-    ),
+        OnomaEvent: 'The Party',
+        OnomaDiorganwti: 'Lorem',
+        EpithetoDiorganwti: 'Ipsum',
+        meros: 'Beach, Athens',
+        hmeromhnia: DateTime(2023, 02, 13, 23, 00, 00),
+        perigrafh:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+        diarkeia: Duration(hours: 4)),
     Event(
-      OnomaEvent: 'The Party',
-      OnomaDiorganwti: 'Lorem',
-      EpithetoDiorganwti: 'Ipsum',
-      meros: 'Beach, Athens',
-      hmeromhnia: DateTime(2023, 02, 13, 23, 00, 00),
-      perigrafh:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-    ),
+        OnomaEvent: 'The Party',
+        OnomaDiorganwti: 'Lorem',
+        EpithetoDiorganwti: 'Ipsum',
+        meros: 'Beach, Athens',
+        hmeromhnia: DateTime(2023, 02, 13, 23, 00, 00),
+        perigrafh:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+        diarkeia: Duration(hours: 4)),
   ];
 
   @override
@@ -305,7 +306,7 @@ class Event {
       required this.EpithetoDiorganwti,
       required this.meros,
       required this.hmeromhnia,
-      this.diarkeia = const Duration(hours: 4),
+      required this.diarkeia,
       required this.perigrafh,
       this.eikona = './assets/images/Media.png',
       this.live = false});
