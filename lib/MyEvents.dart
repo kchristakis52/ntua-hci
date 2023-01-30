@@ -6,6 +6,7 @@ import 'main.dart';
 import 'MySettings.dart';
 import 'PastEvent.dart';
 import 'MyUpdates.dart';
+import 'Search.dart';
 
 class MyEvents extends StatefulWidget {
   const MyEvents({super.key});
@@ -104,6 +105,10 @@ class _MyEventsState extends State<MyEvents> with TickerProviderStateMixin {
               if (value == 0)
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => MainScreen()));
+              if (value == 1) {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Search()));
+              }
               if (value == 2)
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => MyEvents()));

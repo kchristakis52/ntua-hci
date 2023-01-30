@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:testwheren/MyUpdates.dart';
-
+import 'Search.dart';
 import 'main.dart';
 import 'package:flutter/material.dart';
 import 'MyProfile.dart';
@@ -110,6 +110,10 @@ class _MySettingsState extends State<MySettings> {
               if (value == 0)
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => MainScreen()));
+              if (value == 1) {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Search()));
+              }
               if (value == 2)
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => MyEvents()));

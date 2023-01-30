@@ -8,6 +8,7 @@ import 'MyProfile.dart';
 import 'PastEvent.dart';
 import 'MyUpdates.dart';
 import 'MyEvents.dart';
+import 'Search.dart';
 import 'LiveEventView.dart';
 import 'CreateEvent.dart';
 import 'package:intl/intl.dart';
@@ -265,17 +266,21 @@ class _MainScreenState extends State<MainScreen>
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => MainScreen()));
             }
+            if (value == 1) {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Search()));
+            }
             if (value == 2) {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const MyEvents()));
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => MyEvents()));
             }
             if (value == 4) {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const MySettings()));
+                  MaterialPageRoute(builder: (context) => MySettings()));
             }
             if (value == 3) {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const MyUpdates()));
+                  MaterialPageRoute(builder: (context) => MyUpdates()));
             }
           },
           unselectedFontSize: 0,
