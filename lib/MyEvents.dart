@@ -27,116 +27,79 @@ class _MyEventsState extends State<MyEvents> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          automaticallyImplyLeading: false,
-          title: const Text('College Nights'),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyProfile()));
-                },
-                icon: const Icon(Icons.account_circle_rounded))
-          ],
-          bottom: TabBar(
-            indicatorColor: Color.fromARGB(255, 100, 13, 134),
-            labelColor: Color.fromARGB(255, 100, 13, 134),
-            controller: _tabController,
-            tabs: <Widget>[
-              Tab(
-                icon: Text('Upcoming'),
-              ),
-              Tab(
-                icon: Text('Live'),
-              ),
-              Tab(
-                icon: Text('Past Events'),
-              ),
-            ],
-          ),
-        ),
-        body: TabBarView(
+      appBar: AppBar(
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+        title: const Text('College Nights'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyProfile()));
+              },
+              icon: const Icon(Icons.account_circle_rounded))
+        ],
+        bottom: TabBar(
+          indicatorColor: Color.fromARGB(255, 100, 13, 134),
+          labelColor: Color.fromARGB(255, 100, 13, 134),
           controller: _tabController,
-          children: <Widget>[
-            Column(children: [
-              EventCard(
-                OnomaEvent: 'Tropical',
-                OnomaDiorganwti: 'Vasilis',
-                EpithetoDiorganwti: 'Andreou',
-                ProperText: '4 Days Until The Event',
-                EventPic: ('./assets/images/Media.png'),
-                EventPlace: 'Gazi',
-              ),
-              EventCard(
-                OnomaEvent: 'Trap House',
-                OnomaDiorganwti: 'Skoe',
-                EpithetoDiorganwti: 'Rams',
-                ProperText: '4 Days Until The Event',
-                EventPic: ('./assets/images/festival.jpg'),
-                EventPlace: 'Sintagma',
-              )
-            ]),
-            Column(children: [
-              EventCard(
-                OnomaEvent: 'House Party',
-                OnomaDiorganwti: 'Aris',
-                EpithetoDiorganwti: 'Anagnostou',
-                ProperText: 'Event Is Live!',
-                EventPic: ('./assets/images/festival.jpg'),
-                EventPlace: 'Monastiraki',
-              ),
-            ]),
-            Column(children: [
-              EventCard(
-                OnomaEvent: 'Open Partaki',
-                OnomaDiorganwti: 'Anestis',
-                EpithetoDiorganwti: 'Sapliaouras',
-                ProperText: 'Old Event',
-                EventPic: ('./assets/images/Media.png'),
-                EventPlace: 'Kolonaki',
-              ),
-            ])
+          tabs: <Widget>[
+            Tab(
+              icon: Text('Upcoming'),
+            ),
+            Tab(
+              icon: Text('Live'),
+            ),
+            Tab(
+              icon: Text('Past Events'),
+            ),
           ],
         ),
-        bottomNavigationBar: BottomNavigationBar(
-            currentIndex: 2,
-            onTap: (value) {
-              if (value == 0)
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MainScreen()));
-              if (value == 1) {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Search()));
-              }
-              if (value == 2)
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MyEvents()));
-              if (value == 3)
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MyUpdates()));
-              if (value == 4)
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MySettings()));
-            },
-            unselectedFontSize: 0,
-            type: BottomNavigationBarType.fixed,
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home_outlined),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                label: 'Search',
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.star_outline), label: 'My Events'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.notifications_outlined), label: 'Updates'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.settings_outlined), label: 'Settings')
-            ]));
+      ),
+      body: TabBarView(
+        controller: _tabController,
+        children: <Widget>[
+          Column(children: [
+            EventCard(
+              OnomaEvent: 'Tropical',
+              OnomaDiorganwti: 'Vasilis',
+              EpithetoDiorganwti: 'Andreou',
+              ProperText: '4 Days Until The Event',
+              EventPic: ('./assets/images/Media.png'),
+              EventPlace: 'Gazi',
+            ),
+            EventCard(
+              OnomaEvent: 'Trap House',
+              OnomaDiorganwti: 'Skoe',
+              EpithetoDiorganwti: 'Rams',
+              ProperText: '4 Days Until The Event',
+              EventPic: ('./assets/images/festival.jpg'),
+              EventPlace: 'Sintagma',
+            )
+          ]),
+          Column(children: [
+            EventCard(
+              OnomaEvent: 'House Party',
+              OnomaDiorganwti: 'Aris',
+              EpithetoDiorganwti: 'Anagnostou',
+              ProperText: 'Event Is Live!',
+              EventPic: ('./assets/images/festival.jpg'),
+              EventPlace: 'Monastiraki',
+            ),
+          ]),
+          Column(children: [
+            EventCard(
+              OnomaEvent: 'Open Partaki',
+              OnomaDiorganwti: 'Anestis',
+              EpithetoDiorganwti: 'Sapliaouras',
+              ProperText: 'Old Event',
+              EventPic: ('./assets/images/Media.png'),
+              EventPlace: 'Kolonaki',
+            ),
+          ])
+        ],
+      ),
+    );
   }
 }
 

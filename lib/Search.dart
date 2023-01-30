@@ -18,64 +18,31 @@ class _SearchState extends State<Search> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          automaticallyImplyLeading: false,
-          title: const Text('College Nights'),
-          actions: [
-            IconButton(
-              onPressed: () {
-                // method to show the search bar
-                showSearch(
-                    context: context,
-                    // delegate to customize the search bar
-                    delegate: CustomSearchDelegate());
-              },
-              icon: const Icon(Icons.search),
-            )
-          ],
-          bottom: PreferredSize(
-              child: Container(
-                color: Colors.black,
-                height: 0.25,
-              ),
-              preferredSize: Size.fromHeight(0.25)),
-        ),
-        //body: ,
-        bottomNavigationBar: BottomNavigationBar(
-            currentIndex: 1,
-            onTap: (value) {
-              if (value == 0)
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MainScreen()));
-              if (value == 2)
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MyEvents()));
-              if (value == 3)
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MyUpdates()));
-              if (value == 4)
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MySettings()));
+      appBar: AppBar(
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+        title: const Text('College Nights'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              // method to show the search bar
+              showSearch(
+                  context: context,
+                  // delegate to customize the search bar
+                  delegate: CustomSearchDelegate());
             },
-            unselectedFontSize: 0,
-            type: BottomNavigationBarType.fixed,
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home_outlined),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                label: 'Search',
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.star_outline), label: 'My Events'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.notifications_outlined), label: 'Updates'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.settings_outlined), label: 'Settings')
-            ]));
+            icon: const Icon(Icons.search),
+          )
+        ],
+        bottom: PreferredSize(
+            child: Container(
+              color: Colors.black,
+              height: 0.25,
+            ),
+            preferredSize: Size.fromHeight(0.25)),
+      ),
+      //body: ,
+    );
   }
 }
 

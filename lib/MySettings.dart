@@ -103,60 +103,6 @@ class _MySettingsState extends State<MySettings> {
               ),
             )
           ],
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-            currentIndex: 4,
-            onTap: (value) {
-              if (value == 0)
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MainScreen()));
-              if (value == 1) {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Search()));
-              }
-              if (value == 2)
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MyEvents()));
-              if (value == 3)
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MyUpdates()));
-              if (value == 4)
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MySettings()));
-            },
-            unselectedFontSize: 0,
-            type: BottomNavigationBarType.fixed,
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home_outlined),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                label: 'Search',
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.star_outline), label: 'My Events'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.notifications_outlined), label: 'Updates'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.settings_outlined), label: 'Settings')
-            ]));
+        ));
   }
-
-  /*
-  ListView _buildListView() {
-    return ListView.builder(
-      itemCount: 4,
-      itemBuilder: (_, index) {
-        return ListTile(
-            title: Text('The list item #$index'),
-            subtitle: null,
-            leading: Icon(Icons.thumb_up),
-            trailing: Icon(Icons.thumb_down));
-      },
-    );
-  }
-*/
-
 }
