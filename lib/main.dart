@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as p;
+import 'package:testwheren/UpcomingEvent.dart';
 import 'MySettings.dart';
 import 'MyProfile.dart';
 import 'PastEvent.dart';
@@ -52,6 +53,8 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen>
     with AutomaticKeepAliveClientMixin {
   bool showLive = false;
+  String firtname = 'George';
+  String lastname = 'Papadopoulos';
   late List<Event> viewnowlist;
   List<Event> myeventslist = <Event>[];
   List<Event> liveeventslist = <Event>[];
@@ -160,11 +163,8 @@ class _MainScreenState extends State<MainScreen>
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => PastEvent(
-                                  OnomaEvent: viewnowlist[index].OnomaEvent,
-                                  meros: viewnowlist[index].meros,
-                                  eikona: viewnowlist[index].eikona,
-                                )));
+                            builder: (context) =>
+                                UpcomingEvent(event: viewnowlist[index])));
                   } else {
                     Navigator.push(
                         context,
@@ -282,13 +282,8 @@ class _MainScreenState extends State<MainScreen>
           type: BottomNavigationBarType.fixed,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: 'Search',
-            ),
+                icon: Icon(Icons.home_outlined), label: 'Home'),
+            BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.star_outline), label: 'My Events'),
             BottomNavigationBarItem(
