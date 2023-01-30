@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
 
 class LiveEventView extends StatefulWidget {
-  const LiveEventView({super.key, required this.title});
+  const LiveEventView({
+    super.key,
+    required this.title,
+    required this.eikona,
+  });
 
   final String title;
+  final String eikona;
 
   @override
   State<LiveEventView> createState() => _LiveEventViewState();
 }
 
 class _LiveEventViewState extends State<LiveEventView> {
+  final _commentController = TextEditingController();
+  String Comment = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,10 +29,20 @@ class _LiveEventViewState extends State<LiveEventView> {
             centerTitle: true,
             title: Text(widget.title),
             actions: [
-              IconButton(
-                  iconSize: 50,
-                  onPressed: (() {}),
-                  icon: ImageIcon(AssetImage('assets/images/festival.jpg')))
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: CircleAvatar(
+                  radius: 20,
+                  child: Container(
+                      decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                    image: DecorationImage(
+                        fit: BoxFit.fitHeight,
+                        image: AssetImage(widget.eikona)),
+                  )),
+                ),
+              )
             ],
           )),
       body: Center(
