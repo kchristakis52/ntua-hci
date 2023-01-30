@@ -34,11 +34,13 @@ class MyUpdates extends StatelessWidget {
         body: ListView(children: const <Notification>[
           Notification(
             periexomeno: ('Time has changed. Take a look!'),
-            NotPic: ('images/Media.png'),
+            NotPic: ('./assets/images/Media.png'),
           ),
-          Notification(periexomeno: 'Cool', NotPic: ('images/festival.jpg')),
           Notification(
-              periexomeno: ('periexomeno'), NotPic: ('images/Media.png'))
+              periexomeno: 'Cool', NotPic: ('./assets/images/festival.jpg')),
+          Notification(
+              periexomeno: ('periexomeno'),
+              NotPic: ('./assets/images/Media.png'))
         ]),
         bottomNavigationBar: BottomNavigationBar(
             currentIndex: 3,
@@ -99,7 +101,7 @@ class _NotificationState extends State<Notification> {
                         builder: (context) => PastEvent(
                               OnomaEvent: 'Tropical',
                               meros: 'Gazi Music Hall',
-                              eikona: ('images/Media.png'),
+                              eikona: ('./assets/images/Media.png'),
                             ))),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

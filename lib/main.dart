@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; //Χρειαζεται για CreateEvent
@@ -49,19 +48,20 @@ class MainScreen extends StatefulWidget {
   State<MainScreen> createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainScreenState extends State<MainScreen>
+    with AutomaticKeepAliveClientMixin {
   bool showLive = false;
-  final currevents = <Event>[
+  List<Event> myeventslist = <Event>[];
+  List<Event> currevents = <Event>[
     Event(
-      OnomaEvent: 'Tropical The Party',
-      OnomaDiorganwti: 'Aggelos',
-      EpithetoDiorganwti: 'Dimitriou',
-      meros: 'Gazi Music Hall, Athens',
-      hmeromhnia: DateTime(2023, 02, 13, 23, 00, 00),
-      perigrafh:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-      live: true,
-    ),
+        OnomaEvent: 'Tropical The Party',
+        OnomaDiorganwti: 'Aggelos',
+        EpithetoDiorganwti: 'Dimitriou',
+        meros: 'Gazi Music Hall, Athens',
+        hmeromhnia: DateTime(2023, 01, 20, 23, 00, 00),
+        perigrafh:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+        diarkeia: Duration(days: 30)),
     Event(
       OnomaEvent: 'House Festival',
       OnomaDiorganwti: 'Reece',
@@ -70,7 +70,7 @@ class _MainScreenState extends State<MainScreen> {
       hmeromhnia: DateTime(2023, 02, 20, 17, 0, 0),
       perigrafh:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-      eikona: '/images/festival.jpg',
+      eikona: './assets/images/festival.jpg',
     ),
     Event(
       OnomaEvent: 'The Party',
@@ -102,6 +102,7 @@ class _MainScreenState extends State<MainScreen> {
   ];
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       appBar: AppBar(
@@ -135,12 +136,103 @@ class _MainScreenState extends State<MainScreen> {
       body: ListView.builder(
           itemCount: currevents.length,
           itemBuilder: ((context, index) {
-            return EventItem(event: currevents[index]);
+            bool live = (DateTime.now().isAfter(currevents[index].hmeromhnia) &&
+                DateTime.now().isBefore(currevents[index]
+                    .hmeromhnia
+                    .add(currevents[index].diarkeia)));
+            return Container(
+              margin: const EdgeInsets.only(
+                  left: 12, right: 12, bottom: 20, top: 15),
+              child: InkWell(
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PastEvent(
+                              OnomaEvent: currevents[index].OnomaEvent,
+                              meros: currevents[index].meros,
+                              eikona: currevents[index].eikona,
+                            ))),
+                child: Card(
+                  clipBehavior: Clip.hardEdge,
+                  child: Column(
+                    children: [
+                      ListTile(
+                        leading: CircleAvatar(
+                          radius: 20,
+                          backgroundColor:
+                              const Color.fromARGB(255, 234, 221, 255),
+                          child: Text(
+                              '${currevents[index].OnomaDiorganwti[0]}${currevents[index].EpithetoDiorganwti[0]}',
+                              style: const TextStyle(
+                                  color: Color.fromARGB(255, 33, 0, 93))),
+                        ),
+                        trailing: (live)
+                            ? const Icon(
+                                Icons.radio_button_checked,
+                                color: Color.fromARGB(255, 179, 38, 30),
+                              )
+                            : null,
+                        title: Text(
+                            '${currevents[index].OnomaDiorganwti} ${currevents[index].EpithetoDiorganwti}'),
+                        subtitle: Text(
+                          currevents[index].meros,
+                        ),
+                      ),
+                      AspectRatio(
+                          aspectRatio: 335 / 170,
+                          child: Image.asset(
+                            currevents[index].eikona,
+                            fit: BoxFit.fitWidth,
+                          )),
+                      ListTile(
+                        title: Text(
+                          currevents[index].OnomaEvent,
+                        ),
+                        subtitle: Text(DateFormat('EEEE, d MMM yyyy HH:mm')
+                            .format(currevents[index].hmeromhnia)),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(
+                          currevents[index].perigrafh,
+                        ),
+                      ),
+                      ButtonBar(
+                        alignment: MainAxisAlignment.end,
+                        children: [
+                          OutlinedButton(
+                            onPressed: () {
+                              // Perform some action
+                            },
+                            child: const Text('Not Interested'),
+                          ),
+                          TextButton(
+                            style: TextButton.styleFrom(
+                                backgroundColor:
+                                    const Color.fromARGB(255, 103, 80, 164)),
+                            onPressed: () {
+                              myeventslist.add(currevents[index]);
+                              currevents.removeAt(index);
+                              setState(() {});
+                            },
+                            child: const Text('Attend',
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 255, 255, 255))),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
           })),
       floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(context,
+          onPressed: () async {
+            Event? newEvent = await Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const CreateEvent()));
+            if (newEvent != null) currevents.add(newEvent);
+            setState(() {});
           },
           child: const Icon(Icons.add)),
       bottomNavigationBar: BottomNavigationBar(
@@ -182,106 +274,10 @@ class _MainScreenState extends State<MainScreen> {
           ]),
     );
   }
-}
-
-class EventItem extends StatefulWidget {
-  final Event event;
-
-  EventItem({
-    Key? key,
-    required this.event,
-  }) : super(key: key);
 
   @override
-  State<EventItem> createState() => _EventItemState();
-}
-
-class _EventItemState extends State<EventItem> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(left: 12, right: 12, bottom: 20, top: 15),
-      child: InkWell(
-        onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => PastEvent(
-                      OnomaEvent: widget.event.OnomaEvent,
-                      meros: widget.event.meros,
-                      eikona: widget.event.eikona,
-                    ))),
-        child: Card(
-          clipBehavior: Clip.hardEdge,
-          child: Column(
-            children: [
-              ListTile(
-                leading: CircleAvatar(
-                  radius: 20,
-                  backgroundColor: const Color.fromARGB(255, 234, 221, 255),
-                  child: Text(
-                      '${widget.event.OnomaDiorganwti[0]}${widget.event.EpithetoDiorganwti[0]}',
-                      style: const TextStyle(
-                          color: Color.fromARGB(255, 33, 0, 93))),
-                ),
-                trailing: (widget.event.live)
-                    ? const Icon(
-                        Icons.radio_button_checked,
-                        color: Color.fromARGB(255, 179, 38, 30),
-                      )
-                    : null,
-                title: Text(
-                    '${widget.event.OnomaDiorganwti} ${widget.event.EpithetoDiorganwti}'),
-                subtitle: Text(
-                  widget.event.meros,
-                ),
-              ),
-              AspectRatio(
-                  aspectRatio: 335 / 170,
-                  child: Image.asset(
-                    widget.event.eikona,
-                    fit: BoxFit.fitWidth,
-                  )),
-              ListTile(
-                title: Text(
-                  widget.event.OnomaEvent,
-                ),
-                subtitle: Text(DateFormat('EEEE, d MMM yyyy HH:mm')
-                    .format(widget.event.hmeromhnia)),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  widget.event.perigrafh,
-                ),
-              ),
-              ButtonBar(
-                alignment: MainAxisAlignment.end,
-                children: [
-                  OutlinedButton(
-                    onPressed: () {
-                      // Perform some action
-                    },
-                    child: const Text('Not Interested'),
-                  ),
-                  TextButton(
-                    style: TextButton.styleFrom(
-                        backgroundColor:
-                            const Color.fromARGB(255, 103, 80, 164)),
-                    onPressed: () {
-                      // Perform some action
-                    },
-                    child: const Text('Attend',
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 255, 255, 255))),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
 
 class Event {
@@ -303,7 +299,7 @@ class Event {
       required this.hmeromhnia,
       this.diarkeia = const Duration(hours: 4),
       required this.perigrafh,
-      this.eikona = 'images/Media.png',
+      this.eikona = './assets/images/Media.png',
       this.attending = false,
       this.live = false});
 }

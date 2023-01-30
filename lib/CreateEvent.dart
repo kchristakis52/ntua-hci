@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; //Χρειαζεται για MAXlengthEnforcement
+import 'package:flutter/services.dart';
+import 'package:testwheren/main.dart'; //Χρειαζεται για MAXlengthEnforcement
 
 class CreateEvent extends StatefulWidget {
   const CreateEvent({super.key});
@@ -292,12 +293,14 @@ class _CreateEventState extends State<CreateEvent> {
                 ),
                 TextButton(
                     onPressed: (() {
-                      setState(() async {
-                        name = _nameController.text;
-                        description = _descriptionController.text;
-                        location = _locationController.text;
-                        duration = _durationController.text;
-                      });
+                      final event = Event(
+                          OnomaEvent: _nameController.text,
+                          OnomaDiorganwti: 'Giorgos',
+                          EpithetoDiorganwti: 'EpithetoDiorganwti',
+                          meros: _locationController.text,
+                          hmeromhnia: DateTime.now(),
+                          perigrafh: _descriptionController.text);
+                      Navigator.pop(context, event);
                     }),
                     style: TextButton.styleFrom(
                         backgroundColor: Colors.purple.shade900),

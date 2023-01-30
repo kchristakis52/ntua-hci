@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:testwheren/MyUpdates.dart';
@@ -65,7 +64,7 @@ class _MyEventsState extends State<MyEvents> with TickerProviderStateMixin {
                 OnomaDiorganwti: 'Vasilis',
                 EpithetoDiorganwti: 'Andreou',
                 ProperText: '4 Days Until The Event',
-                EventPic: ('images/Media.png'),
+                EventPic: ('./assets/images/Media.png'),
                 EventPlace: 'Gazi',
               ),
               EventCard(
@@ -73,7 +72,7 @@ class _MyEventsState extends State<MyEvents> with TickerProviderStateMixin {
                 OnomaDiorganwti: 'Skoe',
                 EpithetoDiorganwti: 'Rams',
                 ProperText: '4 Days Until The Event',
-                EventPic: ('images/festival.jpg'),
+                EventPic: ('./assets/images/festival.jpg'),
                 EventPlace: 'Sintagma',
               )
             ]),
@@ -83,7 +82,7 @@ class _MyEventsState extends State<MyEvents> with TickerProviderStateMixin {
                 OnomaDiorganwti: 'Aris',
                 EpithetoDiorganwti: 'Anagnostou',
                 ProperText: 'Event Is Live!',
-                EventPic: ('images/festival.jpg'),
+                EventPic: ('./assets/images/festival.jpg'),
                 EventPlace: 'Monastiraki',
               ),
             ]),
@@ -93,7 +92,7 @@ class _MyEventsState extends State<MyEvents> with TickerProviderStateMixin {
                 OnomaDiorganwti: 'Anestis',
                 EpithetoDiorganwti: 'Sapliaouras',
                 ProperText: 'Old Event',
-                EventPic: ('images/Media.png'),
+                EventPic: ('./assets/images/Media.png'),
                 EventPlace: 'Kolonaki',
               ),
             ])
