@@ -29,15 +29,16 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     liveeventslist = [];
-    for (int i = 0; i < globals.currevents.length; i++) {
-      if (DateTime.now().isAfter(globals.currevents[i].hmeromhnia) &&
-          DateTime.now().isBefore(globals.currevents[i].hmeromhnia
-              .add(globals.currevents[i].diarkeia))) {
-        globals.currevents[i].live = true;
-        liveeventslist.add(globals.currevents[i]);
-      }
+    for (int i = 0; i < globals.allevents.length; i++) {
+      if (DateTime.now().isAfter(globals.allevents[i].hmeromhnia) &&
+          DateTime.now().isBefore(globals.allevents[i].hmeromhnia
+              .add(globals.allevents[i].diarkeia))) {
+        globals.allevents[i].live = true;
+        liveeventslist.add(globals.allevents[i]);
+      } else
+        globals.allevents[i].live = false;
     }
-    viewnowlist = (!showLive) ? globals.currevents : liveeventslist;
+    viewnowlist = (!showLive) ? globals.allevents : liveeventslist;
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
         appBar: AppBar(
@@ -175,7 +176,7 @@ class _HomePageState extends State<HomePage> {
             onPressed: () async {
               Event? newEvent = await Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const CreateEvent()));
-              if (newEvent != null) globals.currevents.add(newEvent);
+              if (newEvent != null) globals.allevents.add(newEvent);
               setState(() {});
             },
             child: const Icon(Icons.add)));
