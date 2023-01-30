@@ -170,9 +170,9 @@ class _MainScreenState extends State<MainScreen>
                         context,
                         MaterialPageRoute(
                             builder: (context) => LiveEventView(
-                                  title: viewnowlist[index].OnomaEvent,
-                                  eikona: viewnowlist[index].eikona,
-                                )));
+                                title: viewnowlist[index].OnomaEvent,
+                                eikona: viewnowlist[index].eikona,
+                                meros: viewnowlist[index].meros)));
                   }
                 },
                 child: Card(

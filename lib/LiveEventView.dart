@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 class LiveEventView extends StatefulWidget {
+  final String meros;
   const LiveEventView({
     super.key,
     required this.title,
     required this.eikona,
+    required this.meros,
   });
 
   final String title;
@@ -27,7 +29,19 @@ class _LiveEventViewState extends State<LiveEventView> {
             shadowColor: Colors.black,
             elevation: 2,
             centerTitle: true,
-            title: Text(widget.title),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(widget.title),
+                SizedBox(
+                  width: 5,
+                ),
+                Icon(
+                  Icons.radio_button_checked_outlined,
+                  color: Color.fromARGB(255, 179, 38, 30),
+                )
+              ],
+            ),
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
@@ -48,72 +62,28 @@ class _LiveEventViewState extends State<LiveEventView> {
       body: Center(
         child: Column(
           children: [
-            SizedBox(
-              height: 20,
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                    height: 30,
-                    width: 140,
-                    decoration: BoxDecoration(
-                      color: Colors.purple.shade50,
-                      borderRadius: BorderRadius.all(Radius.circular(6)),
+                Flexible(
+                  child: Card(
+                    child: ListTile(
+                      leading: Icon(Icons.location_on_outlined),
+                      title: Text(widget.meros),
                     ),
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.location_on_outlined),
-                          TextButton(
-                            onPressed: () {
-                              //
-                            },
-                            child: Text(
-                              'Location',
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.black),
-                            ),
-                          )
-                        ],
-                      ),
-                    )),
-                SizedBox(
-                  width: 18,
+                  ),
                 ),
-                Container(
-                    height: 30,
-                    width: 140,
-                    decoration: BoxDecoration(
-                      color: Colors.purple.shade50,
-                      borderRadius: BorderRadius.all(Radius.circular(6)),
+                Flexible(
+                  child: Card(
+                    child: ListTile(
+                      leading: Icon(Icons.person),
+                      title: Text('180'),
                     ),
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.person),
-                          Text(
-                            '419',
-                            style: TextStyle(fontSize: 18, color: Colors.black),
-                          ),
-                        ],
-                      ),
-                    )),
-                SizedBox(
-                  width: 18,
+                  ),
                 ),
-                Icon(
-                  Icons.radio_button_checked,
-                  color: Colors.red.shade900,
-                  size: 25,
-                )
               ],
             ),
-            SizedBox(
-              height: 15,
-            ),
+
             Divider(
               height: 5,
               color: Colors.grey.shade400,
