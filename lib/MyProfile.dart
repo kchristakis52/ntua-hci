@@ -21,18 +21,21 @@ class _MyProfileState extends State<MyProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: NameChange ? nameChanger() : profileName(),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  setState(() {
-                    NameChange = true;
-                  });
-                },
-                icon: Icon(Icons.mode_edit_outline_outlined))
-          ],
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(100),
+          child: AppBar(
+            centerTitle: true,
+            title: NameChange ? nameChanger() : profileName(),
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    setState(() {
+                      NameChange = true;
+                    });
+                  },
+                  icon: Icon(Icons.mode_edit_outline_outlined))
+            ],
+          ),
         ),
         body: ListView(children: [
           ListTile(title: Center(child: profilePictureSolid())),
