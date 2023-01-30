@@ -248,7 +248,8 @@ class _CreateEventState extends State<CreateEvent> {
                         child: Padding(
                             padding: EdgeInsets.only(left: 0),
                             child: changeDate
-                                ? Text(finalDate,
+                                ? Text(
+                                    "${_eventDate.day}/${_eventDate.month}/${_eventDate.year}",
                                     style: TextStyle(
                                         fontSize: 22, color: Colors.black))
                                 : Text('Date',
