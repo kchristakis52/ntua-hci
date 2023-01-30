@@ -27,6 +27,8 @@ class _CreateEventState extends State<CreateEvent> {
   late var finalDate =
       "${_eventDate.day}/${_eventDate.month}/${_eventDate.year}";
 
+  late int eventDuration = int.parse(_durationController.text);
+
   bool changeDate = false;
   bool changeTime = false;
 
@@ -208,6 +210,7 @@ class _CreateEventState extends State<CreateEvent> {
                   ],
                   controller: _durationController,
                   decoration: InputDecoration(
+                      counterText: "",
                       focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                           borderSide: BorderSide(color: Colors.purple.shade50)),
@@ -217,7 +220,7 @@ class _CreateEventState extends State<CreateEvent> {
                       hintStyle: TextStyle(
                         color: Colors.black,
                       ),
-                      hintText: 'Duration',
+                      hintText: 'Duration - Hours',
                       contentPadding: EdgeInsets.symmetric(horizontal: 10),
                       isCollapsed: false),
                   style: TextStyle(
@@ -311,7 +314,7 @@ class _CreateEventState extends State<CreateEvent> {
                               _eventTime.hour,
                               _eventTime.minute),
                           perigrafh: _descriptionController.text,
-                          diarkeia: Duration(hours: 4));
+                          diarkeia: Duration(hours: eventDuration));
                       Navigator.pop(context, event);
                     }),
                     style: TextButton.styleFrom(
