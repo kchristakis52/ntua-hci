@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; //Χρειαζεται για CreateEvent
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart' as p;
 import 'MySettings.dart';
 import 'MyProfile.dart';
 import 'PastEvent.dart';
