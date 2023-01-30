@@ -51,8 +51,9 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen>
     with AutomaticKeepAliveClientMixin {
   bool showLive = false;
-  List<Event> viewnowlist = <Event>[];
+  var viewnowlist;
   List<Event> myeventslist = <Event>[];
+  List<Event> liveeventslist = <Event>[];
   List<Event> currevents = <Event>[
     Event(
         OnomaEvent: 'Tropical The Party',
@@ -105,6 +106,15 @@ class _MainScreenState extends State<MainScreen>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    for (int i = 0; i < currevents.length; i++) {
+      if (DateTime.now().isAfter(currevents[i].hmeromhnia) &&
+          DateTime.now()
+              .isBefore(currevents[i].hmeromhnia.add(currevents[i].diarkeia))) {
+        currevents[i].live = true;
+        liveeventslist.add(currevents[i]);
+      }
+    }
+    viewnowlist = (!showLive) ? currevents : liveeventslist;
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       appBar: AppBar(
@@ -138,11 +148,6 @@ class _MainScreenState extends State<MainScreen>
       body: ListView.builder(
           itemCount: viewnowlist.length,
           itemBuilder: ((context, index) {
-            currevents[index].live =
-                (DateTime.now().isAfter(currevents[index].hmeromhnia) &&
-                    DateTime.now().isBefore(currevents[index]
-                        .hmeromhnia
-                        .add(currevents[index].diarkeia)));
             return Container(
               margin: const EdgeInsets.only(
                   left: 12, right: 12, bottom: 20, top: 15),
@@ -151,9 +156,9 @@ class _MainScreenState extends State<MainScreen>
                     context,
                     MaterialPageRoute(
                         builder: (context) => PastEvent(
-                              OnomaEvent: currevents[index].OnomaEvent,
-                              meros: currevents[index].meros,
-                              eikona: currevents[index].eikona,
+                              OnomaEvent: viewnowlist[index].OnomaEvent,
+                              meros: viewnowlist[index].meros,
+                              eikona: viewnowlist[index].eikona,
                             ))),
                 child: Card(
                   clipBehavior: Clip.hardEdge,
@@ -165,39 +170,39 @@ class _MainScreenState extends State<MainScreen>
                           backgroundColor:
                               const Color.fromARGB(255, 234, 221, 255),
                           child: Text(
-                              '${currevents[index].OnomaDiorganwti[0]}${currevents[index].EpithetoDiorganwti[0]}',
+                              '${viewnowlist[index].OnomaDiorganwti[0]}${viewnowlist[index].EpithetoDiorganwti[0]}',
                               style: const TextStyle(
                                   color: Color.fromARGB(255, 33, 0, 93))),
                         ),
-                        trailing: (currevents[index].live)
+                        trailing: (viewnowlist[index].live)
                             ? const Icon(
                                 Icons.radio_button_checked,
                                 color: Color.fromARGB(255, 179, 38, 30),
                               )
                             : null,
                         title: Text(
-                            '${currevents[index].OnomaDiorganwti} ${currevents[index].EpithetoDiorganwti}'),
+                            '${viewnowlist[index].OnomaDiorganwti} ${viewnowlist[index].EpithetoDiorganwti}'),
                         subtitle: Text(
-                          currevents[index].meros,
+                          viewnowlist[index].meros,
                         ),
                       ),
                       AspectRatio(
                           aspectRatio: 335 / 170,
                           child: Image.asset(
-                            currevents[index].eikona,
+                            viewnowlist[index].eikona,
                             fit: BoxFit.fitWidth,
                           )),
                       ListTile(
                         title: Text(
-                          currevents[index].OnomaEvent,
+                          viewnowlist[index].OnomaEvent,
                         ),
                         subtitle: Text(DateFormat('EEEE, d MMM yyyy HH:mm')
-                            .format(currevents[index].hmeromhnia)),
+                            .format(viewnowlist[index].hmeromhnia)),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
-                          currevents[index].perigrafh,
+                          viewnowlist[index].perigrafh,
                         ),
                       ),
                       ButtonBar(
@@ -205,7 +210,7 @@ class _MainScreenState extends State<MainScreen>
                         children: [
                           OutlinedButton(
                             onPressed: () {
-                              currevents.removeAt(index);
+                              viewnowlist.removeAt(index);
                               setState(() {});
                             },
                             child: const Text('Not Interested'),
@@ -215,8 +220,8 @@ class _MainScreenState extends State<MainScreen>
                                 backgroundColor:
                                     const Color.fromARGB(255, 103, 80, 164)),
                             onPressed: () {
-                              myeventslist.add(currevents[index]);
-                              currevents.removeAt(index);
+                              myeventslist.add(viewnowlist[index]);
+                              viewnowlist.removeAt(index);
                               setState(() {});
                             },
                             child: const Text('Attend',
@@ -292,19 +297,16 @@ class Event {
   final Duration diarkeia;
   final String perigrafh;
   final String eikona;
-  late bool live;
+  bool live;
 
-  Event({
-    required this.OnomaEvent,
-    required this.OnomaDiorganwti,
-    required this.EpithetoDiorganwti,
-    required this.meros,
-    required this.hmeromhnia,
-    this.diarkeia = const Duration(hours: 4),
-    required this.perigrafh,
-    this.eikona = './assets/images/Media.png',
-  }) {
-    live = (DateTime.now().isAfter(hmeromhnia) &&
-        DateTime.now().isBefore(hmeromhnia.add(diarkeia)));
-  }
+  Event(
+      {required this.OnomaEvent,
+      required this.OnomaDiorganwti,
+      required this.EpithetoDiorganwti,
+      required this.meros,
+      required this.hmeromhnia,
+      this.diarkeia = const Duration(hours: 4),
+      required this.perigrafh,
+      this.eikona = './assets/images/Media.png',
+      this.live = false});
 }
