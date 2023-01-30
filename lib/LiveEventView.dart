@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 
 class LiveEventView extends StatefulWidget {
@@ -7,10 +9,16 @@ class LiveEventView extends StatefulWidget {
     required this.title,
     required this.eikona,
     required this.meros,
+    //required this.Username, //apo profile
+    //required this.FirstName, //apo profile
+    //required this.LastName, //apo profile
   });
 
   final String title;
   final String eikona;
+  //final String Username;
+  //final String FirstName;
+  //final String LastName;
 
   @override
   State<LiveEventView> createState() => _LiveEventViewState();
@@ -19,7 +27,24 @@ class LiveEventView extends StatefulWidget {
 class _LiveEventViewState extends State<LiveEventView> {
   final _commentController = TextEditingController();
   String Comment = "";
-
+  String time = "";
+  List<LiveComment> Feedback = [
+    LiveComment(
+        commentBody: "Εδώ περνάμε καλά :D",
+        UploadTime: TimeOfDay(hour: 20, minute: 32),
+        FirstName: "Kyriakh",
+        LastName: "Pantelopoulou"),
+    LiveComment(
+        commentBody: "Τελειωσαν τα ποτα!",
+        UploadTime: TimeOfDay(hour: 21, minute: 03),
+        FirstName: "Γιώργος",
+        LastName: "Καραγιώργος"),
+    LiveComment(
+        commentBody: "Έφερα ποτά!!",
+        UploadTime: TimeOfDay(hour: 21, minute: 10),
+        FirstName: "xXPotoFertisXx",
+        LastName: "_"),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,11 +122,15 @@ class _LiveEventViewState extends State<LiveEventView> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: TextField(
+                  controller: _commentController,
                   decoration: InputDecoration(
                       suffixIcon: IconButton(
                         icon: Icon(Icons.send),
                         onPressed: () {
-                          //
+                          Comment = _commentController.text;
+                          _commentController.clear();
+                          time = TimeOfDay.now().format(context).toString();
+                          setState(() {});
                         },
                       ),
                       contentPadding: EdgeInsets.symmetric(horizontal: 10),
@@ -127,23 +156,37 @@ class _LiveEventViewState extends State<LiveEventView> {
 
   ListView _buildListView() {
     return ListView.builder(
-      itemCount: 15,
-      itemBuilder: (_, index) {
+      itemCount: Feedback.length,
+      itemBuilder: (context, index) {
         return ListTile(
-            title: Text('Username'),
-            subtitle: Text('Live Comment #$index'),
+            title: Text(Feedback[index].FirstName + Feedback[index].LastName),
+            subtitle: Text(Feedback[index].commentBody),
             leading: CircleAvatar(
                 backgroundColor: Colors.purple.shade800,
                 radius: 20,
                 child: Text(
-                  'FL',
+                  Feedback[index].FirstName[0] + Feedback[index].LastName[0],
                   style: TextStyle(color: Colors.white, fontSize: 18),
                 )),
             trailing: Text(
-              'HH:MM',
+              Feedback[index].UploadTime.format(context).toString(),
               style: TextStyle(fontSize: 16),
             ));
       },
     );
   }
+}
+
+class LiveComment {
+  final String FirstName;
+  final String LastName;
+  final String commentBody;
+  final TimeOfDay UploadTime;
+
+  LiveComment({
+    this.FirstName = "FirstName",
+    this.LastName = "LastName",
+    required this.commentBody,
+    required this.UploadTime,
+  });
 }
