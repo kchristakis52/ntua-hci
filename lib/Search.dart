@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:testwheren/UpcomingEvent.dart';
 import 'main.dart';
 import 'MySettings.dart';
 import 'MyProfile.dart';
 import 'PastEvent.dart';
 import 'MyUpdates.dart';
 import 'MyEvents.dart';
+import 'globals.dart';
 
 class Search extends StatefulWidget {
   const Search({super.key});
@@ -48,7 +50,13 @@ class _SearchState extends State<Search> {
 
 class CustomSearchDelegate extends SearchDelegate {
 // Demo list to show querying
-  List<String> searchTerms = ["Tropical", "The Party", "House Festival"];
+  List<String> getList() {
+    List<String> searchTerms = [];
+    for (int i = 0; i < allevents.length; i++) {
+      searchTerms.add(allevents[i].OnomaEvent);
+    }
+    return searchTerms;
+  }
 
 // first overwrite to
 // clear the search text
@@ -79,7 +87,7 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     List<String> matchQuery = [];
-    for (var events in searchTerms) {
+    for (var events in getList()) {
       if (events.toLowerCase().contains(query.toLowerCase())) {
         matchQuery.add(events);
       }
@@ -100,7 +108,7 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     List<String> matchQuery = [];
-    for (var events in searchTerms) {
+    for (var events in getList()) {
       if (events.toLowerCase().contains(query.toLowerCase())) {
         matchQuery.add(events);
       }
@@ -110,8 +118,14 @@ class CustomSearchDelegate extends SearchDelegate {
       itemBuilder: (context, index) {
         var result = matchQuery[index];
         return ListTile(
-          title: Text(result),
-        );
+            title: Text(result),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          UpcomingEvent(event: allevents[index])));
+            });
       },
     );
   }
