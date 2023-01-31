@@ -22,7 +22,7 @@ class _MyProfileState extends State<MyProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(100),
+          preferredSize: Size.fromHeight(60),
           child: AppBar(
             centerTitle: true,
             title: NameChange ? nameChanger() : profileName(),
@@ -158,33 +158,40 @@ class _MyProfileState extends State<MyProfile> {
             controller: _textController,
             decoration: InputDecoration(
                 hintText: 'Example: Dimitrios *space* Dimitriou',
-                border: null,
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    _textController.clear();
-                  },
-                  icon: const Icon(Icons.clear),
+                border: InputBorder.none,
+                suffixIcon: Row(
+                  mainAxisAlignment:
+                      MainAxisAlignment.spaceBetween, // added line
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          newName = _textController.text;
+                          final savedName = newName.split(' ');
+                          FullName[0] = savedName[0];
+                          FullName[1] = savedName[1];
+
+                          FullName[0].isEmpty
+                              ? FirstName = '_'
+                              : FirstName = FullName[0];
+                          FullName[1].isEmpty
+                              ? LastName = '_'
+                              : LastName = FullName[1];
+                          NameChange = false;
+                        });
+                      },
+                      icon: const Icon(Icons.save_outlined),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        _textController.clear();
+                      },
+                      icon: const Icon(Icons.clear),
+                    ),
+                  ],
                 )),
           ),
-          MaterialButton(
-            onPressed: () {
-              setState(() {
-                newName = _textController.text;
-                final savedName = newName.split(' ');
-                FullName[0] = savedName[0];
-                FullName[1] = savedName[1];
-
-                FullName[0].isEmpty ? FirstName = '_' : FirstName = FullName[0];
-                FullName[1].isEmpty ? LastName = '_' : LastName = FullName[1];
-                NameChange = false;
-              });
-            },
-            color: Colors.purple,
-            child: const Text(
-              'Save',
-              style: TextStyle(color: Colors.white),
-            ),
-          )
         ],
       );
 
