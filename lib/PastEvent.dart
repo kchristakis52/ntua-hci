@@ -20,7 +20,10 @@ class PastEvent extends StatefulWidget {
 }
 
 class _PastEventState extends State<PastEvent> {
+  final _reviewController = TextEditingController();
   bool postReview = false;
+  double revRating = 1.0;
+  String kritiki = "";
   List<Review> Reviews = <Review>[
     Review(
       Fname: 'Kostantinos',
@@ -101,13 +104,16 @@ class _PastEventState extends State<PastEvent> {
               ],
             ),
             Expanded(
-              child: ListView(
-                children: [
-                  Review(
-                    Fname: 'Konstantinos',
-                    Lname: 'Christakis',
-                  )
-                ],
+              child: ListView.builder(
+                itemCount: Reviews.length,
+                itemBuilder: (context, index) {
+                  return Review(
+                    Fname: Reviews[index].Fname,
+                    Lname: Reviews[index].Lname,
+                    revText: Reviews[index].revText,
+                    score: Reviews[index].score,
+                  );
+                },
               ),
             ),
             postReview ? ReviewPoster() : SizedBox()
@@ -170,7 +176,7 @@ class _PastEventState extends State<PastEvent> {
                           color: Colors.amber,
                         ),
                         onRatingUpdate: (double value) {
-                          //
+                          revRating = value;
                         },
                       ),
                     )
@@ -189,13 +195,22 @@ class _PastEventState extends State<PastEvent> {
               child: Padding(
                 padding: EdgeInsets.only(left: 20.0),
                 child: TextField(
+                  controller: _reviewController,
                   decoration: InputDecoration(
                     suffixIcon: IconButton(
                       icon: Icon(Icons.send),
                       onPressed: () {
-                        setState(() {
-                          postReview = false;
-                        });
+                        postReview = false;
+                        kritiki = _reviewController.text;
+                        _reviewController.clear;
+                        Reviews.add(Review(
+                          Fname: globals.firtname,
+                          Lname: globals.lastname,
+                          revText: kritiki,
+                          score: revRating,
+                        ));
+
+                        setState(() {});
                       },
                     ),
                     labelText: 'Review Text',
@@ -211,19 +226,19 @@ class _PastEventState extends State<PastEvent> {
 }
 
 class Review extends StatelessWidget {
-  int score = Random().nextInt(4) + 1;
+  double score; //Random().nextInt(4) + 1;
   String Fname;
   String Lname;
   String revText;
   DateTime now = DateTime.now();
 
-  Review({
-    Key? key,
-    required this.Fname,
-    required this.Lname,
-    this.revText =
-        'Supporting line text lorem ipsum dolor sit amet, consectetur',
-  }) : super(key: key);
+  Review(
+      {Key? key,
+      required this.Fname,
+      required this.Lname,
+      this.revText = "Default Text",
+      this.score = 3})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
