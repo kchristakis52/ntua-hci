@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'MySettings.dart';
+import 'globals.dart' as globals;
 
 class MyProfile extends StatefulWidget {
   const MyProfile({super.key});
@@ -10,8 +11,8 @@ class MyProfile extends StatefulWidget {
 }
 
 class _MyProfileState extends State<MyProfile> {
-  String FirstName = "FirstName";
-  String LastName = "LastName";
+  String FirstName = globals.firtname;
+  String LastName = globals.lastname;
 
   final _textController = TextEditingController();
   String newName = "Mpampis Sougias";

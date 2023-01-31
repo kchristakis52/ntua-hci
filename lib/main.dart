@@ -1,7 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart' as p;
 import 'package:testwheren/UpcomingEvent.dart';
 import 'MySettings.dart';
 import 'MyProfile.dart';
@@ -9,9 +7,9 @@ import 'PastEvent.dart';
 import 'MyUpdates.dart';
 import 'MyEvents.dart';
 import 'Search.dart';
-import 'LiveEventView.dart';
-import 'CreateEvent.dart';
 import 'package:intl/intl.dart';
+import 'globals.dart' as globals;
+import 'HomePage.dart';
 
 void main() {
   runApp(const wheren());
@@ -51,237 +49,25 @@ class MainScreen extends StatefulWidget {
   State<MainScreen> createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen>
-    with AutomaticKeepAliveClientMixin {
-  bool showLive = false;
-  String firtname = 'George';
-  String lastname = 'Papadopoulos';
-  late List<Event> viewnowlist;
-  List<Event> myeventslist = <Event>[];
-  List<Event> liveeventslist = <Event>[];
-  List<Event> currevents = <Event>[
-    Event(
-        OnomaEvent: 'Tropical The Party',
-        OnomaDiorganwti: 'Aggelos',
-        EpithetoDiorganwti: 'Dimitriou',
-        meros: 'Gazi Music Hall, Athens',
-        hmeromhnia: DateTime(2023, 01, 20, 23, 00, 00),
-        perigrafh:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-        diarkeia: Duration(days: 30)),
-    Event(
-      OnomaEvent: 'House Festival',
-      OnomaDiorganwti: 'Reece',
-      EpithetoDiorganwti: 'Johnson',
-      meros: 'Technopolis Gazi, Athens',
-      hmeromhnia: DateTime(2023, 02, 20, 17, 0, 0),
-      perigrafh:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-      diarkeia: Duration(hours: 4),
-      eikona: './assets/images/festival.jpg',
-    ),
-    Event(
-        OnomaEvent: 'The Party',
-        OnomaDiorganwti: 'Lorem',
-        EpithetoDiorganwti: 'Ipsum',
-        meros: 'Beach, Athens',
-        hmeromhnia: DateTime(2023, 02, 13, 23, 00, 00),
-        perigrafh:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-        diarkeia: Duration(hours: 4)),
-    Event(
-        OnomaEvent: 'The Party',
-        OnomaDiorganwti: 'Lorem',
-        EpithetoDiorganwti: 'Ipsum',
-        meros: 'Beach, Athens',
-        hmeromhnia: DateTime(2023, 02, 13, 23, 00, 00),
-        perigrafh:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-        diarkeia: Duration(hours: 4)),
-    Event(
-        OnomaEvent: 'The Party',
-        OnomaDiorganwti: 'Lorem',
-        EpithetoDiorganwti: 'Ipsum',
-        meros: 'Beach, Athens',
-        hmeromhnia: DateTime(2023, 02, 13, 23, 00, 00),
-        perigrafh:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-        diarkeia: Duration(hours: 4)),
+class _MainScreenState extends State<MainScreen> {
+  int _selectedIndex = 0;
+  List<Widget> pageList = [
+    HomePage(),
+    Search(),
+    MyEvents(),
+    MyUpdates(),
+    MySettings()
   ];
-
   @override
   Widget build(BuildContext context) {
-    super.build(context);
-    liveeventslist = [];
-    for (int i = 0; i < currevents.length; i++) {
-      if (DateTime.now().isAfter(currevents[i].hmeromhnia) &&
-          DateTime.now()
-              .isBefore(currevents[i].hmeromhnia.add(currevents[i].diarkeia))) {
-        currevents[i].live = true;
-        liveeventslist.add(currevents[i]);
-      }
-    }
-    viewnowlist = (!showLive) ? currevents : liveeventslist;
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('College Nights'),
-        leading: IconButton(
-            icon: (!showLive)
-                ? const Icon(Icons.radio_button_unchecked)
-                : const Icon(
-                    Icons.radio_button_checked_outlined,
-                    color: Color.fromARGB(255, 179, 38, 30),
-                  ),
-            onPressed: () => setState(() {
-                  showLive = !showLive;
-                })),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const MyProfile()));
-              },
-              icon: const Icon(Icons.account_circle_rounded))
-        ],
-        bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(0.25),
-            child: Container(
-              color: Colors.black,
-              height: 0.25,
-            )),
-      ),
-      body: ListView.builder(
-          itemCount: viewnowlist.length,
-          itemBuilder: ((context, index) {
-            return Container(
-              margin: const EdgeInsets.only(
-                  left: 12, right: 12, bottom: 20, top: 15),
-              child: InkWell(
-                onTap: () {
-                  if (!viewnowlist[index].live) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                UpcomingEvent(event: viewnowlist[index])));
-                  } else {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => LiveEventView(
-                                title: viewnowlist[index].OnomaEvent,
-                                eikona: viewnowlist[index].eikona,
-                                meros: viewnowlist[index].meros)));
-                  }
-                },
-                child: Card(
-                  clipBehavior: Clip.hardEdge,
-                  child: Column(
-                    children: [
-                      ListTile(
-                        leading: CircleAvatar(
-                          radius: 20,
-                          backgroundColor:
-                              const Color.fromARGB(255, 234, 221, 255),
-                          child: Text(
-                              '${viewnowlist[index].OnomaDiorganwti[0]}${viewnowlist[index].EpithetoDiorganwti[0]}',
-                              style: const TextStyle(
-                                  color: Color.fromARGB(255, 33, 0, 93))),
-                        ),
-                        trailing: (viewnowlist[index].live)
-                            ? const Icon(
-                                Icons.radio_button_checked,
-                                color: Color.fromARGB(255, 179, 38, 30),
-                              )
-                            : null,
-                        title: Text(
-                            '${viewnowlist[index].OnomaDiorganwti} ${viewnowlist[index].EpithetoDiorganwti}'),
-                        subtitle: Text(
-                          viewnowlist[index].meros,
-                        ),
-                      ),
-                      AspectRatio(
-                          aspectRatio: 335 / 170,
-                          child: Image.asset(
-                            viewnowlist[index].eikona,
-                            fit: BoxFit.fitWidth,
-                          )),
-                      ListTile(
-                        title: Text(
-                          viewnowlist[index].OnomaEvent,
-                        ),
-                        subtitle: Text(DateFormat('EEEE, d MMM yyyy HH:mm')
-                            .format(viewnowlist[index].hmeromhnia)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(
-                          viewnowlist[index].perigrafh,
-                        ),
-                      ),
-                      ButtonBar(
-                        alignment: MainAxisAlignment.end,
-                        children: [
-                          OutlinedButton(
-                            onPressed: () {
-                              viewnowlist.removeAt(index);
-                              setState(() {});
-                            },
-                            child: const Text('Not Interested'),
-                          ),
-                          TextButton(
-                            style: TextButton.styleFrom(
-                                backgroundColor:
-                                    const Color.fromARGB(255, 103, 80, 164)),
-                            onPressed: () {
-                              myeventslist.add(viewnowlist[index]);
-                              viewnowlist.removeAt(index);
-                              setState(() {});
-                            },
-                            child: const Text('Attend',
-                                style: TextStyle(
-                                    color: Color.fromARGB(255, 255, 255, 255))),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          })),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            Event? newEvent = await Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const CreateEvent()));
-            if (newEvent != null) currevents.add(newEvent);
-            setState(() {});
-          },
-          child: const Icon(Icons.add)),
+      body: pageList.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _selectedIndex,
           onTap: (value) {
-            if (value == 0) {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => MainScreen()));
-            }
-            if (value == 1) {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Search()));
-            }
-            if (value == 2) {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => MyEvents()));
-            }
-            if (value == 4) {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => MySettings()));
-            }
-            if (value == 3) {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => MyUpdates()));
-            }
+            setState(() {
+              _selectedIndex = value;
+            });
           },
           unselectedFontSize: 0,
           type: BottomNavigationBarType.fixed,
@@ -298,9 +84,6 @@ class _MainScreenState extends State<MainScreen>
           ]),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
 
 class Event {

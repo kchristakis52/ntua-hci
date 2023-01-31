@@ -13,71 +13,36 @@ class MyUpdates extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          automaticallyImplyLeading: false,
-          title: const Text('College Nights'),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyProfile()));
-                },
-                icon: const Icon(Icons.account_circle_rounded))
-          ],
-          bottom: PreferredSize(
-              child: Container(
-                color: Colors.black,
-                height: 0.25,
-              ),
-              preferredSize: Size.fromHeight(0.25)),
+      appBar: AppBar(
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+        title: const Text('College Nights'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyProfile()));
+              },
+              icon: const Icon(Icons.account_circle_rounded))
+        ],
+        bottom: PreferredSize(
+            child: Container(
+              color: Colors.black,
+              height: 0.25,
+            ),
+            preferredSize: Size.fromHeight(0.25)),
+      ),
+      body: ListView(children: const <Notification>[
+        Notification(
+          periexomeno: ('Time has changed. Take a look!'),
+          NotPic: ('./assets/images/Media.png'),
         ),
-        body: ListView(children: const <Notification>[
-          Notification(
-            periexomeno: ('Time has changed. Take a look!'),
-            NotPic: ('./assets/images/Media.png'),
-          ),
-          Notification(
-              periexomeno: 'Cool', NotPic: ('./assets/images/festival.jpg')),
-          Notification(
-              periexomeno: ('periexomeno'),
-              NotPic: ('./assets/images/Media.png'))
-        ]),
-        bottomNavigationBar: BottomNavigationBar(
-            currentIndex: 3,
-            onTap: (value) {
-              if (value == 0)
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MainScreen()));
-              if (value == 1) {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Search()));
-              }
-              if (value == 2)
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MyEvents()));
-              if (value == 4)
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MySettings()));
-            },
-            unselectedFontSize: 0,
-            type: BottomNavigationBarType.fixed,
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home_outlined),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                label: 'Search',
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.star_outline), label: 'My Events'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.notifications_outlined), label: 'Updates'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.settings_outlined), label: 'Settings')
-            ]));
+        Notification(
+            periexomeno: 'Cool', NotPic: ('./assets/images/festival.jpg')),
+        Notification(
+            periexomeno: ('periexomeno'), NotPic: ('./assets/images/Media.png'))
+      ]),
+    );
   }
 }
 
