@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'globals.dart' as globals;
 
 class PastEvent extends StatefulWidget {
   final String OnomaEvent;
