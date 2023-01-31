@@ -179,6 +179,8 @@ class _MyProfileState extends State<MyProfile> {
                           FullName[1].isEmpty
                               ? LastName = '_'
                               : LastName = FullName[1];
+                          globals.firtname = FirstName;
+                          globals.lastname = LastName;
                           NameChange = false;
                         });
                       },
