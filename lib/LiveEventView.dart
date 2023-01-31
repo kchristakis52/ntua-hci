@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'globals.dart' as globals;
 
 class LiveEventView extends StatefulWidget {
   final String meros;
@@ -151,8 +152,8 @@ class _LiveEventViewState extends State<LiveEventView> {
                           Feedback.add(LiveComment(
                               UploadTime: TimeOfDay.now(),
                               commentBody: Comment,
-                              FirstName: "DefaultFirst",
-                              LastName: "DefaultLast"));
+                              FirstName: globals.firtname,
+                              LastName: globals.lastname));
                           setState(() {});
                         },
                       ),

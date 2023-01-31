@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:testwheren/main.dart'; //Χρειαζεται για MAXlengthEnforcement
+import 'globals.dart' as globals;
 
 class CreateEvent extends StatefulWidget {
   const CreateEvent({super.key});
@@ -305,8 +306,8 @@ class _CreateEventState extends State<CreateEvent> {
                     onPressed: (() {
                       final event = Event(
                           OnomaEvent: _nameController.text,
-                          OnomaDiorganwti: 'Giorgos',
-                          EpithetoDiorganwti: 'EpithetoDiorganwti',
+                          OnomaDiorganwti: globals.firtname,
+                          EpithetoDiorganwti: globals.lastname,
                           meros: _locationController.text,
                           hmeromhnia: DateTime(
                               _eventDate.year,
