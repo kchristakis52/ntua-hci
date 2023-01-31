@@ -20,6 +20,14 @@ class PastEvent extends StatefulWidget {
 }
 
 class _PastEventState extends State<PastEvent> {
+  bool postReview = false;
+  List<Review> Reviews = <Review>[
+    Review(
+      Fname: 'Kostantinos',
+      Lname: 'Christakis',
+      revText: 'Supporting line text lorem ipsum dolor sit amet, consectetur',
+    )
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,10 +109,105 @@ class _PastEventState extends State<PastEvent> {
                   )
                 ],
               ),
-            )
+            ),
+            postReview ? ReviewPoster() : SizedBox()
           ],
-        ));
+        ),
+        floatingActionButton: postReview
+            ? null
+            : Padding(
+                padding: const EdgeInsets.only(bottom: 50),
+                child: FloatingActionButton(
+                  onPressed: (() {
+                    setState(() {
+                      postReview = true;
+                    });
+                  }),
+                  tooltip: 'Post Review',
+                  child: const Icon(Icons.reviews),
+                ),
+              ));
   }
+
+  Widget ReviewPoster() => Container(
+        margin: const EdgeInsets.all(10.0),
+        decoration: BoxDecoration(
+            color: Colors.purple.shade50,
+            borderRadius: BorderRadius.circular(10.0)),
+        child: Column(
+          children: [
+            Container(
+              height: 90,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 227, 195, 233),
+                  border: Border.all(color: Colors.black),
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10))),
+              child: Padding(
+                padding: EdgeInsets.only(left: 20.0, top: 10),
+                child: Column(
+                  children: [
+                    Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          globals.firtname + globals.lastname,
+                          style: TextStyle(fontSize: 20),
+                        )),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: RatingBar.builder(
+                        itemSize: 35,
+                        initialRating: 3.5,
+                        minRating: 0.5,
+                        direction: Axis.horizontal,
+                        allowHalfRating: true,
+                        itemCount: 5,
+                        itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                        itemBuilder: (context, _) => Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                        ),
+                        onRatingUpdate: (double value) {
+                          //
+                        },
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              height: 100,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: Colors.black),
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10))),
+              child: Padding(
+                padding: EdgeInsets.only(left: 20.0),
+                child: TextField(
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      icon: Icon(Icons.send),
+                      onPressed: () {
+                        setState(() {
+                          postReview = false;
+                        });
+                      },
+                    ),
+                    labelText: 'Review Text',
+                    labelStyle: TextStyle(color: Colors.grey),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
 }
 
 class Review extends StatelessWidget {
