@@ -1,14 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as p;
 import 'package:testwheren/UpcomingEvent.dart';
-import 'MySettings.dart';
 import 'MyProfile.dart';
-import 'PastEvent.dart';
-import 'MyUpdates.dart';
-import 'MyEvents.dart';
-import 'Search.dart';
 import 'LiveEventView.dart';
 import 'CreateEvent.dart';
 import 'package:intl/intl.dart';
@@ -35,8 +29,9 @@ class _HomePageState extends State<HomePage> {
               .add(globals.allevents[i].diarkeia))) {
         globals.allevents[i].live = true;
         liveeventslist.add(globals.allevents[i]);
-      } else
+      } else {
         globals.allevents[i].live = false;
+      }
     }
     viewnowlist = (!showLive) ? globals.allevents : liveeventslist;
     return Scaffold(
@@ -176,7 +171,10 @@ class _HomePageState extends State<HomePage> {
             onPressed: () async {
               Event? newEvent = await Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const CreateEvent()));
-              if (newEvent != null) globals.allevents.add(newEvent);
+              if (newEvent != null) {
+                //globals.allevents.add(newEvent);
+                globals.myeventslist.add(newEvent);
+              }
               setState(() {});
             },
             child: const Icon(Icons.add)));

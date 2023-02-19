@@ -1,12 +1,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:testwheren/LiveEventView.dart';
 import 'package:testwheren/MyUpdates.dart';
+import 'package:testwheren/UpcomingEvent.dart';
 import 'MyProfile.dart';
 import 'main.dart';
-import 'MySettings.dart';
+import 'package:intl/intl.dart';
 import 'PastEvent.dart';
-import 'MyUpdates.dart';
-import 'Search.dart';
+import 'globals.dart' as globals;
 
 class MyEvents extends StatefulWidget {
   const MyEvents({super.key});
@@ -26,6 +27,19 @@ class _MyEventsState extends State<MyEvents> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    List<Event> liveeventslist = [];
+    List<Event> pasteventslist = [];
+    List<Event> upcomingeventslist = [];
+    for (int i = 0; i < globals.myeventslist.length; i++) {
+      if (DateTime.now().isBefore(globals.myeventslist[i].hmeromhnia)) {
+        upcomingeventslist.add(globals.myeventslist[i]);
+      } else if (DateTime.now().isAfter(globals.myeventslist[i].hmeromhnia
+          .add(globals.myeventslist[i].diarkeia))) {
+        pasteventslist.add(globals.myeventslist[i]);
+      } else {
+        liveeventslist.add(globals.myeventslist[i]);
+      }
+    }
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -59,44 +73,33 @@ class _MyEventsState extends State<MyEvents> with TickerProviderStateMixin {
       body: TabBarView(
         controller: _tabController,
         children: <Widget>[
-          Column(children: [
-            EventCard(
-              OnomaEvent: 'Tropical',
-              OnomaDiorganwti: 'Vasilis',
-              EpithetoDiorganwti: 'Andreou',
-              ProperText: '4 Days Until The Event',
-              EventPic: ('./assets/images/Media.png'),
-              EventPlace: 'Gazi',
-            ),
-            EventCard(
-              OnomaEvent: 'Trap House',
-              OnomaDiorganwti: 'Skoe',
-              EpithetoDiorganwti: 'Rams',
-              ProperText: '4 Days Until The Event',
-              EventPic: ('./assets/images/festival.jpg'),
-              EventPlace: 'Sintagma',
-            )
-          ]),
-          Column(children: [
-            EventCard(
-              OnomaEvent: 'House Party',
-              OnomaDiorganwti: 'Aris',
-              EpithetoDiorganwti: 'Anagnostou',
-              ProperText: 'Event Is Live!',
-              EventPic: ('./assets/images/festival.jpg'),
-              EventPlace: 'Monastiraki',
-            ),
-          ]),
-          Column(children: [
-            EventCard(
-              OnomaEvent: 'Open Partaki',
-              OnomaDiorganwti: 'Anestis',
-              EpithetoDiorganwti: 'Sapliaouras',
-              ProperText: 'Old Event',
-              EventPic: ('./assets/images/Media.png'),
-              EventPlace: 'Kolonaki',
-            ),
-          ])
+          ListView.builder(
+            itemCount: upcomingeventslist.length,
+            itemBuilder: (BuildContext context, int index) {
+              return EventCard(
+                event: upcomingeventslist[index],
+                tabindex: 0,
+              );
+            },
+          ),
+          ListView.builder(
+            itemCount: liveeventslist.length,
+            itemBuilder: (BuildContext context, int index) {
+              return EventCard(
+                event: liveeventslist[index],
+                tabindex: 1,
+              );
+            },
+          ),
+          ListView.builder(
+            itemCount: pasteventslist.length,
+            itemBuilder: (BuildContext context, int index) {
+              return EventCard(
+                event: pasteventslist[index],
+                tabindex: 2,
+              );
+            },
+          ),
         ],
       ),
     );
@@ -104,21 +107,10 @@ class _MyEventsState extends State<MyEvents> with TickerProviderStateMixin {
 }
 
 class EventCard extends StatefulWidget {
-  final String OnomaEvent;
-  final String OnomaDiorganwti;
-  final String EpithetoDiorganwti;
-  final String ProperText;
-  final String EventPic;
-  final String EventPlace;
+  final Event event;
+  final int tabindex;
 
-  const EventCard(
-      {super.key,
-      required this.OnomaEvent,
-      required this.OnomaDiorganwti,
-      required this.EpithetoDiorganwti,
-      required this.ProperText,
-      required this.EventPic,
-      required this.EventPlace});
+  const EventCard({super.key, required this.event, required this.tabindex});
 
   @override
   State<EventCard> createState() => _EventCardState();
@@ -131,14 +123,33 @@ class _EventCardState extends State<EventCard> {
       child: Card(
         child: InkWell(
           splashColor: Color.fromARGB(255, 166, 33, 243).withAlpha(30),
-          onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => PastEvent(
-                        OnomaEvent: widget.OnomaEvent,
-                        meros: widget.EventPlace,
-                        eikona: widget.EventPic,
-                      ))),
+          onTap: () {
+            if (widget.tabindex == 0) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          UpcomingEvent(event: widget.event)));
+            } else if (widget.tabindex == 1) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => LiveEventView(
+                            title: widget.event.OnomaEvent,
+                            meros: widget.event.meros,
+                            eikona: widget.event.eikona,
+                          )));
+            } else {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => PastEvent(
+                            OnomaEvent: widget.event.OnomaEvent,
+                            meros: widget.event.meros,
+                            eikona: widget.event.eikona,
+                          )));
+            }
+          },
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -147,13 +158,14 @@ class _EventCardState extends State<EventCard> {
                     radius: 20,
                     backgroundColor: Color.fromARGB(255, 234, 221, 255),
                     child: Text(
-                        '${widget.OnomaDiorganwti[0]}${widget.EpithetoDiorganwti[0]}',
+                        '${widget.event.OnomaDiorganwti[0]}${widget.event.EpithetoDiorganwti[0]}',
                         style:
                             TextStyle(color: Color.fromARGB(255, 33, 0, 93))),
                   ),
-                  title: Text(widget.OnomaEvent),
-                  subtitle: Text(widget.ProperText),
-                  trailing: Image.asset(widget.EventPic)),
+                  title: Text(widget.event.OnomaEvent),
+                  subtitle: Text(DateFormat('EEEE, d MMM yyyy HH:mm')
+                      .format(widget.event.hmeromhnia)),
+                  trailing: Image.asset(widget.event.eikona)),
             ],
           ),
         ),
