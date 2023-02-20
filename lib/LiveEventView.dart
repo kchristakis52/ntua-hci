@@ -1,23 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:testwheren/main.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 import 'globals.dart' as globals;
 
 class LiveEventView extends StatefulWidget {
-  final String meros;
-  const LiveEventView({
-    super.key,
-    required this.title,
-    required this.eikona,
-    required this.meros,
-    //required this.Username, //apo profile
-    //required this.FirstName, //apo profile
-    //required this.LastName, //apo profile
-  });
-
-  final String title;
-  final String eikona;
-  //final String Username;
-  //final String FirstName;
-  //final String LastName;
+  final Event event;
+  const LiveEventView({Key? key, required this.event}) : super(key: key);
 
   @override
   State<LiveEventView> createState() => _LiveEventViewState();
@@ -27,6 +16,13 @@ class _LiveEventViewState extends State<LiveEventView> {
   final _commentController = TextEditingController();
   String Comment = "";
   String time = "";
+  List<Story> stories = [];
+  Future<String?> getImageFromCamera() async {
+    final imagePicker = ImagePicker();
+    final pickedFile = await imagePicker.getImage(source: ImageSource.camera);
+    return pickedFile?.path;
+  }
+
   List<LiveComment> Feedback = <LiveComment>[
     LiveComment(
         commentBody: "Εδώ περνάμε καλά :D",
@@ -56,7 +52,7 @@ class _LiveEventViewState extends State<LiveEventView> {
             title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(widget.title),
+                Text(widget.event.OnomaEvent),
                 SizedBox(
                   width: 5,
                 ),
@@ -77,10 +73,10 @@ class _LiveEventViewState extends State<LiveEventView> {
                     color: Colors.white,
                     image: DecorationImage(
                         fit: BoxFit.fitHeight,
-                        image: AssetImage(widget.eikona)),
+                        image: AssetImage(widget.event.eikona)),
                   )),
                 ),
-              )
+              ),
             ],
           )),
       body: Center(
@@ -93,7 +89,7 @@ class _LiveEventViewState extends State<LiveEventView> {
                   child: Card(
                     child: ListTile(
                       leading: Icon(Icons.location_on_outlined),
-                      title: Text(widget.meros),
+                      title: Text(widget.event.meros),
                     ),
                   ),
                 ),
@@ -168,9 +164,21 @@ class _LiveEventViewState extends State<LiveEventView> {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 50),
         child: FloatingActionButton(
-          onPressed: (() {
-            //
-          }),
+          onPressed: () async {
+            final image =
+                await getImageFromCamera(); // get the image from camera
+            if (image != null) {
+              // create a new story object with image, current time and user info
+              final newStory = Story(
+                image: image,
+                time: DateTime.now(),
+                user: User(name: "AD"),
+              );
+              // Add the new story to the list of stories
+              stories.add(newStory);
+              setState(() {});
+            }
+          },
           tooltip: 'Post Story',
           child: const Icon(Icons.camera_alt),
         ),
@@ -191,4 +199,18 @@ class LiveComment {
     required this.commentBody,
     required this.UploadTime,
   });
+}
+
+class Story {
+  final String image;
+  final DateTime time;
+  final User user;
+
+  Story({required this.image, required this.time, required this.user});
+}
+
+class User {
+  final String name;
+
+  User({required this.name});
 }

@@ -134,11 +134,8 @@ class _EventCardState extends State<EventCard> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => LiveEventView(
-                            title: widget.event.OnomaEvent,
-                            meros: widget.event.meros,
-                            eikona: widget.event.eikona,
-                          )));
+                      builder: (context) =>
+                          LiveEventView(event: widget.event)));
             } else {
               Navigator.push(
                   context,

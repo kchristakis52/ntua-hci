@@ -84,10 +84,8 @@ class _HomePageState extends State<HomePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => LiveEventView(
-                                  title: viewnowlist[index].OnomaEvent,
-                                  eikona: viewnowlist[index].eikona,
-                                  meros: viewnowlist[index].meros)));
+                              builder: (context) =>
+                                  LiveEventView(event: viewnowlist[index])));
                     }
                   },
                   child: Card(
