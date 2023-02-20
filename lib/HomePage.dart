@@ -172,7 +172,7 @@ class _HomePageState extends State<HomePage> {
               Event? newEvent = await Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const CreateEvent()));
               if (newEvent != null) {
-                //globals.allevents.add(newEvent);
+                globals.progress(.4);
                 globals.myeventslist.add(newEvent);
               }
               setState(() {});

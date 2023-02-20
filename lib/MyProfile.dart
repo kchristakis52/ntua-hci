@@ -42,12 +42,12 @@ class _MyProfileState extends State<MyProfile> {
           ListTile(title: Center(child: profilePictureSolid())),
           ListTile(
               contentPadding: EdgeInsets.only(left: 18.0, right: 18),
-              title: Text("Lvl.1",
+              title: Text("Lvl.${globals.level}",
                   style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
                       color: Color.fromARGB(255, 33, 0, 93))),
-              trailing: CircularProgressIndicator(value: 0.71)),
+              trailing: CircularProgressIndicator(value: globals.progression)),
           ListTile(
             contentPadding: EdgeInsets.only(left: 18.0, right: 18),
             title: Text(
