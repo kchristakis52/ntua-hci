@@ -152,6 +152,7 @@ class _HomePageState extends State<HomePage> {
                               onPressed: () {
                                 globals.myeventslist.add(viewnowlist[index]);
                                 viewnowlist.removeAt(index);
+                                globals.progress(.1);
                                 setState(() {});
                               },
                               child: const Text('Attend',
