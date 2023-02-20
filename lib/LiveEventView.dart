@@ -1,23 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:testwheren/main.dart';
 import 'globals.dart' as globals;
 
 class LiveEventView extends StatefulWidget {
-  final String meros;
-  const LiveEventView({
-    super.key,
-    required this.title,
-    required this.eikona,
-    required this.meros,
-    //required this.Username, //apo profile
-    //required this.FirstName, //apo profile
-    //required this.LastName, //apo profile
-  });
-
-  final String title;
-  final String eikona;
-  //final String Username;
-  //final String FirstName;
-  //final String LastName;
+  final Event event;
+  const LiveEventView({Key? key, required this.event}) : super(key: key);
 
   @override
   State<LiveEventView> createState() => _LiveEventViewState();
@@ -56,7 +43,7 @@ class _LiveEventViewState extends State<LiveEventView> {
             title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(widget.title),
+                Text(widget.event.OnomaEvent),
                 SizedBox(
                   width: 5,
                 ),
@@ -77,7 +64,7 @@ class _LiveEventViewState extends State<LiveEventView> {
                     color: Colors.white,
                     image: DecorationImage(
                         fit: BoxFit.fitHeight,
-                        image: AssetImage(widget.eikona)),
+                        image: AssetImage(widget.event.eikona)),
                   )),
                 ),
               )
@@ -93,7 +80,7 @@ class _LiveEventViewState extends State<LiveEventView> {
                   child: Card(
                     child: ListTile(
                       leading: Icon(Icons.location_on_outlined),
-                      title: Text(widget.meros),
+                      title: Text(widget.event.meros),
                     ),
                   ),
                 ),
