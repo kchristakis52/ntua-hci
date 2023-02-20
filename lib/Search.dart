@@ -120,11 +120,26 @@ class CustomSearchDelegate extends SearchDelegate {
         return ListTile(
             title: Text(result),
             onTap: () {
+              if (DateTime.now().isBefore(globals.allevents[index].hmeromhnia)) {
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
+                          PastEvent(event: allevents[index])));
+              } else if (DateTime.now().isAfter(globals.allevents[index].hmeromhnia
+                        .add(globals.allevents[index].diarkeia))) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      LiveEventView(event: allevents[index])));
+              } else {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
                           UpcomingEvent(event: allevents[index])));
+              }
             });
       },
     );
