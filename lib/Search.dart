@@ -7,7 +7,8 @@ import 'MyProfile.dart';
 import 'PastEvent.dart';
 import 'MyUpdates.dart';
 import 'MyEvents.dart';
-import 'globals.dart';
+import 'LiveEventView.dart';
+import 'globals.dart' as globals;
 
 class Search extends StatefulWidget {
   const Search({super.key});
@@ -52,8 +53,8 @@ class CustomSearchDelegate extends SearchDelegate {
 // Demo list to show querying
   List<String> getList() {
     List<String> searchTerms = [];
-    for (int i = 0; i < allevents.length; i++) {
-      searchTerms.add(allevents[i].OnomaEvent);
+    for (int i = 0; i < globals.allevents.length; i++) {
+      searchTerms.add(globals.allevents[i].OnomaEvent);
     }
     return searchTerms;
   }
@@ -120,25 +121,27 @@ class CustomSearchDelegate extends SearchDelegate {
         return ListTile(
             title: Text(result),
             onTap: () {
-              if (DateTime.now().isBefore(globals.allevents[index].hmeromhnia)) {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          PastEvent(event: allevents[index])));
-              } else if (DateTime.now().isAfter(globals.allevents[index].hmeromhnia
-                        .add(globals.allevents[index].diarkeia))) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      LiveEventView(event: allevents[index])));
+              if (DateTime.now()
+                  .isBefore(globals.allevents[index].hmeromhnia)) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            PastEvent(event: globals.allevents[index])));
+              } else if (DateTime.now().isAfter(globals
+                  .allevents[index].hmeromhnia
+                  .add(globals.allevents[index].diarkeia))) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            LiveEventView(event: globals.allevents[index])));
               } else {
                 Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          UpcomingEvent(event: allevents[index])));
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            UpcomingEvent(event: globals.allevents[index])));
               }
             });
       },
