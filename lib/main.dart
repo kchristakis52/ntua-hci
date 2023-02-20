@@ -95,24 +95,26 @@ class Event {
   final Duration diarkeia;
   final String perigrafh;
   final String eikona;
+  double rating;
   bool live;
   List<Review> reviews = <Review>[
     Review(
       Fname: 'Kostantinos',
       Lname: 'Christakis',
       revText: 'Supporting line text lorem ipsum dolor sit amet, consectetur',
+      score: 4,
     )
   ];
 
-  Event({
-    required this.OnomaEvent,
-    required this.OnomaDiorganwti,
-    required this.EpithetoDiorganwti,
-    required this.meros,
-    required this.hmeromhnia,
-    required this.diarkeia,
-    required this.perigrafh,
-    this.eikona = './assets/images/Media.png',
-    this.live = false,
-  });
+  Event(
+      {required this.OnomaEvent,
+      required this.OnomaDiorganwti,
+      required this.EpithetoDiorganwti,
+      required this.meros,
+      required this.hmeromhnia,
+      required this.diarkeia,
+      required this.perigrafh,
+      this.eikona = './assets/images/Media.png',
+      this.live = false,
+      this.rating = 4});
 }

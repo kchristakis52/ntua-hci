@@ -143,11 +143,7 @@ class _EventCardState extends State<EventCard> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => PastEvent(
-                            OnomaEvent: widget.event.OnomaEvent,
-                            meros: widget.event.meros,
-                            eikona: widget.event.eikona,
-                          )));
+                      builder: (context) => PastEvent(event: widget.event)));
             }
           },
           child: Column(

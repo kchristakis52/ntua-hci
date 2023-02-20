@@ -6,6 +6,7 @@ import 'main.dart';
 import 'MySettings.dart';
 import 'PastEvent.dart';
 import 'Search.dart';
+import 'globals.dart' as globals;
 
 class MyUpdates extends StatelessWidget {
   const MyUpdates({super.key});
@@ -69,9 +70,7 @@ class _NotificationState extends State<Notification> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => PastEvent(
-                              OnomaEvent: 'Tropical',
-                              meros: 'Gazi Music Hall',
-                              eikona: ('./assets/images/Media.png'),
+                              event: globals.allevents[0],
                             ))),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

@@ -1,19 +1,12 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:testwheren/main.dart';
 import 'globals.dart' as globals;
 
 class PastEvent extends StatefulWidget {
-  final String OnomaEvent;
-  final String meros;
-  final String eikona;
-  double rating = 4;
-  PastEvent({
-    Key? key,
-    required this.OnomaEvent,
-    required this.meros,
-    required this.eikona,
-  }) : super(key: key);
+  final Event event;
+  PastEvent({Key? key, required this.event}) : super(key: key);
 
   @override
   State<PastEvent> createState() => _PastEventState();
@@ -24,20 +17,14 @@ class _PastEventState extends State<PastEvent> {
   bool postReview = false;
   double revRating = 1.0;
   String kritiki = "";
-  List<Review> Reviews = <Review>[
-    Review(
-      Fname: 'Kostantinos',
-      Lname: 'Christakis',
-      revText: 'Supporting line text lorem ipsum dolor sit amet, consectetur',
-    )
-  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            widget.OnomaEvent,
+            widget.event.OnomaEvent,
           ),
           actions: [
             Padding(
@@ -49,7 +36,8 @@ class _PastEventState extends State<PastEvent> {
                   shape: BoxShape.circle,
                   color: Colors.white,
                   image: DecorationImage(
-                      fit: BoxFit.fitHeight, image: AssetImage(widget.eikona)),
+                      fit: BoxFit.fitHeight,
+                      image: AssetImage(widget.event.eikona)),
                 )),
               ),
             )
@@ -65,13 +53,12 @@ class _PastEventState extends State<PastEvent> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              //crossAxisAlignment: CrossAxisAlignment.baseline,
               children: [
                 Flexible(
                   child: Card(
                     child: ListTile(
                       leading: Icon(Icons.location_on_outlined),
-                      title: Text(widget.meros),
+                      title: Text(widget.event.meros),
                     ),
                   ),
                 ),
@@ -95,23 +82,23 @@ class _PastEventState extends State<PastEvent> {
                         Icons.star,
                         color: Colors.amber,
                       ),
-                      rating: widget.rating,
+                      rating: widget.event.rating,
                       itemSize: 30,
                     ),
                   ),
                 ),
-                Expanded(child: Text("${widget.rating}/5")),
+                Expanded(child: Text("${widget.event.rating}/5")),
               ],
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: Reviews.length,
+                itemCount: widget.event.reviews.length,
                 itemBuilder: (context, index) {
                   return Review(
-                    Fname: Reviews[index].Fname,
-                    Lname: Reviews[index].Lname,
-                    revText: Reviews[index].revText,
-                    score: Reviews[index].score,
+                    Fname: widget.event.reviews[index].Fname,
+                    Lname: widget.event.reviews[index].Lname,
+                    revText: widget.event.reviews[index].revText,
+                    score: widget.event.reviews[index].score,
                   );
                 },
               ),
@@ -203,7 +190,7 @@ class _PastEventState extends State<PastEvent> {
                         postReview = false;
                         kritiki = _reviewController.text;
                         _reviewController.clear;
-                        Reviews.add(Review(
+                        widget.event.reviews.add(Review(
                           Fname: globals.firtname,
                           Lname: globals.lastname,
                           revText: kritiki,
