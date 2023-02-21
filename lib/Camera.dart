@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 
-//Ακόμα δεν έχει τίποτα, μου πηρε ωρα ενα troubleshooting, θα ολοκληρωσω αυριο
 class StoryCamera extends StatefulWidget {
   const StoryCamera({super.key});
 
