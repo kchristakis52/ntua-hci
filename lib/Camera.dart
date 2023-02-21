@@ -11,9 +11,51 @@ class StoryCamera extends StatefulWidget {
 
 class _StoryCameraState extends State<StoryCamera> {
   late List<CameraDescription> cameras;
-  late CameraController cameraController;
+  late CameraController _cameraController;
+
+  @override
+  void initState() {
+    startCamera();
+    super.initState();
+  }
+
+  void startCamera() async {
+    cameras = await availableCameras();
+
+    _cameraController = CameraController(
+      cameras[0],
+      ResolutionPreset.high,
+      enableAudio: true,
+    );
+
+    await _cameraController.initialize().then((value) {
+      if (!mounted) {
+        return;
+      }
+      setState(() {}); //refresh camera
+    }).catchError((e) {
+      print(e);
+    });
+  }
+
+  @override
+  void dispose() {
+    _cameraController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    if (_cameraController.value.isInitialized) {
+      return Scaffold(
+        body: Stack(
+          children: [
+            CameraPreview(_cameraController),
+          ],
+        ),
+      );
+    } else {
+      return const SizedBox();
+    }
   }
 }
