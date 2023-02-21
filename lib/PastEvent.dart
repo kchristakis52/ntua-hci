@@ -57,12 +57,12 @@ class _PastEventState extends State<PastEvent> {
                 Flexible(
                   child: Card(
                     child: ListTile(
-                      leading: Icon(Icons.location_on_outlined),
+                      leading: const Icon(Icons.location_on_outlined),
                       title: Text(widget.event.meros),
                     ),
                   ),
                 ),
-                Flexible(
+                const Flexible(
                   child: Card(
                     child: ListTile(
                       leading: Icon(Icons.person),
@@ -82,28 +82,25 @@ class _PastEventState extends State<PastEvent> {
                         Icons.star,
                         color: Colors.amber,
                       ),
-                      rating: widget.event.rating,
+                      rating: widget.event.rating / widget.event.reviews.length,
                       itemSize: 30,
                     ),
                   ),
                 ),
-                Expanded(child: Text("${widget.event.rating}/5")),
+                Expanded(
+                    child: Text(
+                        "${(widget.event.rating / widget.event.reviews.length).toStringAsFixed(1)}/5")),
               ],
             ),
             Expanded(
               child: ListView.builder(
                 itemCount: widget.event.reviews.length,
                 itemBuilder: (context, index) {
-                  return Review(
-                    Fname: widget.event.reviews[index].Fname,
-                    Lname: widget.event.reviews[index].Lname,
-                    revText: widget.event.reviews[index].revText,
-                    score: widget.event.reviews[index].score,
-                  );
+                  return widget.event.reviews[index];
                 },
               ),
             ),
-            postReview ? ReviewPoster() : SizedBox()
+            postReview ? ReviewPoster() : const SizedBox()
           ],
         ),
         floatingActionButton: postReview
@@ -133,20 +130,20 @@ class _PastEventState extends State<PastEvent> {
               height: 90,
               width: double.infinity,
               decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 227, 195, 233),
+                  color: const Color.fromARGB(255, 227, 195, 233),
                   border: Border.all(color: Colors.black),
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(10),
                       topRight: Radius.circular(10))),
               child: Padding(
-                padding: EdgeInsets.only(left: 20.0, top: 10),
+                padding: const EdgeInsets.only(left: 20.0, top: 10),
                 child: Column(
                   children: [
                     Align(
                         alignment: Alignment.topLeft,
                         child: Text(
                           globals.firtname + globals.lastname,
-                          style: TextStyle(fontSize: 20),
+                          style: const TextStyle(fontSize: 20),
                         )),
                     Align(
                       alignment: Alignment.centerLeft,
@@ -157,8 +154,9 @@ class _PastEventState extends State<PastEvent> {
                         direction: Axis.horizontal,
                         allowHalfRating: true,
                         itemCount: 5,
-                        itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                        itemBuilder: (context, _) => Icon(
+                        itemPadding:
+                            const EdgeInsets.symmetric(horizontal: 4.0),
+                        itemBuilder: (context, _) => const Icon(
                           Icons.star,
                           color: Colors.amber,
                         ),
@@ -176,17 +174,18 @@ class _PastEventState extends State<PastEvent> {
               decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border.all(color: Colors.black),
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(10),
                       bottomRight: Radius.circular(10))),
               child: Padding(
-                padding: EdgeInsets.only(left: 20.0),
+                padding: const EdgeInsets.only(left: 20.0),
                 child: TextField(
                   controller: _reviewController,
                   decoration: InputDecoration(
                     suffixIcon: IconButton(
-                      icon: Icon(Icons.send),
+                      icon: const Icon(Icons.send),
                       onPressed: () {
+                        widget.event.rating += revRating;
                         postReview = false;
                         kritiki = _reviewController.text;
                         _reviewController.clear;
@@ -201,7 +200,7 @@ class _PastEventState extends State<PastEvent> {
                       },
                     ),
                     labelText: 'Review Text',
-                    labelStyle: TextStyle(color: Colors.grey),
+                    labelStyle: const TextStyle(color: Colors.grey),
                     border: InputBorder.none,
                   ),
                 ),
@@ -234,9 +233,9 @@ class Review extends StatelessWidget {
       isThreeLine: true,
       leading: CircleAvatar(
         child: Text('${Fname[0]}${Lname[0]}',
-            style: TextStyle(color: Color.fromARGB(255, 33, 0, 93))),
+            style: const TextStyle(color: Color.fromARGB(255, 33, 0, 93))),
         radius: 20,
-        backgroundColor: Color.fromARGB(255, 234, 221, 255),
+        backgroundColor: const Color.fromARGB(255, 234, 221, 255),
       ),
       title: Text(
         "$Fname $Lname",
