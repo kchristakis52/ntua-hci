@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:testwheren/main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'StoriesScreen.dart';
 import 'globals.dart' as globals;
 
 class LiveEventView extends StatefulWidget {
@@ -63,18 +64,29 @@ class _LiveEventViewState extends State<LiveEventView> {
               ],
             ),
             actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: CircleAvatar(
-                  radius: 20,
-                  child: Container(
-                      decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                    image: DecorationImage(
-                        fit: BoxFit.fitHeight,
-                        image: AssetImage(widget.event.eikona)),
-                  )),
+              GestureDetector(
+                onTap: () {
+                  // navigate to the stories screen
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          StoriesScreen(stories: stories, event: widget.event),
+                    ),
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: CircleAvatar(
+                    radius: 20,
+                    child: Container(
+                        decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white,
+                      image: DecorationImage(
+                          fit: BoxFit.fitHeight,
+                          image: AssetImage(widget.event.eikona)),
+                    )),
+                  ),
                 ),
               ),
             ],
