@@ -10,6 +10,8 @@ class StoryCamera extends StatefulWidget {
 }
 
 class _StoryCameraState extends State<StoryCamera> {
+  late List<CameraDescription> cameras;
+  late CameraController cameraController;
   @override
   Widget build(BuildContext context) {
     return Scaffold();
