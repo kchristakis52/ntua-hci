@@ -12,17 +12,19 @@ class _StoryCameraState extends State<StoryCamera> {
   late List<CameraDescription> cameras;
   late CameraController _cameraController;
 
+  late int direction;
+
   @override
   void initState() {
-    startCamera();
+    startCamera(0);
     super.initState();
   }
 
-  void startCamera() async {
+  void startCamera(int direction) async {
     cameras = await availableCameras();
 
     _cameraController = CameraController(
-      cameras[0],
+      cameras[direction],
       ResolutionPreset.high,
       enableAudio: true,
     );
@@ -50,11 +52,62 @@ class _StoryCameraState extends State<StoryCamera> {
         body: Stack(
           children: [
             CameraPreview(_cameraController),
+            GestureDetector(
+                onTap: () {
+                  setState(() {
+                    direction = direction == 0 ? 1 : 0;
+                    startCamera(direction);
+                  });
+                },
+                child: cameraButton(
+                    Icons.flip_camera_ios_outlined, Alignment.bottomLeft)),
+            GestureDetector(
+                onTap: () {
+                  _cameraController.takePicture().then((XFile? file) {
+                    if (mounted) {
+                      if (file != null) {
+                        print(
+                            "Picture saved to ${file.path}"); //shows path for pictures
+                      }
+                    }
+                  });
+                },
+                child: cameraButton(
+                    Icons.camera_alt_outlined, Alignment.bottomCenter)),
           ],
         ),
       );
     } else {
       return const SizedBox();
     }
+  }
+
+  Widget cameraButton(IconData icon, Alignment alignment) {
+    return Align(
+      alignment: alignment,
+      child: Container(
+        margin: const EdgeInsets.only(
+          left: 20,
+          bottom: 20,
+        ),
+        height: 50,
+        width: 50,
+        decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.black26,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                offset: Offset(2, 2),
+                blurRadius: 10,
+              )
+            ]),
+        child: Center(
+            child: Icon(
+          icon,
+          color: Colors.black54,
+        )),
+      ),
+    );
   }
 }
