@@ -4,7 +4,7 @@ import 'main.dart';
 
 String firtname = 'George';
 String lastname = 'Papadopoulos';
-int level = 0;
+int level = 2;
 
 void progress(double x) {
   progression += x;
@@ -14,7 +14,7 @@ void progress(double x) {
   }
 }
 
-double progression = 0.71;
+double progression = 0.9;
 List<Event> myeventslist = <Event>[
   Event(
       OnomaEvent: 'New Years Eve Party',
@@ -41,10 +41,10 @@ List<Event> allevents = <Event>[
     OnomaDiorganwti: 'Reece',
     EpithetoDiorganwti: 'Johnson',
     meros: 'Technopolis Gazi, Athens',
-    hmeromhnia: DateTime(2023, 03, 20, 17, 0, 0),
+    hmeromhnia: DateTime(2023, 02, 20, 17, 0, 0),
     perigrafh:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-    diarkeia: const Duration(hours: 4),
+    diarkeia: const Duration(hours: 99),
     eikona: './assets/images/festival.jpg',
   ),
   Event(

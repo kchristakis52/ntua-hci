@@ -92,7 +92,7 @@ class _StoriesScreenState extends State<StoriesScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    widget.stories[_currentStoryIndex].user.name,
+                    widget.stories[_currentStoryIndex].user,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),

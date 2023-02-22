@@ -23,7 +23,7 @@ class _MyProfileState extends State<MyProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(60),
+          preferredSize: const Size.fromHeight(60),
           child: AppBar(
             centerTitle: true,
             title: NameChange ? nameChanger() : profileName(),
@@ -34,21 +34,21 @@ class _MyProfileState extends State<MyProfile> {
                       NameChange = true;
                     });
                   },
-                  icon: Icon(Icons.mode_edit_outline_outlined))
+                  icon: const Icon(Icons.mode_edit_outline_outlined))
             ],
           ),
         ),
         body: ListView(children: [
           ListTile(title: Center(child: profilePictureSolid())),
           ListTile(
-              contentPadding: EdgeInsets.only(left: 18.0, right: 18),
+              contentPadding: const EdgeInsets.only(left: 18.0, right: 18),
               title: Text("Lvl.${globals.level}",
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
                       color: Color.fromARGB(255, 33, 0, 93))),
               trailing: CircularProgressIndicator(value: globals.progression)),
-          ListTile(
+          const ListTile(
             contentPadding: EdgeInsets.only(left: 18.0, right: 18),
             title: Text(
               'Events Attended',
@@ -59,7 +59,7 @@ class _MyProfileState extends State<MyProfile> {
               style: TextStyle(fontSize: 22),
             ),
           ),
-          ListTile(
+          const ListTile(
             contentPadding: EdgeInsets.only(left: 18.0, right: 18),
             title: Text(
               'Stories Uploaded',
@@ -70,7 +70,7 @@ class _MyProfileState extends State<MyProfile> {
               style: TextStyle(fontSize: 22),
             ),
           ),
-          ListTile(
+          const ListTile(
             contentPadding: EdgeInsets.only(left: 18.0, right: 18),
             title: Text(
               'Reviews Posted',
@@ -81,7 +81,7 @@ class _MyProfileState extends State<MyProfile> {
               style: TextStyle(fontSize: 22),
             ),
           ),
-          ListTile(
+          const ListTile(
             contentPadding: EdgeInsets.only(left: 18.0, right: 18),
             title: Text(
               'QR Codes Found',
@@ -98,14 +98,14 @@ class _MyProfileState extends State<MyProfile> {
   Widget profileName() => RichText(
         text: TextSpan(
             text: FirstName,
-            style: TextStyle(fontSize: 24, color: Colors.black),
+            style: const TextStyle(fontSize: 24, color: Colors.black),
             children: [
-              TextSpan(
+              const TextSpan(
                 text: " ",
               ),
               TextSpan(
                   text: LastName,
-                  style: TextStyle(fontSize: 24, color: Colors.black))
+                  style: const TextStyle(fontSize: 24, color: Colors.black))
             ]),
       );
 
@@ -121,11 +121,13 @@ class _MyProfileState extends State<MyProfile> {
                   child: RichText(
                       text: TextSpan(
                           text: FirstName[0],
-                          style: TextStyle(color: Colors.white, fontSize: 40),
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 40),
                           children: [
                         TextSpan(
                             text: LastName[0],
-                            style: TextStyle(color: Colors.white, fontSize: 40))
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 40))
                       ])),
                 ),
                 Positioned(
@@ -145,7 +147,7 @@ class _MyProfileState extends State<MyProfile> {
                             //edit picture
                           });
                         },
-                        icon: Icon(Icons.mode_edit_outline_outlined,
+                        icon: const Icon(Icons.mode_edit_outline_outlined,
                             color: Colors.black)),
                   ),
                 )

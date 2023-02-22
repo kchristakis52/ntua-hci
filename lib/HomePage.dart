@@ -166,16 +166,20 @@ class _HomePageState extends State<HomePage> {
                 ),
               );
             })),
-        floatingActionButton: FloatingActionButton(
-            onPressed: () async {
-              Event? newEvent = await Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const CreateEvent()));
-              if (newEvent != null) {
-                globals.progress(.4);
-                globals.myeventslist.add(newEvent);
-              }
-              setState(() {});
-            },
-            child: const Icon(Icons.add)));
+        floatingActionButton: (globals.level >= 3)
+            ? FloatingActionButton(
+                onPressed: () async {
+                  Event? newEvent = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CreateEvent()));
+                  if (newEvent != null) {
+                    globals.progress(.4);
+                    globals.myeventslist.add(newEvent);
+                  }
+                  setState(() {});
+                },
+                child: const Icon(Icons.add))
+            : null);
   }
 }

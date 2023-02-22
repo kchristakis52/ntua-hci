@@ -67,12 +67,14 @@ class _LiveEventViewState extends State<LiveEventView> {
               GestureDetector(
                 onTap: () {
                   // navigate to the stories screen
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          StoriesScreen(stories: stories, event: widget.event),
-                    ),
-                  );
+                  if (stories.isNotEmpty) {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => StoriesScreen(
+                            stories: stories, event: widget.event),
+                      ),
+                    );
+                  }
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(right: 8.0),
@@ -184,7 +186,7 @@ class _LiveEventViewState extends State<LiveEventView> {
               final newStory = Story(
                 image: image,
                 time: DateTime.now(),
-                user: User(name: "AD"),
+                user: "${globals.firtname} ${globals.lastname}",
               );
               // Add the new story to the list of stories
               stories.add(newStory);
@@ -216,13 +218,7 @@ class LiveComment {
 class Story {
   final String image;
   final DateTime time;
-  final User user;
+  final String user;
 
   Story({required this.image, required this.time, required this.user});
-}
-
-class User {
-  final String name;
-
-  User({required this.name});
 }

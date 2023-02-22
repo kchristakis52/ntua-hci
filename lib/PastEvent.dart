@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:testwheren/main.dart';
@@ -6,7 +5,7 @@ import 'globals.dart' as globals;
 
 class PastEvent extends StatefulWidget {
   final Event event;
-  PastEvent({Key? key, required this.event}) : super(key: key);
+  const PastEvent({Key? key, required this.event}) : super(key: key);
 
   @override
   State<PastEvent> createState() => _PastEventState();
