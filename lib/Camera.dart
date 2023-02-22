@@ -50,11 +50,46 @@ class _StoryCameraState extends State<StoryCamera> {
         body: Stack(
           children: [
             CameraPreview(_cameraController),
+            GestureDetector(
+                onTap: () {},
+                child: cameraButton(
+                    Icons.flip_camera_ios_outlined, Alignment.bottomLeft)),
+            cameraButton(Icons.camera_alt_outlined, Alignment.bottomCenter),
+            cameraButton(Icons.flip_camera_ios_outlined, Alignment.bottomRight)
           ],
         ),
       );
     } else {
       return const SizedBox();
     }
+  }
+
+  Widget cameraButton(IconData icon, Alignment alignment) {
+    return Align(
+      alignment: alignment,
+      child: Container(
+        margin: const EdgeInsets.only(
+          left: 20,
+          bottom: 20,
+        ),
+        height: 50,
+        width: 50,
+        decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.black26,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                offset: Offset(2, 2),
+                blurRadius: 10,
+              )
+            ]),
+        child: Center(
+            child: Icon(
+          icon,
+          color: Colors.black54,
+        )),
+      ),
+    );
   }
 }
