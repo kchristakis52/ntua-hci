@@ -12,17 +12,19 @@ class _StoryCameraState extends State<StoryCamera> {
   late List<CameraDescription> cameras;
   late CameraController _cameraController;
 
+  late int direction;
+
   @override
   void initState() {
-    startCamera();
+    startCamera(0);
     super.initState();
   }
 
-  void startCamera() async {
+  void startCamera(int direction) async {
     cameras = await availableCameras();
 
     _cameraController = CameraController(
-      cameras[0],
+      cameras[direction],
       ResolutionPreset.high,
       enableAudio: true,
     );
@@ -51,11 +53,27 @@ class _StoryCameraState extends State<StoryCamera> {
           children: [
             CameraPreview(_cameraController),
             GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  setState(() {
+                    direction = direction == 0 ? 1 : 0;
+                    startCamera(direction);
+                  });
+                },
                 child: cameraButton(
                     Icons.flip_camera_ios_outlined, Alignment.bottomLeft)),
-            cameraButton(Icons.camera_alt_outlined, Alignment.bottomCenter),
-            cameraButton(Icons.flip_camera_ios_outlined, Alignment.bottomRight)
+            GestureDetector(
+                onTap: () {
+                  _cameraController.takePicture().then((XFile? file) {
+                    if (mounted) {
+                      if (file != null) {
+                        print(
+                            "Picture saved to ${file.path}"); //shows path for pictures
+                      }
+                    }
+                  });
+                },
+                child: cameraButton(
+                    Icons.camera_alt_outlined, Alignment.bottomCenter)),
           ],
         ),
       );
