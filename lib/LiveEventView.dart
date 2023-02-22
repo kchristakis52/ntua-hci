@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:testwheren/main.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
+import 'Camera.dart';
 import 'StoriesScreen.dart';
 import 'globals.dart' as globals;
 
@@ -178,7 +178,8 @@ class _LiveEventViewState extends State<LiveEventView> {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 50),
         child: FloatingActionButton(
-          onPressed: () async {
+          onPressed:
+              () /*async {
             final image =
                 await getImageFromCamera(); // get the image from camera
             if (image != null) {
@@ -192,6 +193,10 @@ class _LiveEventViewState extends State<LiveEventView> {
               stories.add(newStory);
               setState(() {});
             }
+          },*/
+              {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => StoryCamera()));
           },
           tooltip: 'Post Story',
           child: const Icon(Icons.camera_alt),
