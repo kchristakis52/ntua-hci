@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'Camera.dart';
 import 'StoriesScreen.dart';
 import 'globals.dart' as globals;
+import 'package:camera/camera.dart';
 
 class LiveEventView extends StatefulWidget {
   final Event event;
@@ -175,11 +176,12 @@ class _LiveEventViewState extends State<LiveEventView> {
           ],
         ),
       ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 50),
-        child: FloatingActionButton(
-          onPressed:
-              () /*async {
+      floatingActionButton: (globals.level >= 1)
+          ? Padding(
+              padding: const EdgeInsets.only(bottom: 50),
+              child: FloatingActionButton(
+                onPressed:
+                    () /*async {
             final image =
                 await getImageFromCamera(); // get the image from camera
             if (image != null) {
@@ -194,14 +196,17 @@ class _LiveEventViewState extends State<LiveEventView> {
               setState(() {});
             }
           },*/
-              {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => StoryCamera()));
-          },
-          tooltip: 'Post Story',
-          child: const Icon(Icons.camera_alt),
-        ),
-      ),
+                    async {
+                  await availableCameras().then((value) => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => StoryCamera(cameras: value))));
+                },
+                tooltip: 'Post Story',
+                child: const Icon(Icons.camera_alt),
+              ),
+            )
+          : null,
     );
   }
 }

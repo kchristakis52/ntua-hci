@@ -2,41 +2,43 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 
 class StoryCamera extends StatefulWidget {
-  const StoryCamera({super.key});
+  final List<CameraDescription>? cameras;
+  const StoryCamera({Key? key, required this.cameras}) : super(key: key);
 
   @override
   State<StoryCamera> createState() => _StoryCameraState();
 }
 
 class _StoryCameraState extends State<StoryCamera> {
-  late List<CameraDescription> cameras;
+  //late List<CameraDescription> cameras;
   late CameraController _cameraController;
 
-  late int direction;
-
-  @override
-  void initState() {
-    startCamera(0);
-    super.initState();
-  }
-
-  void startCamera(int direction) async {
-    cameras = await availableCameras();
+  int camDirection = 0;
+  bool _isRearCameraSelected = true;
+  Future startCamera(CameraDescription cameraDescription) async {
+    //final cameras = await availableCameras();
 
     _cameraController = CameraController(
-      cameras[direction],
+      cameraDescription,
       ResolutionPreset.high,
       enableAudio: true,
     );
+    try {
+      await _cameraController.initialize().then((_) {
+        if (!mounted) return;
 
-    await _cameraController.initialize().then((value) {
-      if (!mounted) {
-        return;
-      }
-      setState(() {}); //refresh camera
-    }).catchError((e) {
-      print(e);
-    });
+        setState(() {}); //refresh camera
+      });
+    } on CameraException catch (e) {
+      debugPrint("camera error $e");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    startCamera(widget.cameras![0]);
   }
 
   @override
@@ -44,6 +46,24 @@ class _StoryCameraState extends State<StoryCamera> {
     _cameraController.dispose();
     super.dispose();
   }
+
+/*
+  Future takePicture() async {
+    if (!_cameraController.value.isInitialized) {
+      return null;
+    }
+    if (_cameraController.value.isTakingPicture) {
+      return null;
+    }
+    try {
+      await _cameraController.setFlashMode(FlashMode.off);
+      XFile picture = await _cameraController.takePicture();
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context) => 
+      ))
+    }
+  }
+*/
 
   @override
   Widget build(BuildContext context) {
@@ -55,9 +75,9 @@ class _StoryCameraState extends State<StoryCamera> {
             GestureDetector(
                 onTap: () {
                   setState(() {
-                    direction = direction == 0 ? 1 : 0;
-                    startCamera(direction);
+                    _isRearCameraSelected = !_isRearCameraSelected;
                   });
+                  startCamera(widget.cameras![_isRearCameraSelected ? 0 : 1]);
                 },
                 child: cameraButton(
                     Icons.flip_camera_ios_outlined, Alignment.bottomLeft)),
