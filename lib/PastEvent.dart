@@ -102,7 +102,7 @@ class _PastEventState extends State<PastEvent> {
             postReview ? ReviewPoster() : const SizedBox()
           ],
         ),
-        floatingActionButton: postReview
+        floatingActionButton: (postReview || globals.level < 2)
             ? null
             : Padding(
                 padding: const EdgeInsets.only(bottom: 50),
