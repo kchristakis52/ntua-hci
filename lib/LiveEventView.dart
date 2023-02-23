@@ -188,7 +188,10 @@ class _LiveEventViewState extends State<LiveEventView> {
           ? Padding(
               padding: const EdgeInsets.only(bottom: 50),
               child: FloatingActionButton(
-                onPressed: () async {
+                onPressed: ()
+
+                    /*
+                async {
                   final image =
                       await getImageFromCamera(); // get the image from camera
                   if (image != null) {
@@ -203,13 +206,14 @@ class _LiveEventViewState extends State<LiveEventView> {
                     setState(() {});
                   }
                 },
-                /*
+*/
+
                     async {
                   await availableCameras().then((value) => Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (_) => StoryCamera(cameras: value))));
-                },*/
+                },
                 tooltip: 'Post Story',
                 child: const Icon(Icons.camera_alt),
               ),
