@@ -24,28 +24,11 @@ class _LiveEventViewState extends State<LiveEventView> {
     return pickedFile?.path;
   }
 
-  List<LiveComment> Feedback = <LiveComment>[
-    LiveComment(
-        commentBody: "Εδώ περνάμε καλά :D",
-        UploadTime: TimeOfDay(hour: 20, minute: 32),
-        FirstName: "Kyriakh",
-        LastName: "Pantelopoulou"),
-    LiveComment(
-        commentBody: "Τελειωσαν τα ποτα!",
-        UploadTime: TimeOfDay(hour: 21, minute: 03),
-        FirstName: "Γιώργος",
-        LastName: "Καραγιώργος"),
-    LiveComment(
-        commentBody: "Έφερα ποτά!!",
-        UploadTime: TimeOfDay(hour: 21, minute: 10),
-        FirstName: "xXPotoFertisXx",
-        LastName: "_"),
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(60),
+          preferredSize: const Size.fromHeight(60),
           child: AppBar(
             shadowColor: Colors.black,
             elevation: 2,
@@ -54,10 +37,10 @@ class _LiveEventViewState extends State<LiveEventView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(widget.event.OnomaEvent),
-                SizedBox(
+                const SizedBox(
                   width: 5,
                 ),
-                Icon(
+                const Icon(
                   Icons.radio_button_checked_outlined,
                   color: Color.fromARGB(255, 179, 38, 30),
                 )
@@ -102,12 +85,12 @@ class _LiveEventViewState extends State<LiveEventView> {
                 Flexible(
                   child: Card(
                     child: ListTile(
-                      leading: Icon(Icons.location_on_outlined),
+                      leading: const Icon(Icons.location_on_outlined),
                       title: Text(widget.event.meros),
                     ),
                   ),
                 ),
-                Flexible(
+                const Flexible(
                   child: Card(
                     child: ListTile(
                       leading: Icon(Icons.person),
@@ -124,23 +107,26 @@ class _LiveEventViewState extends State<LiveEventView> {
             ),
             Expanded(
                 child: ListView.builder(
-              itemCount: Feedback.length,
+              itemCount: widget.event.feedback.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                    title: Text(
-                        Feedback[index].FirstName + Feedback[index].LastName),
-                    subtitle: Text(Feedback[index].commentBody),
+                    title: Text(widget.event.feedback[index].FirstName +
+                        widget.event.feedback[index].LastName),
+                    subtitle: Text(widget.event.feedback[index].commentBody),
                     leading: CircleAvatar(
                         backgroundColor: Colors.purple.shade800,
                         radius: 20,
                         child: Text(
-                          Feedback[index].FirstName[0] +
-                              Feedback[index].LastName[0],
-                          style: TextStyle(color: Colors.white, fontSize: 18),
+                          widget.event.feedback[index].FirstName[0] +
+                              widget.event.feedback[index].LastName[0],
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 18),
                         )),
                     trailing: Text(
-                      Feedback[index].UploadTime.format(context).toString(),
-                      style: TextStyle(fontSize: 16),
+                      widget.event.feedback[index].UploadTime
+                          .format(context)
+                          .toString(),
+                      style: const TextStyle(fontSize: 16),
                     ));
               },
             )), //Expanded για List μέσα σε Column
@@ -154,12 +140,12 @@ class _LiveEventViewState extends State<LiveEventView> {
                   controller: _commentController,
                   decoration: InputDecoration(
                       suffixIcon: IconButton(
-                        icon: Icon(Icons.send),
+                        icon: const Icon(Icons.send),
                         onPressed: () {
                           Comment = _commentController.text;
                           _commentController.clear();
                           time = TimeOfDay.now().format(context).toString();
-                          Feedback.add(LiveComment(
+                          widget.event.feedback.add(LiveComment(
                               UploadTime: TimeOfDay.now(),
                               commentBody: Comment,
                               FirstName: globals.firtname,
@@ -167,7 +153,8 @@ class _LiveEventViewState extends State<LiveEventView> {
                           setState(() {});
                         },
                       ),
-                      contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                      contentPadding:
+                          const EdgeInsets.symmetric(horizontal: 10),
                       hintText: 'Type your message'),
                 ),
               ),
@@ -196,7 +183,7 @@ class _LiveEventViewState extends State<LiveEventView> {
           },*/
               {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => StoryCamera()));
+                MaterialPageRoute(builder: (context) => const StoryCamera()));
           },
           tooltip: 'Post Story',
           child: const Icon(Icons.camera_alt),

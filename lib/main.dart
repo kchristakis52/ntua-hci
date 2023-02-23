@@ -4,6 +4,7 @@ import 'package:testwheren/UpcomingEvent.dart';
 import 'MySettings.dart';
 import 'MyProfile.dart';
 import 'PastEvent.dart';
+import 'LiveEventView.dart';
 import 'MyUpdates.dart';
 import 'MyEvents.dart';
 import 'Search.dart';
@@ -52,11 +53,11 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
   List<Widget> pageList = [
-    HomePage(),
-    Search(),
-    MyEvents(),
-    MyUpdates(),
-    MySettings()
+    const HomePage(),
+    const Search(),
+    const MyEvents(),
+    const MyUpdates(),
+    const MySettings()
   ];
   @override
   Widget build(BuildContext context) {
@@ -104,6 +105,23 @@ class Event {
       revText: 'Supporting line text lorem ipsum dolor sit amet, consectetur',
       score: 4,
     )
+  ];
+  List<LiveComment> feedback = <LiveComment>[
+    LiveComment(
+        commentBody: "Εδώ περνάμε καλά :D",
+        UploadTime: const TimeOfDay(hour: 20, minute: 32),
+        FirstName: "Kyriakh",
+        LastName: "Pantelopoulou"),
+    LiveComment(
+        commentBody: "Τελειωσαν τα ποτα!",
+        UploadTime: const TimeOfDay(hour: 21, minute: 03),
+        FirstName: "Γιώργος",
+        LastName: "Καραγιώργος"),
+    LiveComment(
+        commentBody: "Έφερα ποτά!!",
+        UploadTime: const TimeOfDay(hour: 21, minute: 10),
+        FirstName: "xXPotoFertisXx",
+        LastName: "_"),
   ];
 
   Event(
