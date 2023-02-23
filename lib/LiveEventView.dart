@@ -18,7 +18,7 @@ class _LiveEventViewState extends State<LiveEventView> {
   final _commentController = TextEditingController();
   String Comment = "";
   String time = "";
-  List<Story> stories = [];
+  //List<Story> stories = [];
   Future<String?> getImageFromCamera() async {
     final imagePicker = ImagePicker();
     final pickedFile = await imagePicker.getImage(source: ImageSource.camera);
@@ -51,11 +51,11 @@ class _LiveEventViewState extends State<LiveEventView> {
               GestureDetector(
                 onTap: () {
                   // navigate to the stories screen
-                  if (stories.isNotEmpty) {
+                  if (widget.event.stories.isNotEmpty) {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => StoriesScreen(
-                            stories: stories, event: widget.event),
+                        builder: (context) =>
+                            StoriesScreen(event: widget.event),
                       ),
                     );
                   }
@@ -108,23 +108,44 @@ class _LiveEventViewState extends State<LiveEventView> {
             ),
             Expanded(
                 child: ListView.builder(
+              reverse: true,
               itemCount: widget.event.feedback.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                    title: Text(widget.event.feedback[index].FirstName +
-                        widget.event.feedback[index].LastName),
-                    subtitle: Text(widget.event.feedback[index].commentBody),
+                    title: Text(widget
+                            .event
+                            .feedback[widget.event.feedback.length - 1 - index]
+                            .FirstName +
+                        widget
+                            .event
+                            .feedback[widget.event.feedback.length - 1 - index]
+                            .LastName),
+                    subtitle: Text(widget
+                        .event
+                        .feedback[widget.event.feedback.length - 1 - index]
+                        .commentBody),
                     leading: CircleAvatar(
                         backgroundColor: Colors.purple.shade800,
                         radius: 20,
                         child: Text(
-                          widget.event.feedback[index].FirstName[0] +
-                              widget.event.feedback[index].LastName[0],
+                          widget
+                                  .event
+                                  .feedback[
+                                      widget.event.feedback.length - 1 - index]
+                                  .FirstName[0] +
+                              widget
+                                  .event
+                                  .feedback[
+                                      widget.event.feedback.length - 1 - index]
+                                  .LastName[0],
                           style: const TextStyle(
                               color: Colors.white, fontSize: 18),
                         )),
                     trailing: Text(
-                      widget.event.feedback[index].UploadTime
+                      widget
+                          .event
+                          .feedback[widget.event.feedback.length - 1 - index]
+                          .UploadTime
                           .format(context)
                           .toString(),
                       style: const TextStyle(fontSize: 16),
@@ -167,28 +188,28 @@ class _LiveEventViewState extends State<LiveEventView> {
           ? Padding(
               padding: const EdgeInsets.only(bottom: 50),
               child: FloatingActionButton(
-                onPressed:
-                    () /*async {
-            final image =
-                await getImageFromCamera(); // get the image from camera
-            if (image != null) {
-              // create a new story object with image, current time and user info
-              final newStory = Story(
-                image: image,
-                time: DateTime.now(),
-                user: "${globals.firtname} ${globals.lastname}",
-              );
-              // Add the new story to the list of stories
-              stories.add(newStory);
-              setState(() {});
-            }
-          },*/
+                onPressed: () async {
+                  final image =
+                      await getImageFromCamera(); // get the image from camera
+                  if (image != null) {
+                    // create a new story object with image, current time and user info
+                    final newStory = Story(
+                      image: image,
+                      time: DateTime.now(),
+                      user: "${globals.firtname} ${globals.lastname}",
+                    );
+                    // Add the new story to the list of stories
+                    widget.event.stories.add(newStory);
+                    setState(() {});
+                  }
+                },
+                /*
                     async {
                   await availableCameras().then((value) => Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (_) => StoryCamera(cameras: value))));
-                },
+                },*/
                 tooltip: 'Post Story',
                 child: const Icon(Icons.camera_alt),
               ),

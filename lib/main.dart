@@ -123,7 +123,7 @@ class Event {
         FirstName: "xXPotoFertisXx",
         LastName: "_"),
   ];
-
+  List<Story> stories = [];
   Event(
       {required this.OnomaEvent,
       required this.OnomaDiorganwti,

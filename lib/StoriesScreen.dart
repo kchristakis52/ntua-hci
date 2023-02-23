@@ -3,11 +3,9 @@ import 'main.dart';
 import 'LiveEventView.dart';
 
 class StoriesScreen extends StatefulWidget {
-  final List<Story> stories;
   final Event event;
 
-  const StoriesScreen({Key? key, required this.stories, required this.event})
-      : super(key: key);
+  const StoriesScreen({Key? key, required this.event}) : super(key: key);
 
   @override
   _StoriesScreenState createState() => _StoriesScreenState();
@@ -22,7 +20,7 @@ class _StoriesScreenState extends State<StoriesScreen> {
     return Scaffold(
       body: GestureDetector(
         onTap: () {
-          if (_currentStoryIndex < widget.stories.length - 1) {
+          if (_currentStoryIndex < widget.event.stories.length - 1) {
             setState(() {
               _currentStoryIndex++;
             });
@@ -41,7 +39,7 @@ class _StoriesScreenState extends State<StoriesScreen> {
               child: Stack(
                 children: [
                   PageView.builder(
-                    itemCount: widget.stories.length,
+                    itemCount: widget.event.stories.length,
                     controller: _pageController,
                     onPageChanged: (index) {
                       setState(() {
@@ -49,7 +47,7 @@ class _StoriesScreenState extends State<StoriesScreen> {
                       });
                     },
                     itemBuilder: (context, index) {
-                      final story = widget.stories[index];
+                      final story = widget.event.stories[index];
                       return Image.network(
                         story.image,
                         fit: BoxFit.cover,
@@ -78,7 +76,7 @@ class _StoriesScreenState extends State<StoriesScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
-                        widget.stories.length,
+                        widget.event.stories.length,
                         (index) => buildStoryIndicator(index),
                       ),
                     ),
@@ -92,14 +90,14 @@ class _StoriesScreenState extends State<StoriesScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    widget.stories[_currentStoryIndex].user,
+                    widget.event.stories[_currentStoryIndex].user,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   SizedBox(height: 8),
                   Text(
-                    widget.stories[_currentStoryIndex].time.toString(),
+                    widget.event.stories[_currentStoryIndex].time.toString(),
                     style: TextStyle(
                       color: Colors.grey,
                     ),
