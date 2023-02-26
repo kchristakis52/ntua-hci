@@ -213,6 +213,7 @@ class _LiveEventViewState extends State<LiveEventView> {
                       context,
                       MaterialPageRoute(
                           builder: (_) => StoryCamera(cameras: value))));
+                  globals.progress(.2);
                 },
                 tooltip: 'Post Story',
                 child: const Icon(Icons.camera_alt),
