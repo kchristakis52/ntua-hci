@@ -212,7 +212,10 @@ class _LiveEventViewState extends State<LiveEventView> {
                   await availableCameras().then((value) => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (_) => StoryCamera(cameras: value))));
+                          builder: (_) => StoryCamera(
+                                cameras: value,
+                                event: widget.event,
+                              ))));
                   globals.progress(.2);
                 },
                 tooltip: 'Post Story',

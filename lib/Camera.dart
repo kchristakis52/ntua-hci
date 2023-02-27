@@ -3,11 +3,15 @@ import 'package:camera/camera.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:cross_file_image/cross_file_image.dart';
+import 'globals.dart' as globals;
+import 'LiveEventView.dart';
+import 'main.dart';
 
 class StoryCamera extends StatefulWidget {
   final List<CameraDescription>? cameras;
-  const StoryCamera({Key? key, required this.cameras}) : super(key: key);
+  final Event event;
+  const StoryCamera({Key? key, required this.cameras, required this.event})
+      : super(key: key);
 
   @override
   State<StoryCamera> createState() => _StoryCameraState();
@@ -51,24 +55,6 @@ class _StoryCameraState extends State<StoryCamera> {
     super.dispose();
   }
 
-/*
-  Future takePicture() async {
-    if (!_cameraController.value.isInitialized) {
-      return null;
-    }
-    if (_cameraController.value.isTakingPicture) {
-      return null;
-    }
-    try {
-      await _cameraController.setFlashMode(FlashMode.off);
-      XFile picture = await _cameraController.takePicture();
-      Navigator.push(context, MaterialPageRoute(
-        builder: (context) => 
-      ))
-    }
-  }
-*/
-
   @override
   Widget build(BuildContext context) {
     if (_cameraController.value.isInitialized) {
@@ -87,16 +73,18 @@ class _StoryCameraState extends State<StoryCamera> {
                     Icons.flip_camera_ios_outlined, Alignment.bottomLeft)),
             GestureDetector(
                 onTap: () async {
-                  await _cameraController.takePicture().then((XFile? file) {
-                    if (mounted) {
-                      if (file != null) {
-                        Image(image: XFileImage(file));
+                  final file = await _cameraController.takePicture();
 
-                        print(
-                            "Picture saved to ${file.path}"); //shows path for pictures
-                      }
-                    }
-                  });
+                  final newStory = Story(
+                    image: file.path,
+                    time: DateTime.now(),
+                    user: "${globals.firtname} ${globals.lastname}",
+                  );
+                  // Add the new story to the list of stories
+                  widget.event.stories.add(newStory);
+                  setState(() {});
+
+                  //shows path for pictures
                 },
                 child: cameraButton(
                     Icons.camera_alt_outlined, Alignment.bottomCenter)),

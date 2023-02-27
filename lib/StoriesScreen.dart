@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
 import 'LiveEventView.dart';
+import 'dart:io';
 
 class StoriesScreen extends StatefulWidget {
   final Event event;
@@ -48,8 +49,8 @@ class _StoriesScreenState extends State<StoriesScreen> {
                     },
                     itemBuilder: (context, index) {
                       final story = widget.event.stories[index];
-                      return Image.network(
-                        story.image,
+                      return Image.file(
+                        File(story.image),
                         fit: BoxFit.cover,
                       );
                     },
