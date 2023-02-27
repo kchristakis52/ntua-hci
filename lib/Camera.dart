@@ -3,6 +3,7 @@ import 'package:camera/camera.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:cross_file_image/cross_file_image.dart';
 
 class StoryCamera extends StatefulWidget {
   final List<CameraDescription>? cameras;
@@ -89,6 +90,8 @@ class _StoryCameraState extends State<StoryCamera> {
                   await _cameraController.takePicture().then((XFile? file) {
                     if (mounted) {
                       if (file != null) {
+                        Image(image: XFileImage(file));
+
                         print(
                             "Picture saved to ${file.path}"); //shows path for pictures
                       }
