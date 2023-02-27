@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 
 class StoryCamera extends StatefulWidget {
   final List<CameraDescription>? cameras;
@@ -83,8 +85,8 @@ class _StoryCameraState extends State<StoryCamera> {
                 child: cameraButton(
                     Icons.flip_camera_ios_outlined, Alignment.bottomLeft)),
             GestureDetector(
-                onTap: () {
-                  _cameraController.takePicture().then((XFile? file) {
+                onTap: () async {
+                  await _cameraController.takePicture().then((XFile? file) {
                     if (mounted) {
                       if (file != null) {
                         print(
