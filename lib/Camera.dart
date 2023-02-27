@@ -82,7 +82,7 @@ class _StoryCameraState extends State<StoryCamera> {
                   );
                   // Add the new story to the list of stories
                   widget.event.stories.add(newStory);
-                  setState(() {});
+                  Navigator.pop(context);
 
                   //shows path for pictures
                 },
